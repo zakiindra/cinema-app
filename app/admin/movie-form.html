@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>#</title>
+    <link rel="icon" type="image/x-icon" href="./../static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
+    <link rel="stylesheet" href="./../static/style.css">
+    <link rel="stylesheet" href="./../static/admin.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">
+            <img src="./../static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
+        </div>
+        <nav>
+            <input type="text" placeholder="Search for movies">
+            <ul>
+                <li><a href="../index.html">Movies</a></li>
+                <li><a href="../login.html">Login</a></li>
+                <li><a href="../signup.html">Signup</a></li>
+                <li><a href="../admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Admin Section -->
+    <section class="admin-section">
+        <div class="container">
+            <div class="content-head">
+                <button class="content-head-action back-button" id="add-movie">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
+                    </svg>                                       
+                    <span>To Movie List</span>
+                </button>
+                <h2 class="head-title">#</h2>
+            </div>
+            <form action="#">
+                <div class="main-content movie-form">
+                    <div class="movie-media">
+                        <div class="movie-media-poster">
+                            <h3>Movie Poster</h3>
+                            <img src="https://via.placeholder.com/200x300" alt="" srcset="">
+                        </div>
+                        <div class="movie-media-trailer">
+                            <h3>Trailer</h3>
+                            <img src="https://via.placeholder.com/200x150" alt="" srcset="">
+                        </div>
+                    </div>
+                    <div class="form-body">
+                        <div class="divider">
+                            <hr>
+                            <small>Main details</small>
+                            <hr>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Movie Title</label><br>
+                            <input type="text" name="movie_title" id="">
+                        </div>
+                        <div class="inline-input-group">
+                            <div class="input-group">
+                                <label for="">Rating</label><br>
+                                <input type="text" name="movie_title" id="">
+                            </div>
+                            <div class="input-group">
+                                <label for="">Categories</label><br>
+                                <input type="text" name="movie_title" id="">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Description</label><br>
+                            <textarea name="" id="" rows="10" cols="30"></textarea>
+                        </div>
+                        <div class="divider">
+                            <hr>
+                            <small>Talents</small>
+                            <hr>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Director(s)</label><br>
+                            <input type="text" name="movie_title" id="">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Producer(s)</label><br>
+                            <input type="text" name="movie_title" id="">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Description</label><br>
+                            <textarea name="" id="" rows="4" cols="30"></textarea>
+                        </div>
+                        <div class="divider">
+                            <hr>
+                            <small>Extras</small>
+                            <hr>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Poster URL</label><br>
+                            <input type="text" name="movie_title" id="">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Trailer URL</label><br>
+                            <input type="text" name="movie_title" id="">
+                        </div>
+                        <div class="form-control">
+                            <input type="reset" value="RESET" class="reset-button">
+                            <input type="submit" value="#" class="submit-button">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script src="./../static/script.js"></script>
+</body>
+</html>

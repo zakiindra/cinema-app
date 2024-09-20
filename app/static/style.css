@@ -73,6 +73,50 @@ nav ul li a:hover {
     color: #FF5733;
 }
 
+/* General body work */
+.container {
+    margin-top: 1.3em !important;
+    border-radius: 0.6rem;
+    width: 90%;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+}
+
+.content-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.content-head-search-box {
+    width: 40%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.content-head-search-box:focus {
+    border-color: rgb(16, 58, 175);
+}
+
+.content-head-action {
+    display: flex;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    border-radius: 4px;
+    align-items: center;
+    text-decoration: none;
+}
+
+.content-head-action svg {
+    margin-right: 0.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
 /* Movie Section */
 .movies-section {
     padding: 40px 20px;
