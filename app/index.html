@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UGA Movie</title>
-    <link rel="icon" type="image/x-icon" href="./static/images/UGA_logo_TopShield_FC_MARCM-768x1151.png">
+    <link rel="icon" type="image/x-icon" href="./static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
     <link rel="stylesheet" href="./static/style.css">
 </head>
 <body>
     <!-- Navigation Bar -->
     <header>
         <div class="logo">
-            <img src="https://via.placeholder.com/150x50" alt="Logo">
+            <img src="./static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
         </div>
         <nav>
             <ul>
@@ -25,20 +25,36 @@
 
     <!-- Movie Section -->
     <section class="movies-section">
-        <h2>Now Playing</h2>
+        <h2>Featured Now</h2>
         <div class="movies-container" id="movies-container">
             <!-- Movie cards will be added here dynamically by JavaScript -->
         </div>
     </section>
-    <!-- Popup HTML -->
-<div id="popup" class="popup">
-    <div class="popup-content">
-        <span class="close-btn">&times;</span>
-        <h2 id="popup-title">Movie Title</h2>
-        <p id="popup-description">Movie Description</p>
-    </div>
-</div>
 
+    <!-- Detail Popup HTML -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="popup-title">Movie Title</h2>
+            <p id="popup-description">Movie Description</p>
+            <ul id="popup-details">
+                <li><strong>Cast:</strong> <span id="popup-cast">Cast details</span></li>
+                <li><strong>Director:</strong> <span id="popup-director">Director details</span></li>
+                <li><strong>Duration:</strong> <span id="popup-duration">Duration details</span></li>
+                <li><strong>Length:</strong> <span id="popup-length">Length details</span></li>
+                <li><strong>Genre:</strong> <span id="popup-genre">Genre details</span></li>
+                <li><strong>Release Date:</strong> <span id="popup-release-date">Release Date details</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Trailer Preview Popup HTML -->
+    <div id="preview-popup" class="preview-popup">
+        <div class="preview-popup-content">
+            <span class="preview-close-btn">&times;</span>
+            <iframe id="trailer-video" src="" allowfullscreen></iframe>
+        </div>
+    </div>
 
     <script src="./static/script.js"></script>
 </body>

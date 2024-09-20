@@ -73,78 +73,76 @@ nav ul li a:hover {
     color: #FF5733;
 }
 
-/* Movie Section */
-.movies-section {
-    padding: 40px 20px;
-    text-align: center;
-    background-color: #fff;
-}
-
-.movies-section h2 {
-    font-size: 28px;
-    margin-bottom: 30px;
-    color:black;
-}
-
-.movies-container {
+/* Auth Container */
+.auth-container {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    padding-bottom: 30px;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+    padding: 1rem;
 }
 
-/* Movie Card */
-.movie-card {
-    background-color: white;
-    padding: 20px;
+/* Auth Section */
+.auth-section {
+    background: #fff;
+    padding: 2rem;
     border-radius: 8px;
-    width: 220px;
-    text-align: center;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.movie-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-.movie-card img {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
     width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
 }
 
-.movie-card h3 {
-    margin-top: 15px;
-    font-size: 18px;
+.auth-section h2 {
+    margin-bottom: 1rem;
+    font-size: 24px;
+    color: #FF5733;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-form label {
+    margin-bottom: 0.5rem;
     font-weight: bold;
     color: #333;
 }
 
-.ratings {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #777;
-}
-
-/* "See All" Button */
-.see-all {
-    display: inline-block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: white;
-    background-color: #FF5733;
+.auth-form input {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
     border-radius: 4px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
 }
 
-.see-all:hover {
-    background-color: #e64a19;
+.auth-form button {
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #FF5733;
+    color: #fff;
+    font-size: 16px;
     cursor: pointer;
+}
+
+.auth-form button:hover {
+    background-color: #e64a19;
+}
+
+.auth-section p {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.auth-section p a {
+    color: #FF5733;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-section p a:hover {
+    text-decoration: underline;
 }
 
 /* Media Queries for Responsiveness */
@@ -157,16 +155,9 @@ nav ul li a:hover {
         margin: 0 10px;
     }
 
-    .movies-container {
-        justify-content: center;
-    }
-
-    .movie-card {
-        width: 180px;
-    }
-
-    .movie-card img {
-        height: 250px;
+    .auth-section {
+        max-width: 100%;
+        padding: 1rem;
     }
 }
 
@@ -190,12 +181,8 @@ nav ul li a:hover {
         margin: 10px 0;
     }
 
-    .movie-card {
+    .auth-section {
         width: 100%;
-    }
-
-    .movie-card img {
-        height: 220px;
     }
 }
 
@@ -210,6 +197,7 @@ nav ul li a:hover {
     height: 100%;
     overflow: auto; /* Enable scroll if needed */
     background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    transition: opacity 0.3s ease;
 }
 
 .popup-content {
@@ -222,6 +210,7 @@ nav ul li a:hover {
     position: relative; /* For vertical centering */
     top: 20%; /* Center vertically; adjust as needed */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
 }
 
 .close-btn {
@@ -229,56 +218,11 @@ nav ul li a:hover {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .close-btn:hover,
 .close-btn:focus {
     color: black;
     text-decoration: none;
-    cursor: pointer;
-}
-
-/* Trailer Preview Popup Styles */
-.preview-popup {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1000; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.7); /* Black background with opacity */
-}
-
-.preview-content {
-    background-color: #fefefe;
-    margin: auto; /* Center horizontally */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Adjust width as needed */
-    max-width: 800px; /* Max width to ensure it doesn’t get too wide */
-    position: relative; /* For vertical centering */
-    top: 20%; /* Center vertically; adjust as needed */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.preview-close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.preview-close-btn:hover,
-.preview-close-btn:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.preview-content video {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
 }
