@@ -1,0 +1,11 @@
+DROP TABLE customer,
+    customer_profile,
+    movie,
+    theater,
+    show,
+    featured_movie,
+    promotion,
+    credit_card,
+    booking,
+    seat,
+    ticket;
