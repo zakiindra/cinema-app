@@ -1,3 +1,49 @@
+h2 > svg {
+    width: 35px;
+    height: 35px;
+    color: mediumseagreen;
+}
+
+.container-fancy-title {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+}
+
+.admin-menus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1.3rem;
+    margin-top: 1.3rem;
+}
+
+.admin-menus > a {
+    cursor: pointer;
+    padding: 0.3rem 0.8rem;
+    background-color: white;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.admin-menus > a:hover {
+    background-color: #eee;
+    font-weight: bold;
+}
+
+.admin-menus > a > svg {
+    width: 35px;
+    height: 35px;
+}
+
 .movie-list {
     width: 100%;
 }
