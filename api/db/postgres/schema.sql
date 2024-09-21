@@ -3,14 +3,6 @@ CREATE TABLE IF NOT EXISTS customer (
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE
-);
-CREATE INDEX idx_customer_username ON customer(username);
-CREATE INDEX idx_customer_email ON customer(email);
-
-
-CREATE TABLE IF NOT EXISTS customer_profile (
     id SERIAL PRIMARY KEY,
     customer_id INTEGER UNIQUE NOT NULL REFERENCES customer(id),
     first_name VARCHAR(50),
@@ -20,8 +12,8 @@ CREATE TABLE IF NOT EXISTS customer_profile (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE
 );
-CREATE INDEX idx_customer_profile_customer_id ON customer_profile(customer_id);
-
+CREATE INDEX idx_customer_username ON customer(username);
+CREATE INDEX idx_customer_email ON customer(email);
 
 CREATE TABLE IF NOT EXISTS movie (
     id SERIAL PRIMARY KEY,

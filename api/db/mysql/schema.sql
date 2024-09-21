@@ -1,28 +1,17 @@
--- MySQL Schema
-
 CREATE TABLE IF NOT EXISTS customer (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-CREATE INDEX idx_user_username ON customer(username);
-CREATE INDEX idx_user_email ON customer(email);
-
-CREATE TABLE IF NOT EXISTS customer_profile (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT UNIQUE NOT NULL,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     phone_number VARCHAR(20),
     address TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES customer(id)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-CREATE INDEX idx_customer_profile_user_id ON customer_profile(user_id);
+CREATE INDEX idx_user_username ON customer(username);
+CREATE INDEX idx_user_email ON customer(email);
 
 CREATE TABLE IF NOT EXISTS movie (
     id INT AUTO_INCREMENT PRIMARY KEY,
