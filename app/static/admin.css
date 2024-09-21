@@ -52,11 +52,16 @@ h2 > svg {
     width: 100%;
 }
 
-table, tr, td {
+thead tr, thead td, tbody tr, tbody td {
     border-top: 1px solid #DEDEDE;
-    border-bottom: 1px solid #DEDEDE;
+    /* border-bottom: 1px solid #DEDEDE; */
     border-collapse: collapse;
     text-align: left;
+}
+
+table > tfoot tr, table > tfoot td {
+    border: none;
+    font-weight: bold;
 }
 
 th, td {
@@ -157,7 +162,7 @@ th, td {
     margin-bottom: 0.5rem;
 }
 
-.input-group input, .input-group textarea {
+.input-group input, .input-group textarea, .input-group select {
     width: 100%;
     padding: 0.4rem 0.8rem;
 }
