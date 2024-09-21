@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Movies | Admin</title>
+    <title>Manage Promo Codes | Admin</title>
     <link rel="icon" type="image/x-icon" href="./../static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
     <link rel="stylesheet" href="./../static/style.css">
     <link rel="stylesheet" href="./../static/admin.css">
@@ -29,22 +29,20 @@
     <section class="admin-section">
         <div class="container">
             <div class="content-head">
-                <h2 class="head-title">Manage Movies</h2>
-                <input type="text" name="" id="" placeholder="Search Movie..." class="content-head-search-box">
-                <a href="./movie-form.html" class="content-head-action add-item-button" id="add-movie">
+                <h2 class="head-title">Manage Showtime</h2>
+                <button class="content-head-action add-item-button">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>                      
-                    <span>New Movie</span>
-                </a>
+                    <span>New Showtime</span>
+                </button>
             </div>
             <div class="movie-list">
                 <table>
                     <thead>
                         <tr>
                             <th class="numbering"></th>
-                            <th class="movie-title">Movie Title</th>
-                            <th>Release date</th>
+                            <th>Date</th>
                             <th>Showtime</th>
                             <th>Actions</th>
                         </tr>
@@ -52,9 +50,8 @@
                     <tbody>
                         <tr>
                             <td class="numbering">1</td>
-                            <td class="movie-title">Blink Twice</td>
                             <td>September 28th, 2024</td>
-                            <td><a href="showtime.html">Edit Showtime</a></td>
+                            <td>01:00 PM</td>
                             <td class="actions">
                                 <button class="table-button edit-button">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -72,29 +69,8 @@
                         </tr>
                         <tr>
                             <td class="numbering">2</td>
-                            <td class="movie-title">Transformers One</td>
                             <td>September 28th, 2024</td>
-                            <td><a href="showtime.html">Edit Showtime</a></td>
-                            <td class="actions">
-                                <button class="table-button edit-button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                    </svg>
-                                    <span>Edit</span>
-                                </button>
-                                <button class="table-button delete-button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z" />
-                                    </svg>
-                                    <span>Delete</span>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="numbering">3</td>
-                            <td class="movie-title">Enormous: The Gorge Story</td>
-                            <td>September 28th, 2024</td>
-                            <td><a href="showtime.html">Edit Showtime</a></td>
+                            <td>3:00 PM</td>
                             <td class="actions">
                                 <button class="table-button edit-button">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -116,6 +92,29 @@
         </div>
     </section>
 
-    <script src="./../static/script.js"></script>
+    <div id="popup" class="popup" role="dialog" aria-labelledby="popup-title" aria-hidden="true">
+        <div class="popup-content">
+            <button class="close-btn" aria-label="Close Popup">&times;</button>
+            <h2 id="popup-title" style="margin-bottom: 1.5rem;">#</h2>
+            <div class="popup-info">
+                <form action="#">
+                    <div class="input-group">
+                        <label for="">Date</label>
+                        <input type="date" name="" id="">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Showtime</label>
+                        <input type="time" name="" id="" min="1" max="100">
+                    </div>
+                    <div class="form-control">
+                        <input type="reset" value="RESET" class="reset-button">
+                        <input type="submit" value="SUBMIT" class="submit-button" id="popup-form-submit-button">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="./../static/js/showtime.js"></script>
 </body>
 </html>
