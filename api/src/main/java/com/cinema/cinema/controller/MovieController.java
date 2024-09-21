@@ -1,7 +1,9 @@
 package com.cinema.cinema.controller;
 
 import com.cinema.cinema.model.Movie;
+import com.cinema.cinema.model.Show;
 import com.cinema.cinema.service.MovieService;
+import com.cinema.cinema.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,9 @@ import java.util.List;
 public class MovieController {
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private ShowService showService;
 
     @GetMapping
     public List<Movie> getAllMovies() {
@@ -40,4 +45,10 @@ public class MovieController {
         movieService.deleteMovie(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{id}/upcomingshow")
+    public List<Show> getUpcomingShow(@PathVariable Long id) {
+        return showService.getUpcomingShowByMovieId(id);
+    }
+
 }
