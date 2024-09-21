@@ -269,7 +269,9 @@ nav ul li a:hover {
 }
 
 .close-btn {
-    color: #aaa;
+    background-color: transparent;
+    border: none;
+    color: #333;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -277,7 +279,7 @@ nav ul li a:hover {
 
 .close-btn:hover,
 .close-btn:focus {
-    color: black;
+    color: red;
     text-decoration: none;
     cursor: pointer;
 }
