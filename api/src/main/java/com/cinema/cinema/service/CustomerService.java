@@ -1,14 +1,21 @@
 package com.cinema.cinema.service;
 
+import com.cinema.cinema.model.CreditCard;
 import com.cinema.cinema.model.Customer;
+import com.cinema.cinema.repository.CreditCardRepository;
 import com.cinema.cinema.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private CreditCardRepository creditCardRepository;
 
     public Customer addCustomer(Customer customer) {
         // Add validation and password encryption logic here
@@ -35,5 +42,16 @@ public class CustomerService {
         }
 
         return existingCustomer;
+    }
+
+    // TODO: change to findByCustomerId or findAll with example/filter
+    public List<CreditCard> getAllCreditCardByCustomerId(Long id) {
+        return creditCardRepository.findAll()
+                .stream()
+                .filter(creditCard -> creditCard
+                        .getCustomer()
+                        .getId()
+                        .equals(id))
+                .toList();
     }
 }

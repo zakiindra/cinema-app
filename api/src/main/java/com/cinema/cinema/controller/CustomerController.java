@@ -1,10 +1,13 @@
 package com.cinema.cinema.controller;
 
+import com.cinema.cinema.model.CreditCard;
 import com.cinema.cinema.model.Customer;
 import com.cinema.cinema.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -31,6 +34,11 @@ public class CustomerController {
     public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
         Customer updatedCustomer = customerService.updateCustomer(id, customer);
         return ResponseEntity.ok(updatedCustomer);
+    }
+
+    @GetMapping("/{id}/creditCard")
+    public List<CreditCard> getCreditCards(@PathVariable Long id) {
+        return customerService.getAllCreditCardByCustomerId(id);
     }
 
 }
