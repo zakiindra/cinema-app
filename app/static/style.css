@@ -73,6 +73,50 @@ nav ul li a:hover {
     color: #FF5733;
 }
 
+/* General body work */
+.container {
+    margin-top: 1.3em !important;
+    border-radius: 0.6rem;
+    width: 90%;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+}
+
+.content-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.content-head-search-box {
+    width: 40%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.content-head-search-box:focus {
+    border-color: rgb(16, 58, 175);
+}
+
+.content-head-action {
+    display: flex;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    border-radius: 4px;
+    align-items: center;
+    text-decoration: none;
+}
+
+.content-head-action svg {
+    margin-right: 0.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
 /* Movie Section */
 .movies-section {
     padding: 40px 20px;
@@ -83,7 +127,7 @@ nav ul li a:hover {
 .movies-section h2 {
     font-size: 28px;
     margin-bottom: 30px;
-    color: #FF5733;
+    color:black;
 }
 
 .movies-container {
@@ -225,7 +269,9 @@ nav ul li a:hover {
 }
 
 .close-btn {
-    color: #aaa;
+    background-color: transparent;
+    border: none;
+    color: #333;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -233,7 +279,52 @@ nav ul li a:hover {
 
 .close-btn:hover,
 .close-btn:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Trailer Preview Popup Styles */
+.preview-popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.7); /* Black background with opacity */
+}
+
+.preview-content {
+    background-color: #fefefe;
+    margin: auto; /* Center horizontally */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Adjust width as needed */
+    max-width: 800px; /* Max width to ensure it doesn’t get too wide */
+    position: relative; /* For vertical centering */
+    top: 20%; /* Center vertically; adjust as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.preview-close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.preview-close-btn:hover,
+.preview-close-btn:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.preview-content video {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
 }

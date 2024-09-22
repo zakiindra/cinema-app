@@ -1,0 +1,227 @@
+h2 > svg {
+    width: 35px;
+    height: 35px;
+    color: mediumseagreen;
+}
+
+.container-fancy-title {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+}
+
+.admin-menus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1.3rem;
+    margin-top: 1.3rem;
+}
+
+.admin-menus > a {
+    cursor: pointer;
+    padding: 0.3rem 0.8rem;
+    background-color: white;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.admin-menus > a:hover {
+    background-color: #eee;
+    font-weight: bold;
+}
+
+.admin-menus > a > svg {
+    width: 35px;
+    height: 35px;
+}
+
+.movie-list {
+    width: 100%;
+}
+
+.movie-list > table {
+    width: 100%;
+}
+
+thead tr, thead td, tbody tr, tbody td {
+    border-top: 1px solid #DEDEDE;
+    /* border-bottom: 1px solid #DEDEDE; */
+    border-collapse: collapse;
+    text-align: left;
+}
+
+table > tfoot tr, table > tfoot td {
+    border: none;
+    font-weight: bold;
+}
+
+th, td {
+    padding: 0.4rem 0;
+}
+
+.numbering {
+    padding-right: 3rem;
+    text-align: right;
+}
+
+.movie-title {
+    width: 50%;
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+}
+
+.actions > .table-button:first-child {
+    margin-right: 1rem;
+}
+
+.table-button {
+    padding: 0.45rem 0.8rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.table-button svg {
+    margin-right: 0.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.add-item-button {
+    background-color: green;
+    color: white;
+    border: 1px solid green;
+}
+
+.add-item-button:hover {
+    background-color: rgb(0, 94, 0);
+    border: 1px solid rgb(0, 94, 0);
+}
+
+.back-button {
+    background-color: #ddd;
+    border: 1px solid #ddd;
+}
+
+.edit-button {
+    background-color: white;
+    border: 1px solid rgb(16, 58, 175);
+    color: rgb(16, 58, 175);
+}
+
+.edit-button:hover {
+    background-color: rgb(16, 58, 175);
+    border: 1px solid rgb(16, 58, 175);
+    color: white;
+}
+
+.delete-button {
+    background-color: rgb(175, 16, 16);
+    border: 1px solid rgb(175, 16, 16);
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: rgb(138, 16, 16);
+    border: 1px solid rgb(138, 16, 16);
+    color: white;
+}
+
+.movie-media-poster {
+    margin-bottom: 0.7rem;
+}
+
+.movie-media h3 {
+    margin-bottom: 1rem;
+}
+
+.movie-form {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.form-body {
+    flex-grow: 1;
+}
+
+.input-group {
+    margin-bottom: 0.5rem;
+}
+
+.input-group input, .input-group textarea, .input-group select {
+    width: 100%;
+    padding: 0.4rem 0.8rem;
+}
+
+.input-group textarea {
+    resize: vertical;
+}
+
+.inline-input-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+}
+
+.inline-input-group > .input-group {
+    flex: 1;
+}
+
+.divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider hr {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+.divider hr:first-child {
+    margin-right: 1rem;
+}
+
+.divider hr:last-child {
+    margin-left: 1rem;
+}
+
+.form-control {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.2rem;
+}
+
+.form-control input[type="reset"],
+.form-control input[type="submit"] {
+    cursor: pointer;
+}
+
+.form-control .reset-button {
+    padding: 0.5rem 0.9rem;
+    width: 25%;
+    border: 1px solid #DEDEDE;
+}
+
+.form-control .submit-button {
+    flex: 1;
+    padding: 0.5rem 0.9rem;
+    color: white;
+    background-color: rgb(16, 58, 175);
+    border: 1px solid rgb(16, 58, 175);
+}
