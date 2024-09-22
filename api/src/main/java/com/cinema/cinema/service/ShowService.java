@@ -65,5 +65,38 @@ public class ShowService {
         Show show = getShowById(id);
         showRepository.delete(show);
     }
-    
+
+    public List<Seat> getAvailableSeatByShowId(Long id) {
+        Show show = getShowById(id);
+
+        Theater theater = theaterRepository
+                .findById(show.getTheater().getId())
+                .orElse(null);
+
+        if (theater == null) {
+            return Collections.emptyList();
+        }
+
+        // TODO: change to findAll(Example) or findByShowId()
+        List<Long> bookingIds = bookingRepository.findAll()
+                .stream()
+                .filter(booking -> booking.getShow().getId().equals(show.getId()))
+                .map(Booking::getId)
+                .toList();
+
+        // TODO: change to findAll(Example)
+        List<Long> occupiedSeatIds = ticketRepository.findAll()
+                .stream()
+                .map(Ticket::getSeatId)
+                .filter(bookingIds::contains)
+                .toList();
+
+        // TODO: change to findAll(Example)
+        return seatRepository.findAll()
+                .stream()
+                .filter(seat -> seat.getTheaterId().equals(theater.getId()))
+                .filter(seat -> !occupiedSeatIds.contains(seat.getId()))
+                .toList();
+    }
+
 }
