@@ -62,8 +62,7 @@ CREATE TABLE IF NOT EXISTS promotion (
     id SERIAL PRIMARY KEY,
     code VARCHAR(20) UNIQUE NOT NULL,
     description TEXT,
-    discount_type VARCHAR(20), -- PERCENT, AMOUNT
-    discount_value DECIMAL(5, 2),
+    promotion_value DECIMAL(5, 2),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
