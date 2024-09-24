@@ -18,13 +18,17 @@ public class Movie {
 
     private String description;
 
-    private Integer duration;
+    private Integer durationMinutes;
 
     private LocalDate releaseDate;
 
     private String genre;
 
     private String rating;
+
+    private String posterUrl;
+
+    private String trailerUrl;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
