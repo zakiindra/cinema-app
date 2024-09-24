@@ -12,17 +12,16 @@
     <header>
         <div class="logo">
             <a href="index.html">
-                <img src="https://via.placeholder.com/150x50" alt="UGA Movie Logo" width="150" height="50">
+            <img src="./static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
             </a>
         </div>
         <nav aria-label="Main navigation">
             <input type="text" placeholder="Search for movies" id="search-bar" aria-label="Search Movies">
             <ul>
                 <li><a href="index.html" aria-label="Go to Home page">Home</a></li>
-                <li><a href="movies.html" aria-label="Browse Movies">Movies</a></li>
-                <li><a href="login.html" aria-label="Login to your account">Login</a></li>
-                <li><a href="signup.html" aria-label="Sign up for a new account">Signup</a></li>
-                <li><a href="admin.html" aria-label="Admin section">Admin</a></li>
+                <li><a href="auth/login.html" aria-label="Login to your account">Login</a></li>
+                <li><a href="auth/signup.html" aria-label="Sign up for a new account">Signup</a></li>
+<!--                <li><a href="admin.html" aria-label="Admin section">Admin</a></li>-->
             </ul>
         </nav>
     </header>
@@ -67,10 +66,12 @@
     <div id="preview-popup" class="preview-popup" role="dialog" aria-labelledby="preview-popup-title" aria-hidden="true">
         <div class="preview-popup-content">
             <button class="close-btn" aria-label="Close Preview">&times;</button>
-            <iframe id="preview-iframe" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+            <iframe id="preview-iframe" width="560" height="315" frameborder="0" referrerpolicy="no-referrer-when-downgrade" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
     </div>
 
     <script src="./static/movies.js"></script>
 </body>
 </html>
+
+

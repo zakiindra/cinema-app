@@ -11,13 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const previewCloseBtn = previewPopup.querySelector(".close-btn");
     const previewIframe = previewPopup.querySelector("iframe");
 
-    let allMovies = []; // Array to hold all movie data
-
     async function get_movies() {
         const response = await fetch("http://localhost:8080/movie")
         const data = await response.json()
         return data
     }
+
 
     // Render movie cards
     function renderMovies(movies) {
@@ -29,9 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 <img src="${movie.posterUrl}" alt="${movie.title} Poster">
                 <h3>${movie.title}</h3>
                 <div class="movie-actions">
-                    <button class="book-now" data-title="${movie.title}" aria-label="Book Now">Book Now</button>
                     <button class="preview" data-title="${movie.title}" aria-label="Preview Trailer">Preview</button>
                     <button class="view-details" data-title="${movie.title}" aria-label="View Details">Details</button>
+<!--                    <button class="book-now" data-title="${movie.title}" aria-label="Book Now">Book Now</button>-->
                 </div>
             `;
             movieCard.querySelector(".view-details").addEventListener("click", () => {
@@ -54,8 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
         popupTitle.textContent = movie.title;
         popupInfo.innerHTML = `
             <p><span>Genre:</span> ${movie.genre}</p>
-            <p><span>Length:</span> ${movie.durationMinutes}</p>
+            <p><span>Rating:</span> ${movie.rating}</p>
+            <p><span>Duration:</span> ${movie.durationMinutes}</p>
             <p><span>Release Date:</span> ${movie.releaseDate}</p>
+<!--            <p><span>Cast:</span> ${movie.cast}</p>-->
+<!--            <p><span>Director:</span> ${movie.director}</p>-->
             <p><span>Description:</span> ${movie.description}</p>
         `;
         popup.style.display = "flex";

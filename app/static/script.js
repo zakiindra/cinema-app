@@ -1,37 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const filterButton = document.querySelector("#dropdown-button");
-    const dropdownContent = document.querySelector("#dropdown-content");
-    const moviesContainer = document.getElementById("movies-container");
-    const featuredContainer = document.getElementById("featured-movies-container");
+    // const filterButton = document.querySelector("#dropdown-button");
+    // const dropdownContent = document.querySelector("#dropdown-content");
+    // const searchInput = document.getElementById("search-bar");
+
+    const moviesContainer = document.getElementById("upcoming-movies");
+    const featuredContainer = document.getElementById("now-playing-movies");
+
     const popup = document.getElementById("popup");
     const popupTitle = document.getElementById("popup-title");
-    const popupDescription = document.getElementById("popup-description");
-    const popupCast = document.getElementById("popup-cast");
-    const popupDirector = document.getElementById("popup-director");
-    const popupDuration = document.getElementById("popup-duration");
-    const popupLength = document.getElementById("popup-length");
-    const popupGenre = document.getElementById("popup-genre");
-    const popupReleaseDate = document.getElementById("popup-release-date");
+    const popupInfo = document.querySelector(".popup-info");
     const closeBtn = document.querySelector(".close-btn");
 
     const previewPopup = document.getElementById("preview-popup");
     const previewCloseBtn = document.querySelector(".preview-close-btn");
-    const trailerVideo = document.getElementById("trailer-video");
-    const searchInput = document.getElementById("search-bar");
+    const previewIframe = previewPopup.querySelector("iframe");
 
     const FEATURED_COUNT = 5;
 
     // Movie data with trailers
     async function get_movies() {
         const response = await fetch("http://localhost:8080/movie")
-        const data = await response.json()
+        const data = await response.json();
         return data
     }
 
     // Movie data with trailers
     async function get_featured_movies() {
         const response = await fetch("http://localhost:8080/movie")
-        const data = await response.json()
+        const data = await response.json();
         return data
     }
 
@@ -42,18 +38,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
         movies.forEach(movie => {
             if (count >= FEATURED_COUNT) {
-                const movieCard = `
-                    <div class="movie-card" data-id="${movie.title}">
-                        <img src="${movie.posterUrl}" alt="${movie.title}">
-                        <h3>${movie.title}</h3>
-                        <div class="movie-actions">
-                            <button class="details-btn">Details</button>
-                            <button class="preview-btn" data-trailer="${movie.trailerUrl}">Preview</button>
-                            <button class="book-btn">Book Now</button>
-                        </div>
+                const movieCard = document.createElement("div");
+                movieCard.className = "movie-card";
+                movieCard.innerHTML = `
+                    <img src="${movie.posterUrl}" alt="${movie.title} Poster">
+                    <h3>${movie.title}</h3>
+                    <div class="movie-actions">
+                        <button class="preview" data-title="${movie.title}" aria-label="Preview Trailer">Preview</button>
+                        <button class="view-details" data-title="${movie.title}" aria-label="View Details">Details</button>
+<!--                        <button class="book-now" data-title="${movie.title}" aria-label="Book Now">Book Now</button>-->
                     </div>
                 `;
-                moviesContainer.innerHTML += movieCard;
+                movieCard.querySelector(".view-details").addEventListener("click", () => {
+                    openPopup(movie);
+                });
+                movieCard.querySelector(".preview").addEventListener("click", () => {
+                    openPreviewPopup(movie);
+                });
+                moviesContainer.appendChild(movieCard);
             }
 
             count++;
@@ -68,18 +70,24 @@ document.addEventListener("DOMContentLoaded", function () {
         movies.forEach(movie => {
             if (count >= FEATURED_COUNT) return;
 
-            const movieCard = `
-                <div class="movie-card" data-id="${movie.title}">
-                    <img src="${movie.posterUrl}" alt="${movie.title}">
-                    <h3>${movie.title}</h3>
-                    <div class="movie-actions">
-                        <button class="details-btn">Details</button>
-                        <button class="preview-btn" data-trailer="${movie.trailerUrl}">Preview</button>
-                        <button class="book-btn">Book Now</button>
-                    </div>
+            const movieCard = document.createElement("div");
+            movieCard.className = "movie-card";
+            movieCard.innerHTML = `
+                <img src="${movie.posterUrl}" alt="${movie.title} Poster">
+                <h3>${movie.title}</h3>
+                <div class="movie-actions">
+                    <button class="preview" data-title="${movie.title}" aria-label="Preview Trailer">Preview</button>
+                    <button class="view-details" data-title="${movie.title}" aria-label="View Details">Details</button>
+                    <button class="book-now" data-title="${movie.title}" aria-label="Book Now">Book Now</button>
                 </div>
             `;
-            featuredContainer.innerHTML += movieCard;
+            movieCard.querySelector(".view-details").addEventListener("click", () => {
+                openPopup(movie);
+            });
+            movieCard.querySelector(".preview").addEventListener("click", () => {
+                openPreviewPopup(movie);
+            });
+            featuredContainer.appendChild(movieCard);
             count++;
         });
     }
@@ -94,86 +102,79 @@ document.addEventListener("DOMContentLoaded", function () {
         renderMovies(allMovies)
     })
 
-    // Show popup with movie details
+    // Open movie details popup
     function openPopup(movie) {
         popupTitle.textContent = movie.title;
-        popupDescription.textContent = movie.description;
-        popupCast.textContent = `Cast: ${movie.cast}`;
-        popupDirector.textContent = `Director: ${movie.director}`;
-        popupDuration.textContent = `Duration: ${movie.length}`;
-        popupLength.textContent = `Length: ${movie.length}`;
-        popupGenre.textContent = `Genre: ${movie.genre}`;
-        popupReleaseDate.textContent = `Release Date: ${movie.releaseDate}`;
-        popup.style.display = 'block';
+        popupInfo.innerHTML = `
+            <p><span>Genre:</span> ${movie.genre}</p>
+            <p><span>Rating:</span> ${movie.rating}</p>
+            <p><span>Duration:</span> ${movie.durationMinutes}</p>
+            <p><span>Release Date:</span> ${movie.releaseDate}</p>
+<!--            <p><span>Cast:</span> ${movie.cast}</p>-->
+<!--            <p><span>Director:</span> ${movie.director}</p>-->
+            <p><span>Description:</span> ${movie.description}</p>
+        `;
+        popup.style.display = "flex";
+        popup.setAttribute("aria-hidden", "false");
+
+        closeBtn.addEventListener("click", () => {
+            popup.style.display = "none";
+            popup.setAttribute("aria-hidden", "true");
+        });
+
+        window.addEventListener("click", (event) => {
+            if (event.target === popup) {
+                popup.style.display = "none";
+                popup.setAttribute("aria-hidden", "true");
+            }
+        });
     }
 
     // Open trailer preview popup
-    function openPreviewPopup(trailerUrl) {
-        trailerVideo.src = trailerUrl;
-        previewPopup.style.display = 'block';
+    function openPreviewPopup(movie) {
+        previewIframe.src = movie.trailerUrl;
+        previewPopup.style.display = "flex";
+        previewPopup.setAttribute("aria-hidden", "false");
+
+        previewCloseBtn.addEventListener("click", () => {
+            previewPopup.style.display = "none";
+            previewPopup.setAttribute("aria-hidden", "true");
+            previewIframe.src = ""; // Stop the video when closing
+        });
+
+        window.addEventListener("click", (event) => {
+            if (event.target === previewPopup) {
+                previewPopup.style.display = "none";
+                previewPopup.setAttribute("aria-hidden", "true");
+                previewIframe.src = ""; // Stop the video when closing
+            }
+        });
     }
 
-    // Event listeners for movie card actions
-    moviesContainer.addEventListener('click', function (event) {
-        if (event.target.classList.contains('details-btn')) {
-            const movieCard = event.target.closest('.movie-card');
-            const movieId = movieCard.getAttribute('data-id');
-            const movie = movies.find(m => m.title === movieId);
-            if (movie) {
-                openPopup(movie);
-            }
-        }
+    // // Toggle filter options
+    // filterButton.addEventListener("click", () => {
+    //     dropdownContent.classList.toggle("show");
+    // });
+    //
+    // // Filter movies based on genre
+    // dropdownContent.addEventListener("click", (event) => {
+    //     const genre = event.target.getAttribute("data-genre");
+    //     if (genre) {
+    //         if (genre === "all") {
+    //             renderMovies(movies);
+    //         } else {
+    //             const filteredMovies = movies.filter(movie => movie.genre.toLowerCase() === genre);
+    //             renderMovies(filteredMovies);
+    //         }
+    //         dropdownContent.classList.remove("show");
+    //     }
+    // });
 
-        if (event.target.classList.contains('preview-btn')) {
-            const trailerUrl = event.target.getAttribute('data-trailer');
-            openPreviewPopup(trailerUrl);
-        }
-    });
+    // // Search movies based on query
+    // searchInput.addEventListener("input", () => {
+    //     const query = searchInput.value.toLowerCase();
+    //     const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(query));
+    //     renderMovies(filteredMovies);
+    // });
 
-    // Close popups
-    closeBtn.addEventListener('click', function () {
-        popup.style.display = 'none';
-    });
-
-    previewCloseBtn.addEventListener('click', function () {
-        previewPopup.style.display = 'none';
-        trailerVideo.pause(); // Pause the video when the popup is closed
-    });
-
-    window.addEventListener('click', function (event) {
-        if (event.target === popup) {
-            popup.style.display = 'none';
-        }
-
-        if (event.target === previewPopup) {
-            previewPopup.style.display = 'none';
-            trailerVideo.pause(); // Pause the video when the popup is closed
-        }
-    });
-
-    // Toggle filter options
-    filterButton.addEventListener("click", () => {
-        dropdownContent.classList.toggle("show");
-    });
-
-    // Filter movies based on genre
-    dropdownContent.addEventListener("click", (event) => {
-        const genre = event.target.getAttribute("data-genre");
-        if (genre) {
-            if (genre === "all") {
-                renderMovies(movies);
-            } else {
-                const filteredMovies = movies.filter(movie => movie.genre.toLowerCase() === genre);
-                renderMovies(filteredMovies);
-            }
-            dropdownContent.classList.remove("show");
-        }
-    });
-
-    // Search movies based on query
-    searchInput.addEventListener("input", () => {
-        const query = searchInput.value.toLowerCase();
-        const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(query));
-        renderMovies(filteredMovies);
-    });
 });
