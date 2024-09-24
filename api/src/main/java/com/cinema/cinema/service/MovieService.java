@@ -29,7 +29,9 @@ public class MovieService {
         Movie movie = getMovieById(id);
         movie.setTitle(movieDetails.getTitle());
         movie.setDescription(movieDetails.getDescription());
-        movie.setDuration(movieDetails.getDuration());
+        movie.setDurationMinutes(movieDetails.getDurationMinutes());
+        movie.setPosterUrl(movieDetails.getPosterUrl());
+        movie.setTrailerUrl(movieDetails.getTrailerUrl());
         movie.setReleaseDate(movieDetails.getReleaseDate());
         movie.setGenre(movieDetails.getGenre());
         movie.setRating(movieDetails.getRating());
