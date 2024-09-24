@@ -13,32 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let allMovies = []; // Array to hold all movie data
 
-    // Example movie data with trailers
-    allMovies = [
-        {
-            title: "Movie 1",
-            poster: "https://via.placeholder.com/200x300",
-            description: "Description for Movie 1",
-            genre: "Action",
-            cast: "Actor 1, Actor 2",
-            director: "Director 1",
-            length: "120 min",
-            releaseDate: "2024-01-01",
-            trailerUrl: "https://www.youtube.com/watch?v=V5nkjr9C29M" // Example trailer URL
-        },
-        {
-            title: "Movie 2",
-            poster: "https://via.placeholder.com/200x300",
-            description: "Description for Movie 2",
-            genre: "Comedy",
-            cast: "Actor 3, Actor 4",
-            director: "Director 2",
-            length: "90 min",
-            releaseDate: "2024-02-01",
-            trailerUrl: "https://www.youtube.com/embed/3tmd-ClpJxA" // Example trailer URL
-        }
-        // Add more movie objects here
-    ];
+    async function get_movies() {
+        const response = await fetch("http://localhost:8080/movie")
+        const data = await response.json()
+        return data
+    }
 
     // Render movie cards
     function renderMovies(movies) {
@@ -47,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const movieCard = document.createElement("div");
             movieCard.className = "movie-card";
             movieCard.innerHTML = `
-                <img src="${movie.poster}" alt="${movie.title} Poster">
+                <img src="${movie.posterUrl}" alt="${movie.title} Poster">
                 <h3>${movie.title}</h3>
                 <div class="movie-actions">
                     <button class="book-now" data-title="${movie.title}" aria-label="Book Now">Book Now</button>
@@ -65,14 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    get_movies().then(data => {
+        allMovies = data
+        renderMovies(allMovies)
+    })
+
     // Open movie details popup
     function openPopup(movie) {
         popupTitle.textContent = movie.title;
         popupInfo.innerHTML = `
             <p><span>Genre:</span> ${movie.genre}</p>
-            <p><span>Cast:</span> ${movie.cast}</p>
-            <p><span>Director:</span> ${movie.director}</p>
-            <p><span>Length:</span> ${movie.length}</p>
+            <p><span>Length:</span> ${movie.durationMinutes}</p>
             <p><span>Release Date:</span> ${movie.releaseDate}</p>
             <p><span>Description:</span> ${movie.description}</p>
         `;
@@ -138,6 +120,4 @@ document.addEventListener("DOMContentLoaded", () => {
         const filteredMovies = allMovies.filter(movie => movie.title.toLowerCase().includes(query));
         renderMovies(filteredMovies);
     });
-
-    renderMovies(allMovies);
 });
