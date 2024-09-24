@@ -3,8 +3,6 @@ CREATE TABLE IF NOT EXISTS customer (
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    id SERIAL PRIMARY KEY,
-    customer_id INTEGER UNIQUE NOT NULL REFERENCES customer(id),
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     phone_number VARCHAR(20),
@@ -23,6 +21,7 @@ CREATE TABLE IF NOT EXISTS movie (
     release_date DATE,
     genre VARCHAR(50),
     rating VARCHAR(10),
+  	poster_url TEXT,
     trailer_url TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE
@@ -77,7 +76,7 @@ CREATE TABLE IF NOT EXISTS credit_card (
     id SERIAL PRIMARY KEY,
     customer_id INTEGER NOT NULL REFERENCES customer(id),
     card_type varchar(20),
-    name varchar(255)
+    name varchar(255),
     card_number VARCHAR(20),
     cvv VARCHAR(3),
     expiration_date DATE,
@@ -86,8 +85,6 @@ CREATE TABLE IF NOT EXISTS credit_card (
     updated_at TIMESTAMP WITH TIME ZONE
 );
 CREATE INDEX idx_credit_card_customer_id ON credit_card(customer_id);
-CREATE INDEX idx_credit_card_type ON credit_card(method_type);
-
 
 CREATE TABLE IF NOT EXISTS booking (
     id SERIAL PRIMARY KEY,
@@ -97,6 +94,7 @@ CREATE TABLE IF NOT EXISTS booking (
     promotion_id INTEGER REFERENCES promotion(id),
     total_amount DECIMAL(10, 2) NOT NULL,
     status VARCHAR(20) NOT NULL, -- CREATED, CONFIRMED, CANCELED
+    booking_date DATE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE
 );
@@ -104,18 +102,17 @@ CREATE INDEX idx_booking_customer_id ON booking(customer_id);
 CREATE INDEX idx_booking_show_id ON booking(show_id);
 CREATE INDEX idx_booking_credit_card_id ON booking(credit_card_id);
 CREATE INDEX idx_booking_promotion_id ON booking(promotion_id);
-CREATE INDEX idx_booking_date ON booking(booking_date);
 CREATE INDEX idx_booking_status ON booking(status);
 
 
 CREATE TABLE IF NOT EXISTS seat (
     id SERIAL PRIMARY KEY,
     theater_id INTEGER NOT NULL REFERENCES theater(id),
-    row_number VARCHAR(5) NOT NULL,
+    seat_row VARCHAR(5) NOT NULL,
     seat_number VARCHAR(5) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE,
-    UNIQUE (theater_id, row_number, seat_number)
+    UNIQUE (theater_id, seat_row, seat_number)
 );
 CREATE INDEX idx_seat_theater_id ON seat(theater_id);
 
