@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGA Movie</title>
+    <link rel="icon" type="image/x-icon" href="/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="UGA Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Signup</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Movie Section -->
+    <section class="movies-section">
+        <h2>Featured Now</h2>
+        <div class="movies-container" id="all-movies-container">
+            <!-- Movie cards will be dynamically added here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Upcoming Movies Section -->
+    <section class="upcoming-section">
+        <h2>Upcoming Movies</h2>
+        <div class="upcoming-container" id="upcoming-container">
+            <!-- Upcoming movie cards will be dynamically added here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Movie Detail Popup -->
+    <div id="popup" class="popup" role="dialog" aria-hidden="true">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="popup-title">Movie Title</h2>
+            <p id="popup-description">Movie Description</p>
+            <ul id="popup-details">
+                <li><strong>Cast:</strong> <span id="popup-cast">Cast details</span></li>
+                <li><strong>Director:</strong> <span id="popup-director">Director details</span></li>
+                <li><strong>Duration:</strong> <span id="popup-duration">Duration details</span></li>
+                <li><strong>Genre:</strong> <span id="popup-genre">Genre details</span></li>
+                <li><strong>Release Date:</strong> <span id="popup-release-date">Release Date details</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Trailer Preview Popup -->
+    <div id="preview-popup" class="preview-popup" aria-hidden="true">
+    <div class="preview-popup-content">
+        <span class="preview-close-btn">&times;</span>
+        <iframe id="trailer-video" src="" allowfullscreen></iframe>
+    </div>
+</div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

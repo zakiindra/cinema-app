@@ -1,19 +1,10 @@
-
 CREATE TABLE IF NOT EXISTS customer (
     id SERIAL PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE
-);
-CREATE INDEX idx_user_username ON customer(username);
-CREATE INDEX idx_user_email ON customer(email);
-
-
-CREATE TABLE IF NOT EXISTS customer_profile (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER UNIQUE NOT NULL REFERENCES customer(id),
+    customer_id INTEGER UNIQUE NOT NULL REFERENCES customer(id),
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     phone_number VARCHAR(20),
@@ -21,8 +12,8 @@ CREATE TABLE IF NOT EXISTS customer_profile (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE
 );
-CREATE INDEX idx_customer_profile_customer_id ON customer_profile(customer_id);
-
+CREATE INDEX idx_customer_username ON customer(username);
+CREATE INDEX idx_customer_email ON customer(email);
 
 CREATE TABLE IF NOT EXISTS movie (
     id SERIAL PRIMARY KEY,
@@ -67,25 +58,11 @@ CREATE INDEX idx_show_theater_id ON show(theater_id);
 CREATE INDEX idx_show_start_time ON show(start_time);
 
 
-CREATE TABLE IF NOT EXISTS featured_movie (
-    id SERIAL PRIMARY KEY,
-    movie_id INTEGER NOT NULL REFERENCES movie(id),
-    start_date DATE NOT NULL,
-    end_date DATE NOT NULL,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE
-
-);
-CREATE INDEX idx_featured_movie_movie_id ON featured_movie(movie_id);
-CREATE INDEX idx_featured_movie_date_range ON featured_movie(start_date, end_date);
-
--- Promotion table
 CREATE TABLE IF NOT EXISTS promotion (
     id SERIAL PRIMARY KEY,
     code VARCHAR(20) UNIQUE NOT NULL,
     description TEXT,
-    discount_type VARCHAR(20), -- PERCENT, AMOUNT
-    discount_value DECIMAL(5, 2),
+    promotion_value DECIMAL(5, 2),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -108,13 +85,13 @@ CREATE TABLE IF NOT EXISTS credit_card (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE
 );
-CREATE INDEX idx_credit_card_user_id ON credit_card(user_id);
+CREATE INDEX idx_credit_card_customer_id ON credit_card(customer_id);
 CREATE INDEX idx_credit_card_type ON credit_card(method_type);
 
 
 CREATE TABLE IF NOT EXISTS booking (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL REFERENCES customer(id),
+    customer_id INTEGER NOT NULL REFERENCES customer(id),
     show_id INTEGER NOT NULL REFERENCES show(id),
     credit_card_id INTEGER NOT NULL REFERENCES credit_card(id),
     promotion_id INTEGER REFERENCES promotion(id),
@@ -123,7 +100,7 @@ CREATE TABLE IF NOT EXISTS booking (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE
 );
-CREATE INDEX idx_booking_user_id ON booking(user_id);
+CREATE INDEX idx_booking_customer_id ON booking(customer_id);
 CREATE INDEX idx_booking_show_id ON booking(show_id);
 CREATE INDEX idx_booking_credit_card_id ON booking(credit_card_id);
 CREATE INDEX idx_booking_promotion_id ON booking(promotion_id);
