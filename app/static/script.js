@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const trailerVideo = document.getElementById("trailer-video");
     const searchInput = document.getElementById("search-bar");
 
+    const FEATURED_COUNT = 5;
+
     // Movie data with trailers
     async function get_movies() {
         const response = await fetch("http://localhost:8080/movie")
@@ -36,7 +38,36 @@ document.addEventListener("DOMContentLoaded", function () {
     // Render movie cards
     function renderMovies(movies) {
         moviesContainer.innerHTML = "";
+        let count = 0;
+
         movies.forEach(movie => {
+            if (count >= FEATURED_COUNT) {
+                const movieCard = `
+                    <div class="movie-card" data-id="${movie.title}">
+                        <img src="${movie.posterUrl}" alt="${movie.title}">
+                        <h3>${movie.title}</h3>
+                        <div class="movie-actions">
+                            <button class="details-btn">Details</button>
+                            <button class="preview-btn" data-trailer="${movie.trailerUrl}">Preview</button>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+                `;
+                moviesContainer.innerHTML += movieCard;
+            }
+
+            count++;
+        });
+    }
+
+    function renderFeaturedMovies(movies) {
+        featuredContainer.innerHTML = "";
+        // TODO: this is a temporary workaround until featured is implemented in api
+        let count = 0;
+
+        movies.forEach(movie => {
+            if (count >= FEATURED_COUNT) return;
+
             const movieCard = `
                 <div class="movie-card" data-id="${movie.title}">
                     <img src="${movie.posterUrl}" alt="${movie.title}">
@@ -48,13 +79,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </div>
             `;
-            moviesContainer.innerHTML += movieCard;
+            featuredContainer.innerHTML += movieCard;
+            count++;
         });
     }
 
     get_featured_movies().then(data => {
         allMovies = data
-        renderMovies(allMovies)
+        renderFeaturedMovies(allMovies)
     })
     
     get_movies().then(data => {
