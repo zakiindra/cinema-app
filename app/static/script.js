@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const filterButton = document.querySelector("#dropdown-button");
     const dropdownContent = document.querySelector("#dropdown-content");
     const moviesContainer = document.getElementById("movies-container");
+    const featuredContainer = document.getElementById("featured-movies-container");
     const popup = document.getElementById("popup");
     const popupTitle = document.getElementById("popup-title");
     const popupDescription = document.getElementById("popup-description");
@@ -18,40 +19,58 @@ document.addEventListener("DOMContentLoaded", function () {
     const trailerVideo = document.getElementById("trailer-video");
     const searchInput = document.getElementById("search-bar");
 
+    const FEATURED_COUNT = 5;
+
     // Movie data with trailers
-    const movies = [
-        {
-            title: "Movie 1",
-            poster: "https://via.placeholder.com/200x300",
-            description: "Description for Movie 1",
-            genre: "Action",
-            cast: "Actor 1, Actor 2",
-            director: "Director 1",
-            length: "120 min",
-            releaseDate: "2024-01-01",
-            trailerUrl: "https://www.youtube.com/embed/V5nkjr9C29M" // Example trailer URL
-        },
-        {
-            title: "Movie 2",
-            poster: "https://via.placeholder.com/200x300",
-            description: "Description for Movie 2",
-            genre: "Comedy",
-            cast: "Actor 3, Actor 4",
-            director: "Director 2",
-            length: "90 min",
-            releaseDate: "2024-02-01",
-            trailerUrl: "https://www.youtube.com/embed/3tmd-ClpJxA" // Example trailer URL
-        }
-        // Add more movie objects here
-    ];
+    async function get_movies() {
+        const response = await fetch("http://localhost:8080/movie")
+        const data = await response.json()
+        return data
+    }
+
+    // Movie data with trailers
+    async function get_featured_movies() {
+        const response = await fetch("http://localhost:8080/movie")
+        const data = await response.json()
+        return data
+    }
 
     // Render movie cards
     function renderMovies(movies) {
         moviesContainer.innerHTML = "";
+        let count = 0;
+
         movies.forEach(movie => {
+            if (count >= FEATURED_COUNT) {
+                const movieCard = `
+                    <div class="movie-card" data-id="${movie.title}">
+                        <img src="${movie.posterUrl}" alt="${movie.title}">
+                        <h3>${movie.title}</h3>
+                        <div class="movie-actions">
+                            <button class="details-btn">Details</button>
+                            <button class="preview-btn" data-trailer="${movie.trailerUrl}">Preview</button>
+                            <button class="book-btn">Book Now</button>
+                        </div>
+                    </div>
+                `;
+                moviesContainer.innerHTML += movieCard;
+            }
+
+            count++;
+        });
+    }
+
+    function renderFeaturedMovies(movies) {
+        featuredContainer.innerHTML = "";
+        // TODO: this is a temporary workaround until featured is implemented in api
+        let count = 0;
+
+        movies.forEach(movie => {
+            if (count >= FEATURED_COUNT) return;
+
             const movieCard = `
                 <div class="movie-card" data-id="${movie.title}">
-                    <img src="${movie.poster}" alt="${movie.title}">
+                    <img src="${movie.posterUrl}" alt="${movie.title}">
                     <h3>${movie.title}</h3>
                     <div class="movie-actions">
                         <button class="details-btn">Details</button>
@@ -60,9 +79,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </div>
             `;
-            moviesContainer.innerHTML += movieCard;
+            featuredContainer.innerHTML += movieCard;
+            count++;
         });
     }
+
+    get_featured_movies().then(data => {
+        allMovies = data
+        renderFeaturedMovies(allMovies)
+    })
+    
+    get_movies().then(data => {
+        allMovies = data
+        renderMovies(allMovies)
+    })
 
     // Show popup with movie details
     function openPopup(movie) {
@@ -146,6 +176,4 @@ document.addEventListener("DOMContentLoaded", function () {
         const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(query));
         renderMovies(filteredMovies);
     });
-
-    renderMovies(movies);
 });
