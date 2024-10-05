@@ -46,7 +46,7 @@ LEFT JOIN booking b ON c.id = b.user_id
 GROUP BY c.id, cp.id;
 
 -- Get all tickets for a specific booking
-SELECT t.*, s.row_number, s.seat_number
+SELECT t.*, s.seat_row, s.seat_number
 FROM ticket t
 JOIN seat s ON t.seat_id = s.id
 WHERE t.booking_id = 1;
