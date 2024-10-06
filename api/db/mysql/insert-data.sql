@@ -1,10 +1,7 @@
 -- INSERT Queries
 
-INSERT INTO customer (username, email, password) 
-VALUES ('john_doe', 'john@example.com', 'hashed_password_here');
-
-INSERT INTO customer_profile (user_id, first_name, last_name, phone_number, address) 
-VALUES (1, 'John', 'Doe', '1234567890', '123 Main St, City, Country');
+INSERT INTO customer (customer_id, username, email, password, first_name, last_name, phone_number, address) 
+VALUES (1,'john_doe', 'john@example.com', 'hashed_password_here','John', 'Doe''1234567890', '123 Main St, City, Country');
 
 INSERT INTO movie (title, description, duration_minutes, release_date, genre, rating, trailer_url) 
 VALUES ('Inception', 'A thief who enters the dreams of others to steal secrets from their subconscious.', 148, '2010-07-16', 'Sci-Fi', 'PG-13', 'https://www.youtube.com/watch?v=YoHD9XEInc0');
