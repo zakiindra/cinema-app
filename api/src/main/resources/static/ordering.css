@@ -1,0 +1,75 @@
+.seats-form {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.8rem;
+}
+
+.pricing-list ul {
+    padding-left: 1.6rem;
+}
+
+.screen {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    padding: 0.4rem;
+    border: 1px solid #dedede;
+    text-align: center;
+}
+
+.seats {
+    margin-top: 3rem;
+}
+
+.seats > .row {
+    display: grid;
+    grid-template-columns: repeat(10, 87px); /* Adjust for more columns */
+    gap: 1rem; /* Space between seats */
+    margin-bottom: 1rem;
+}
+
+.seat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.seat input {
+    display: none;
+}
+
+.radio-label {
+    position: relative;
+    width: 82px; /* Size of the custom seat */
+    height: 82px; /* Size of the custom seat */
+    background: white; /* Default background color */
+    border: 2px solid #ccc; /* Border color */
+    border-radius: 5px; /* Square shape with rounded corners */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.seat input:checked + .radio-label {
+    background: #007bff;
+    border-color: #007bff;
+}
+
+.form-control a {
+    text-decoration: none;
+    text-align: center;
+}
+
+.new-payment-popup {
+    text-decoration: underline; 
+    color: blue;
+    cursor: pointer;
+}
+
+.applied-promo-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
