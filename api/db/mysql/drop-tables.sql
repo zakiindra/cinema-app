@@ -1,11 +1,33 @@
-DROP TABLE customer,
-    customer_profile,
-    movie,
-    theater,
-    show,
-    featured_movie,
-    promotion,
-    credit_card,
-    booking,
-    seat,
-    ticket;
+DROP TABLE IF EXISTS ticket;
+DROP TABLE IF EXISTS seat;
+DROP TABLE IF EXISTS booking;
+DROP TABLE IF EXISTS credit_card;
+DROP TABLE IF EXISTS promotion;
+DROP TABLE IF EXISTS featured_movie;
+DROP TABLE IF EXISTS `show`;
+DROP TABLE IF EXISTS theater;
+DROP TABLE IF EXISTS movie;
+DROP TABLE IF EXISTS customer;
+
+DROP INDEX idx_user_username ON customer;
+DROP INDEX idx_user_email ON customer;
+DROP INDEX idx_movie_title ON movie;
+DROP INDEX idx_movie_release_date ON movie;
+DROP INDEX idx_movie_genre ON movie;
+DROP INDEX idx_theater_name ON theater;
+DROP INDEX idx_show_movie_id ON `show`;
+DROP INDEX idx_show_theater_id ON `show`;
+DROP INDEX idx_show_start_time ON `show`;
+DROP INDEX idx_featured_movie_movie_id ON featured_movie;
+DROP INDEX idx_featured_movie_date_range ON featured_movie;
+DROP INDEX idx_promotion_code ON promotion;
+DROP INDEX idx_promotion_date_range ON promotion;
+DROP INDEX idx_credit_card_customer_id ON credit_card;
+DROP INDEX idx_booking_customer_id ON booking;
+DROP INDEX idx_booking_show_id ON booking;
+DROP INDEX idx_booking_credit_card_id ON booking;
+DROP INDEX idx_booking_promotion_id ON booking;
+DROP INDEX idx_booking_status ON booking;
+DROP INDEX idx_seat_theater_id ON seat;
+DROP INDEX idx_ticket_booking_id ON ticket;
+DROP INDEX idx_ticket_seat_id ON ticket;

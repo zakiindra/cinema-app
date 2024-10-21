@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS customer (
 CREATE INDEX idx_user_username ON customer(username);
 CREATE INDEX idx_user_email ON customer(email);
 
+
 CREATE TABLE IF NOT EXISTS movie (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
@@ -30,6 +31,7 @@ CREATE INDEX idx_movie_title ON movie(title);
 CREATE INDEX idx_movie_release_date ON movie(release_date);
 CREATE INDEX idx_movie_genre ON movie(genre);
 
+
 CREATE TABLE IF NOT EXISTS theater (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -38,6 +40,7 @@ CREATE TABLE IF NOT EXISTS theater (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 CREATE INDEX idx_theater_name ON theater(name);
+
 
 CREATE TABLE IF NOT EXISTS `show` (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -55,6 +58,7 @@ CREATE INDEX idx_show_movie_id ON `show`(movie_id);
 CREATE INDEX idx_show_theater_id ON `show`(theater_id);
 CREATE INDEX idx_show_start_time ON `show`(start_time);
 
+
 CREATE TABLE IF NOT EXISTS featured_movie (
     id INT AUTO_INCREMENT PRIMARY KEY,
     movie_id INT NOT NULL,
@@ -67,12 +71,12 @@ CREATE TABLE IF NOT EXISTS featured_movie (
 CREATE INDEX idx_featured_movie_movie_id ON featured_movie(movie_id);
 CREATE INDEX idx_featured_movie_date_range ON featured_movie(start_date, end_date);
 
+
 CREATE TABLE IF NOT EXISTS promotion (
     id INT AUTO_INCREMENT PRIMARY KEY,
     code VARCHAR(20) UNIQUE NOT NULL,
     description TEXT,
-    discount_type VARCHAR(20),
-    discount_value DECIMAL(5, 2),
+    promotion_value DECIMAL(5, 2),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -80,6 +84,7 @@ CREATE TABLE IF NOT EXISTS promotion (
 );
 CREATE INDEX idx_promotion_code ON promotion(code);
 CREATE INDEX idx_promotion_date_range ON promotion(start_date, end_date);
+
 
 CREATE TABLE IF NOT EXISTS credit_card (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -96,9 +101,10 @@ CREATE TABLE IF NOT EXISTS credit_card (
 );
 CREATE INDEX idx_credit_card_customer_id ON credit_card(customer_id);
 
+
 CREATE TABLE IF NOT EXISTS booking (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
+    customer_id INT NOT NULL,
     show_id INT NOT NULL,
     credit_card_id INT NOT NULL,
     promotion_id INT,
@@ -106,16 +112,17 @@ CREATE TABLE IF NOT EXISTS booking (
     status VARCHAR(20) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES customer(id),
+    FOREIGN KEY (customer_id) REFERENCES customer(id),
     FOREIGN KEY (show_id) REFERENCES `show`(id),
     FOREIGN KEY (credit_card_id) REFERENCES credit_card(id),
     FOREIGN KEY (promotion_id) REFERENCES promotion(id)
 );
-CREATE INDEX idx_booking_user_id ON booking(user_id);
+CREATE INDEX idx_booking_customer_id ON booking(customer_id);
 CREATE INDEX idx_booking_show_id ON booking(show_id);
 CREATE INDEX idx_booking_credit_card_id ON booking(credit_card_id);
 CREATE INDEX idx_booking_promotion_id ON booking(promotion_id);
 CREATE INDEX idx_booking_status ON booking(status);
+
 
 CREATE TABLE IF NOT EXISTS seat (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -128,6 +135,7 @@ CREATE TABLE IF NOT EXISTS seat (
     FOREIGN KEY (theater_id) REFERENCES theater(id)
 );
 CREATE INDEX idx_seat_theater_id ON seat(theater_id);
+
 
 CREATE TABLE IF NOT EXISTS ticket (
     id INT AUTO_INCREMENT PRIMARY KEY,
