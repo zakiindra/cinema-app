@@ -6,6 +6,7 @@ import com.cinema.cinema.repository.CreditCardRepository;
 import com.cinema.cinema.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,33 @@ public class CustomerService {
 
     @Autowired
     private CreditCardRepository creditCardRepository;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private PasswordService passwordService;
+
+    @Transactional
+    public Customer registerUser(String username, String email, String password) {
+        Customer customer = new Customer();
+        customer.setUsername(username);
+        customer.setEmail(email);
+        customer.setPassword(passwordService.hashPassword(password));
+
+        emailService.sendRegistrationEmail(email);
+
+        return customerRepository.save(customer);
+    }
+
+    public boolean validateUser(String email, String password) {
+        Customer customer = customerRepository.findByEmail(email);
+        if (customer != null) {
+            return passwordService.verifyPassword(password, customer.getPassword());
+        }
+        return false;
+    }
+
 
     public Customer addCustomer(Customer customer) {
         // Add validation and password encryption logic here

@@ -12,14 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/api")
 public class ProfileController {
 
     @Autowired
     private ProfileService customerService;
 
-    // Endpoint to get the user profile
     @GetMapping("/getProfile")
     public ResponseEntity<Customer> getProfile(@RequestParam String email) {
         Customer customer = customerService.getCustomerByEmail(email);
@@ -30,11 +28,10 @@ public class ProfileController {
         }
     }
 
-    // Endpoint to update the user profile
     @PostMapping("/updateProfile")
     public ResponseEntity<ApiResponse> updateProfile(@RequestBody Customer updatedCustomer) {
         boolean isUpdated = customerService.updateCustomer(updatedCustomer);
-        
+
         if (isUpdated) {
             return ResponseEntity.ok(new ApiResponse("Profile updated successfully!"));
         } else {
