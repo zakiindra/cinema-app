@@ -13,8 +13,6 @@ public class EmailService {
 
     public void sendRegistrationEmail(String toEmail) {
 
-        System.out.println("HELLO3");
-
         String subject = "Account Registered Successfully";
         String body = "Hello,\n\nYour account has been successfully registered. Thank you for joining us!";
 
@@ -24,7 +22,6 @@ public class EmailService {
         message.setText(body);
         message.setFrom("your-email@gmail.com");
 
-        System.out.println("HELLO4");
         mailSender.send(message);
     }
 }

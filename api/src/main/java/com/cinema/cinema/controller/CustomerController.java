@@ -15,6 +15,18 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    // @PostMapping("/signup")
+    // public ResponseEntity<?> signup(@RequestBody Customer customer) {
+    //     // Validate input (username, email, password)
+    //     // Here you might want to add more validation logic
+
+    //     if (customerService.registerUser(customer.getUsername(), customer.getEmail(), customer.getPassword()) != null) {
+    //         return ResponseEntity.ok().body(new ApiResponse("User registered successfully!"));
+    //     } else {
+    //         return ResponseEntity.badRequest().body(new ApiResponse("User registration failed!"));
+    //     }
+    // }
+
     @PostMapping
     public ResponseEntity<Customer> registerCustomer(@RequestBody Customer customer) {
         Customer newCustomer = customerService.addCustomer(customer);
@@ -41,4 +53,16 @@ public class CustomerController {
         return customerService.getAllCreditCardByCustomerId(id);
     }
 
+    // Create a simple response model to return messages
+    static class ApiResponse {
+        private String message;
+
+        public ApiResponse(String message) {
+            this.message = message;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+    }
 }
