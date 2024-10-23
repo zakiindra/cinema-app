@@ -110,6 +110,31 @@ public class CustomerService {
                 .toList();
     }
 
+    public CreditCard addCreditCard(Long customerId, CreditCard creditCard) {
+        Customer customer = getCustomerById(customerId);
+        creditCard.setCustomer(customer);
+
+        return creditCardRepository.save(creditCard);
+    }
+
+    public CreditCard updateCreditCard(Long customerId, Long cardId, CreditCard creditCard) {
+        CreditCard existingCreditCard = creditCardRepository.findById(cardId)
+                .orElse(null);
+
+        if (existingCreditCard == null) {
+            return null;
+        }
+
+        existingCreditCard.setCardType(creditCard.getCardType());
+        existingCreditCard.setCardNumber(creditCard.getCardNumber());
+        existingCreditCard.setCvv(creditCard.getCvv());
+        existingCreditCard.setExpirationDate(creditCard.getExpirationDate());
+        existingCreditCard.setName(creditCard.getName());
+        existingCreditCard.setBillingAddress(creditCard.getBillingAddress());
+
+        return creditCardRepository.save(creditCard);
+    }
+
     
     @Transactional
     public boolean forgotPassword(String email, int otp, String newPassword) {
