@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - UGA Movie</title>
+    <link rel="icon" type="image/x-icon" href="./static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
+    <link rel="stylesheet" href="movieStyle.css"> 
+</head>
+<body>
+    <!-- Main Content -->
+    <main class="logout-page">
+        <section class="logout-section">
+            <h2>Logging you out...</h2>
+            <p>Your session is being ended. You will be redirected to the login page shortly.</p>
+        </section>
+    </main>
+
+    <script>
+        
+        function logoutUser() {
+            
+            sessionStorage.clear();
+            localStorage.clear();
+
+            
+            document.cookie.split(";").forEach((cookie) => {
+                const name = cookie.split("=")[0];
+                document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
+            });
+
+            
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 2000);
+        }
+
+        
+        window.onload = logoutUser;
+    </script>
+</body>
+</html>

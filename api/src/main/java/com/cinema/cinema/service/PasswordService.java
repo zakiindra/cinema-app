@@ -12,12 +12,10 @@ public class PasswordService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // Method to hash a password
     public String hashPassword(String password) {
         return passwordEncoder.encode(password);
     }
 
-    // Method to verify a password
     public boolean verifyPassword(String plainPassword, String hashedPassword) {
         return passwordEncoder.matches(plainPassword, hashedPassword);
     }
