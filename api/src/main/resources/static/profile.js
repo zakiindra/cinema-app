@@ -14,25 +14,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const customer_id = sessionStorage.getItem("customer_id");
     if (customer_id == null) { // notes(zaki): if customer_id does not exists, then go to login page.
-        window.location.pathname = "login.html";
+        window.location.href = "login.html";
+    } else {
+        fetch(`/customer/${customer_id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                renderProfileForm(document, data);
+                customer = data;
+            })
+            .catch(error => {
+                console.error('Error fetching profile data:', error);
+                alert('Failed to load profile data.');
+            });
     }
-
-    fetch(`/customer/${customer_id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        renderProfileForm(document, data);
-        customer = data;
-    })
-    .catch(error => {
-        console.error('Error fetching profile data:', error);
-        alert('Failed to load profile data.');
-    });
 });
 
 document.getElementById('editProfileForm')

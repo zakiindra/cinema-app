@@ -40,9 +40,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (response.ok) {
                     const customer = await response.json();
-                    sessionStorage.setItem("customer_id", customer["id"]);
+                    sessionStorage.setItem("customer_id", customer.id);
+                    sessionStorage.setItem("customer_name", customer.firstName);
 
-                    window.location.href = `http://localhost:8080/movies.html?username=${encodeURIComponent(username)}`;
+                    // window.location.href = `http://localhost:8080/movies.html?username=${encodeURIComponent(username)}`;
+                    window.location.href = `index.html`;
                 } else {
                     const error = await response.text();
                     alert('Login failed: ' + error); 

@@ -37,7 +37,7 @@ document.getElementById('signupForm').addEventListener('submit', async function(
 
         if (response.ok) {
             alert('User registered successfully!');
-            window.location.href = 'login.html';
+            window.location.href = 'confirm-registration.html';
         } else {
             alert('Error: ' + result.message);
         }
