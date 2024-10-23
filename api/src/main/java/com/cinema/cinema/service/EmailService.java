@@ -41,4 +41,18 @@ public class EmailService {
 
         System.out.println("OTP sent to " + toEmail);
     }
+
+    public void sendProfileUpdatedEmail(String toEmail, String firstName) {
+
+        String subject = "Profile Information Updated";
+        String body = "Hello,\n\nYour profile information has been successfully updated.";
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject(subject);
+        message.setText(body);
+        message.setFrom("your-email@gmail.com");
+
+        mailSender.send(message);
+    }
 }

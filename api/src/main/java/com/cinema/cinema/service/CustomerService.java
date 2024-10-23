@@ -95,6 +95,8 @@ public class CustomerService {
             customerRepository.save(existingCustomer);
         }
 
+        emailService.sendProfileUpdatedEmail(existingCustomer.getEmail(), existingCustomer.getFirstName());
+
         return existingCustomer;
     }
     
