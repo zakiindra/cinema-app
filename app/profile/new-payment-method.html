@@ -29,33 +29,41 @@
             <div class="content-head">
                 <h2 class="head-title">New Payment Method</h2>
             </div>
-            <form action="#">
+            <form onsubmit="return handleNewPaymentMethod(event)">
                 <div class="main-content movie-form">
                     <div class="form-body">
                         <div class="input-group">
+                            <label for="">Name on Card</label><br>
+                            <input type="text" name="name" id="">
+                        </div>
+                        <div class="input-group">
                             <label for="">Payment Type</label><br>
-                            <select name="" id="">
+                            <select name="cardType" id="">
                                 <option value="VISA">VISA</option>
                                 <option value="MasterCard">MasterCard</option>
                             </select>
                         </div>
                         <div class="input-group">
                             <label for="">Card Number</label><br>
-                            <input type="number" name="movie_title" id="">
+                            <input type="number" name="cardNumber" id="">
                         </div>
                         <div class="inline-input-group">
                             <div class="input-group">
-                                <label for="">Expire Date</label><br>
-                                <input type="date" name="movie_title" id="">
+                                <label for="">Expiration Date</label><br>
+                                <input type="date" name="expirationDate" id="">
                             </div>
                             <div class="input-group">
                                 <label for="">CVV</label><br>
-                                <input type="number" name="movie_title" id="">
+                                <input type="number" name="cvv" id="">
                             </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Billing Address</label><br>
+                            <textarea name="billingAddress" id="" cols="10" rows="3"></textarea>
                         </div>
                         <div class="form-control">
                             <input type="reset" value="RESET" class="reset-button">
-                            <input type="submit" value="#" class="submit-button">
+                            <input type="submit" value="SUBMIT" class="submit-button">
                         </div>
                     </div>
                 </div>
@@ -63,6 +71,7 @@
         </div>
     </section>
 
-    <script src="./../static/script.js"></script>
+    <!-- <script src="./../static/script.js"></script> -->
+    <script src="./../static/js/payment-methods/forms.js"></script>
 </body>
 </html>
