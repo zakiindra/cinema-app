@@ -32,6 +32,8 @@ public class Customer {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    private Boolean subscribePromo;
+
     @PrePersist
     protected void onCreate() {
         createdAt = updatedAt = LocalDateTime.now();

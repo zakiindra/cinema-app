@@ -2,8 +2,8 @@ spring.application.name=cinema
 
 
 # use this for postgres
-#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-#spring.datasource.url=jdbc:postgresql://localhost:5432/cinema
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.datasource.url=jdbc:postgresql://localhost:5432/cinema
 
 # use this for mysql
 #spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect

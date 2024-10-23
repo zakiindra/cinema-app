@@ -24,4 +24,21 @@ public class EmailService {
 
         mailSender.send(message);
     }
+
+    public void sendOtpEmail(String toEmail, int otp) {
+        System.out.println("Sending OTP email...");
+
+        String subject = "Your OTP Code";
+        String body = "Hello,\n\nYour OTP code is: " + otp + "\n\nPlease use this code to verify your account.";
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject(subject);
+        message.setText(body);
+        message.setFrom("your-email@gmail.com");
+
+        mailSender.send(message);
+
+        System.out.println("OTP sent to " + toEmail);
+    }
 }
