@@ -134,7 +134,6 @@ public class CustomerService {
 
         return creditCardRepository.save(creditCard);
     }
-
     
     @Transactional
     public boolean forgotPassword(String email, int otp, String newPassword) {
