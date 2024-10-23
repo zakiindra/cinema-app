@@ -49,6 +49,16 @@ public class CustomerController {
         return customerService.getAllCreditCardByCustomerId(id);
     }
 
+    @PostMapping("/{id}/creditCard")
+    public CreditCard addCreditCard(@PathVariable Long id, @RequestBody CreditCard creditCard) {
+        return customerService.addCreditCard(id, creditCard);
+    }
+
+    @PutMapping("/{id}/creditCard/{cardId}")
+    public CreditCard updateCreditCard(@PathVariable Long id, @PathVariable Long cardId, @RequestBody CreditCard creditCard) {
+        return customerService.updateCreditCard(id, cardId, creditCard);
+    }
+
 // /// ---------------------------------------------Changes by Abhishek-----------------------------------------------------------
 //    static class ApiResponse {
 //        private String message;
