@@ -66,7 +66,6 @@ CREATE TABLE IF NOT EXISTS promotion (
     end_date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
 );
 CREATE INDEX IF NOT EXISTS idx_promotion_code ON promotion(code);
 CREATE INDEX IF NOT EXISTS idx_promotion_date_range ON promotion(start_date, end_date);
@@ -75,18 +74,21 @@ CREATE INDEX IF NOT EXISTS idx_promotion_date_range ON promotion(start_date, end
 CREATE TABLE IF NOT EXISTS credit_card (
     id SERIAL PRIMARY KEY,
     customer_id INTEGER NOT NULL REFERENCES customer(id),
-    card_type varchar(20),
-    name varchar(255),
-    card_number VARCHAR(20),
-    cvv VARCHAR(3),
-    expiration_date DATE,
-    billing_address TEXT,
+    card_type VARCHAR(20) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    encrypted_card_number TEXT NOT NULL,
+    encrypted_cvv TEXT NOT NULL,
+    expiration_date DATE NOT NULL,
+    encrypted_billing_address TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_customer
+        FOREIGN KEY (customer_id)
+        REFERENCES customer(id)
+        ON DELETE CASCADE
 );
 CREATE INDEX IF NOT EXISTS idx_credit_card_customer_id ON credit_card(customer_id);
-CREATE INDEX IF NOT EXISTS idx_credit_card_number ON credit_card(card_number);
-CREATE INDEX IF NOT EXISTS idx_credit_card_name ON credit_card(name);
+CREATE INDEX IF NOT EXISTS idx_credit_card_card_type ON credit_card(card_type);
 
 CREATE TABLE IF NOT EXISTS booking (
     id SERIAL PRIMARY KEY,

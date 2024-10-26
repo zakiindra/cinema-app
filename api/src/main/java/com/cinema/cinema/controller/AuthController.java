@@ -1,9 +1,7 @@
 
 package com.cinema.cinema.controller;
 
-//import com.cinema.cinema.controller.CustomerController.ApiResponse;
 import com.cinema.cinema.dto.LoginRequest;
-
 import com.cinema.cinema.model.Customer;
 import com.cinema.cinema.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +16,6 @@ public class AuthController {
     
     @Autowired
     private CustomerService customerService;
-
-//    @PostMapping("/signup")
-//    public ResponseEntity<?> signup(@RequestBody Customer customer) {
-//        if (customerService.registerUser(customer.getFirstName(), customer.getLastName(), customer.getUsername(), customer.getEmail(), customer.getPassword(), customer.getSubscribePromo()) != null) {
-//            return ResponseEntity.ok().body(new ApiResponse("User registered successfully!"));
-//        } else {
-//            return ResponseEntity.badRequest().body(new ApiResponse("User registration failed!"));
-//        }
-//    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
