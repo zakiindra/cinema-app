@@ -14,9 +14,88 @@ body {
 
 .container {
     margin-top: 1.3em !important;
+    margin-bottom: 1.3em !important;
     border-radius: 0.6rem;
     width: 90%;
     margin: 0 auto;
     padding: 2rem;
     background-color: white;
+}
+
+.container > h2 {
+    margin-bottom: 1rem;
+    font-size: 24px;
+    color: #FF5733;
+}
+
+.form-body {
+    flex-grow: 1;
+}
+
+.input-group {
+    margin-bottom: 0.5rem;
+}
+
+.input-group input, .input-group textarea, .input-group select {
+    width: 100%;
+    padding: 0.4rem 0.8rem;
+}
+
+.input-group textarea {
+    resize: vertical;
+}
+
+.inline-input-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+}
+
+.inline-input-group > .input-group {
+    flex: 1;
+}
+
+.divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider hr {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+.divider hr:first-child {
+    margin-right: 1rem;
+}
+
+.divider hr:last-child {
+    margin-left: 1rem;
+}
+
+.form-control {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.2rem;
+}
+
+.form-control input[type="reset"],
+.form-control input[type="submit"] {
+    cursor: pointer;
+}
+
+.form-control .reset-button {
+    padding: 0.5rem 0.9rem;
+    width: 25%;
+    border: 1px solid #DEDEDE;
+}
+
+.form-control .submit-button {
+    flex: 1;
+    padding: 0.5rem 0.9rem;
+    color: white;
+    background-color: rgb(16, 58, 175);
+    border: 1px solid rgb(16, 58, 175);
 }

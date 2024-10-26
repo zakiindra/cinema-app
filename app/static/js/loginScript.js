@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
             spinner.style.display = 'block'; // Show spinner
 
             try {
-                const response = await fetch('/api/auth/login', {
+                const response = await fetch('localhost:8080/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

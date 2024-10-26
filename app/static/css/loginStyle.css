@@ -145,6 +145,18 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
+.password-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0.4rem;
+    margin-bottom: 1.2rem;
+}
+
+.password-container > input {
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+
 /* Media Queries for Responsiveness */
 @media screen and (max-width: 768px) {
     nav input {

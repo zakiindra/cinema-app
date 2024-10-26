@@ -4,23 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile - UGA Movie</title>
-    <link rel="icon" type="image/x-icon" href="/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
-    <link rel="stylesheet" href="editProfile.css">
+    <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/editProfile.css">
 </head>
 <body>
     <!-- Navigation Bar -->
     <header>
         <div class="logo">
-            <a href="index.html">
-                <img src="resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="UGA Logo">
+            <a href="http://localhost:8001/index.html">
+                <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
             </a>
         </div>
         <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="movies.html">All Movies</a></li>
-                <li><a href="profile.html" class="active">Profile</a></li>
-                <li><a href="logout.html" aria-label="Logout">Logout</a></li>
+            <ul id="nav-content">
+                <!-- Dynamic -->
             </ul>
         </nav>
     </header>
@@ -75,6 +72,7 @@
         </form>
     </section>
 
-    <script src="profile.js"></script>
+    <script src="http://localhost:8001/static/js/nav-adjust.js"></script>
+    <script src="http://localhost:8001/static/js/profile.js"></script>
 </body>
 </html>
