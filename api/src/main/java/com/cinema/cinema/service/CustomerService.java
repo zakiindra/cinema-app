@@ -20,39 +20,13 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private CreditCardRepository creditCardRepository;
-
-    @Autowired
     private EmailService emailService;  
 
     @Autowired
     private PasswordService passwordService; 
 
     @Autowired
-    private OtpRepository otpRepository; 
-
-    @Transactional
-    public Customer registerUser(String firstname, String lastname, String username, String email, String password, Boolean subscribePromo) {
-        Customer customer = new Customer();
-        customer.setFirstName(firstname);
-        customer.setLastName(lastname);
-        customer.setUsername(username);
-        customer.setEmail(email);
-        customer.setPassword(passwordService.hashPassword(password)); 
-        customer.setSubscribePromo(subscribePromo);
-
-        emailService.sendRegistrationEmail(email);
-
-        return customerRepository.save(customer);
-    }
-
-    public boolean validateUser(String username, String password) {
-        Customer customer = customerRepository.findByUsername(username);  
-        if (customer != null) {
-            return passwordService.verifyPassword(password, customer.getPassword());  
-        }
-        return false;
-    }    
+    private OtpRepository otpRepository;
 
     public Customer addCustomer(Customer customer) {
         customer.setPassword(passwordService.hashPassword(customer.getPassword()));
@@ -99,42 +73,7 @@ public class CustomerService {
 
         return existingCustomer;
     }
-    
-    public List<CreditCard> getAllCreditCardByCustomerId(Long id) {
-        return creditCardRepository.findAll()
-                .stream()
-                .filter(creditCard -> creditCard
-                        .getCustomer()
-                        .getId()
-                        .equals(id))
-                .toList();
-    }
 
-    public CreditCard addCreditCard(Long customerId, CreditCard creditCard) {
-        Customer customer = getCustomerById(customerId);
-        creditCard.setCustomer(customer);
-
-        return creditCardRepository.save(creditCard);
-    }
-
-    public CreditCard updateCreditCard(Long customerId, Long cardId, CreditCard creditCard) {
-        CreditCard existingCreditCard = creditCardRepository.findById(cardId)
-                .orElse(null);
-
-        if (existingCreditCard == null) {
-            return null;
-        }
-
-        existingCreditCard.setCardType(creditCard.getCardType());
-        existingCreditCard.setCardNumber(creditCard.getCardNumber());
-        existingCreditCard.setCvv(creditCard.getCvv());
-        existingCreditCard.setExpirationDate(creditCard.getExpirationDate());
-        existingCreditCard.setName(creditCard.getName());
-        existingCreditCard.setBillingAddress(creditCard.getBillingAddress());
-
-        return creditCardRepository.save(creditCard);
-    }
-    
     @Transactional
     public boolean forgotPassword(String email, int otp, String newPassword) {
         

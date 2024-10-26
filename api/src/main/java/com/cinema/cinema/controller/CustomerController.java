@@ -1,11 +1,15 @@
 package com.cinema.cinema.controller;
 
+import com.cinema.cinema.dto.CreditCardDTO;
+import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.CreditCard;
 import com.cinema.cinema.model.Customer;
+import com.cinema.cinema.service.CreditCardService;
 import com.cinema.cinema.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +20,9 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    CreditCardService creditCardService;
 
     @PostMapping
     public ResponseEntity<Customer> registerCubstomer(@RequestBody Customer customer) {
@@ -44,31 +51,48 @@ public class CustomerController {
         return ResponseEntity.ok(updatedCustomer);
     }
 
-    @GetMapping("/{id}/creditCard")
-    public List<CreditCard> getCreditCards(@PathVariable Long id) {
-        return customerService.getAllCreditCardByCustomerId(id);
+    @PostMapping("/{id}/creditCard")
+    public ResponseEntity<CreditCard> addCreditCard(@PathVariable Long id, @RequestBody CreditCardDTO creditCardDTO) {
+
+        CreditCard creditCard;
+
+        try {
+            creditCard = creditCardService.addCreditCard(id, creditCardDTO);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(creditCard);
     }
 
-    @PostMapping("/{id}/creditCard")
-    public CreditCard addCreditCard(@PathVariable Long id, @RequestBody CreditCard creditCard) {
-        return customerService.addCreditCard(id, creditCard);
+    @GetMapping("/{id}/creditCard")
+    public ResponseEntity<List<CreditCardDTO>> getCustomerCreditCards(@PathVariable Long id) {
+        List<CreditCardDTO> cards = creditCardService.getCustomerCreditCards(id);
+        return ResponseEntity.ok(cards);
     }
 
     @PutMapping("/{id}/creditCard/{cardId}")
-    public CreditCard updateCreditCard(@PathVariable Long id, @PathVariable Long cardId, @RequestBody CreditCard creditCard) {
-        return customerService.updateCreditCard(id, cardId, creditCard);
+    public ResponseEntity<CreditCard> updateCreditCard(@PathVariable Long id, @PathVariable Long cardId, @RequestBody CreditCardDTO creditCardDTO) {
+        CreditCard creditCard;
+        try {
+           creditCard = creditCardService.updateCreditCard(id, cardId, creditCardDTO);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(creditCard);
     }
 
-// /// ---------------------------------------------Changes by Abhishek-----------------------------------------------------------
-//    static class ApiResponse {
-//        private String message;
-//
-//        public ApiResponse(String message) {
-//            this.message = message;
-//        }
-//
-//        public String getMessage() {
-//            return message;
-//        }
-//    }
+    @DeleteMapping("/{id}/creditCard/{cardId}")
+    public ResponseEntity<?> deleteCreditCard(
+            @PathVariable Long id,
+            @PathVariable Long cardId) {
+        try {
+            creditCardService.deleteCreditCard(id, cardId);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
 }
