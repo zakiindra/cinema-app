@@ -12,9 +12,133 @@ body {
     line-height: 1.6;
 }
 
+
+/* Complementary classes */
+.hidden {
+    display: none;
+}
+
+
+/* Header, navbar */
+header {
+    background-color: #FF5733;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo img {
+    width: 150px;
+    object-fit: contain;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav input {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    width: 300px;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+nav input:focus {
+    width: 350px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin-left: 20px;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: white;
+    color: #FF5733;
+}
+
+#username-display {
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#user-control-popup {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
+
+
+#user-control-popup li {
+    list-style: none;
+}
+
+#user-control-popup li a {
+    display: block;
+    padding: 0.5rem;
+    text-decoration: none;
+    color: black;
+}
+
+#user-control-popup li a:hover {
+    text-decoration: underline;
+}
+
+
+/* Content */
+main {
+    padding-top: 5.5rem;
+}
+
+section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.inline-sections {
+    width: 100%;
+    display: flex;
+}
+
+.inline-section section {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+
+.inline-sections:first-child section {
+    flex-grow: 1;
+}
+
 .container {
-    margin-top: 1.3em !important;
-    margin-bottom: 1.3em !important;
     border-radius: 0.6rem;
     width: 90%;
     margin: 0 auto;
@@ -49,6 +173,16 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 1.2rem;
+}
+
+.checkbox-group {
+    justify-content: start !important;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
+.checkbox-group > label, .checkbox-group > input {
+    margin-bottom: 0;
 }
 
 .inline-input-group > .input-group {
@@ -98,4 +232,8 @@ body {
     color: white;
     background-color: rgb(16, 58, 175);
     border: 1px solid rgb(16, 58, 175);
+}
+
+.form-info-box {
+    margin-top: 1.5rem;
 }
