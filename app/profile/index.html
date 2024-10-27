@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile - UGA Movie</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
     <link rel="stylesheet" href="http://localhost:8001/static/css/editProfile.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/style.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -23,56 +26,105 @@
     </header>
 
     <!-- Profile Edit Section -->
-    <section class="edit-profile-section">
-        <h2>Edit Your Profile</h2>
-        <form id="editProfileForm" class="edit-profile-form" method="POST">
-            <div class="form-group">
-                <label for="first-name">First Name</label>
-                <input type="text" id="first-name" name="first-name" required placeholder="Enter First Name">
-            </div>
-
-            <div class="form-group">
-                <label for="last-name">Last Name</label>
-                <input type="text" id="last-name" name="last-name" required placeholder="Enter Last Name">
-            </div>
-
-            <div class="form-group">
-                <label for="email">Email ID</label>
-                <input type="email" id="email" name="email" disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter new password">
-            </div>
-
-            <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password">
-            </div>
-
-            <div class="form-group">
-                <label for="phone-number">Phone Number</label>
-                <input type="text" id="phone-number" name="phone number" placeholder="Enter your Phone Number">
-            </div>
-
-            <div class="form-group">
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" placeholder="Enter your Address">
-            </div>
-
-            <div class="form-group">
-                <div style="display: flex; align-items: start; gap: 6px">
-                    <input type="checkbox" id="subscribe-promo" name="subscribe-promo">
-                    <label for="subscribe-promo" style="font-weight: normal">Notify Me about New Promotions</label>
+    <main>
+        <div class="inline-sections">
+            <section>
+                <div class="container">
+                    <h2>Edit Profile</h2>
+                    <form class="auth-form" id="signupForm">
+                        <div class="inline-input-group">
+                            <div class="input-group">
+                                <label for="firstname">First Name:</label>
+                                <input type="text" id="first-name" name="firstname" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="lastname">Last Name:</label>
+                                <input type="text" id="last-name" name="lastname" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="username">Username:</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="phone-number">Phone Number</label>
+                            <input type="text" id="phone-number" name="phone number" placeholder="Enter your Phone Number">
+                        </div>
+                        <div class="input-group">
+                            <label for="address">Address</label>
+                            <textarea name="address" id="address" rows="3" cols="10"></textarea>
+                        </div>
+                        <div class="input-group">
+                            <span style="display: flex; align-items: center; gap: 6px">
+                                <input type="checkbox" id="subscribe-promo" name="subscribe-promo">
+                                <label for="subscribe-promo" style="font-weight: normal">Notify Me about New Promotions</label>
+                            </span>
+                        </div>
+                        <button type="submit">Edit</button>
+                    </form>
+        
+                    <div id="confirmationMessage" class="confirmation-message"></div>
+                </div>
+            </section>
+            <section>
+                <div class="container">
+                    <h2>Update Password</h2>
+                    <form class="auth-form" id="signupForm">
+                        <div class="input-group">
+                            <label for="username">Old Password:</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="username">New Password:</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="username">Confirm New Password:</label>
+                            <input type="text" id="username" name="username" required>
+                        </div>
+                        <button type="submit">Update</button>
+                    </form>
+        
+                    <div id="confirmationMessage" class="confirmation-message"></div>
+                </div>
+            </section>
+        </div>
+        <section class="payment-methods-section">
+            <div class="container">
+                <div class="content-head">
+                    <h2 class="head-title">Manage Payment Methods</h2>
+                    <a href="http://localhost:8001/profile/new-payment-method.html" class="content-head-action add-item-button" id="add-movie">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>                      
+                        <span>New Payment Method</span>
+                    </a>
+                </div>
+                <div class="movie-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="numbering"></th>
+                                <th>Card Number</th>
+                                <th>Payment Type</th>
+                                <th>Expiry Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payment-method-list">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="payment-max-warning" style="margin-top: 1rem;">
+                    <span><strong>Note:</strong> A maximum of 4 (four) payment methods allowed!</span>
                 </div>
             </div>
+        </section>
+    </main>
 
-            <button type="submit" class="save-btn">Save Changes</button>
-        </form>
-    </section>
-
-    <script src="http://localhost:8001/static/js/nav-adjust.js"></script>
-    <script src="http://localhost:8001/static/js/profile.js"></script>
+    <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/profile/profile.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/profile/payment-method.js" type="module"></script>
 </body>
 </html>
