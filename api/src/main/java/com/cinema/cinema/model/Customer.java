@@ -26,13 +26,17 @@ public class Customer {
     private String phoneNumber;
     private String address;
 
+    @Column(name = "subscribe_promo", nullable = false)
+    private Boolean subscribePromo;
+
+    @Column(name = "active")
+    private Boolean active;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
-
-    private Boolean subscribePromo;
 
     @PrePersist
     protected void onCreate() {
