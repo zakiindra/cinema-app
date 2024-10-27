@@ -30,7 +30,7 @@
             <div class="content-head">
                 <h2 class="head-title">New Payment Method</h2>
             </div>
-            <form onsubmit="return handleNewPaymentMethod(event);">
+            <form id="new-payment-method-form">
                 <div class="main-content movie-form">
                     <div class="form-body">
                         <div class="input-group">
@@ -42,6 +42,8 @@
                             <select name="cardType" id="">
                                 <option value="VISA">VISA</option>
                                 <option value="MasterCard">MasterCard</option>
+                                <option value="AMEX">AMEX</option>
+                                <option value="Discover">Discover</option>
                             </select>
                         </div>
                         <div class="input-group">
@@ -73,6 +75,6 @@
     </section>
 
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
-    <script src="http://localhost:8001/static/js/profile/payment-method-form.js"></script>
+    <script src="http://localhost:8001/static/js/profile/payment-method-form.js" type="module"></script>
 </body>
 </html>
