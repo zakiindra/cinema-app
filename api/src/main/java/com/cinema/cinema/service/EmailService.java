@@ -1,9 +1,14 @@
 package com.cinema.cinema.service;
 
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class EmailService {
@@ -54,5 +59,32 @@ public class EmailService {
         message.setFrom("your-email@gmail.com");
 
         mailSender.send(message);
+    }
+
+    public void sendVerificationEmail(String recipient, String token) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setTo(recipient);
+        helper.setSubject("Email Verification");
+        helper.setText(createVerificationEmailContent(recipient, token), true);
+
+        mailSender.send(message);
+    }
+
+    private String createVerificationEmailContent(String email, String token) {
+        String link = "http://localhost:8001/auth/verify.html?email=%s&token=%s".formatted(email, token);
+
+        return """
+        <html>
+            <body>
+                <h2>C7 Cinema - Verify Your Email Address</h2>
+                <p>Thank you for registering. Please click the link below to verify your email address:</p>
+                <p><a href="%s">Verify Email</a></p>
+                <p>This link will expire in 24 hours.</p>
+                <p>If you did not create an account, please ignore this email.</p>
+            </body>
+        </html>
+        """.formatted(link);
     }
 }

@@ -1,17 +1,19 @@
 package com.cinema.cinema.service;
 
-import com.cinema.cinema.model.CreditCard;
 import com.cinema.cinema.model.Customer;
-import com.cinema.cinema.model.Otp; 
-import com.cinema.cinema.repository.CreditCardRepository;
+import com.cinema.cinema.model.Otp;
+import com.cinema.cinema.model.VerificationToken;
 import com.cinema.cinema.repository.CustomerRepository;
-import com.cinema.cinema.repository.OtpRepository; 
+import com.cinema.cinema.repository.OtpRepository;
+import com.cinema.cinema.repository.VerificationTokenRepository;
+import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class CustomerService {
@@ -20,7 +22,10 @@ public class CustomerService {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private EmailService emailService;  
+    private VerificationTokenRepository tokenRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private PasswordService passwordService; 
@@ -28,10 +33,25 @@ public class CustomerService {
     @Autowired
     private OtpRepository otpRepository;
 
-    public Customer addCustomer(Customer customer) {
+    // TODO: add validation
+    @Transactional
+    public Customer addCustomer(Customer customer)  {
         customer.setPassword(passwordService.hashPassword(customer.getPassword()));
+        customer.setActive(false);
         customerRepository.save(customer);
-        emailService.sendRegistrationEmail(customer.getEmail());;
+
+        String token = UUID.randomUUID().toString();
+        VerificationToken verificationToken = new VerificationToken();
+        verificationToken.setCustomer(customer);
+        verificationToken.setToken(token);
+        verificationToken.setExpirationTime(LocalDateTime.now().plusDays(1));
+        tokenRepository.save(verificationToken);
+
+        try {
+            emailService.sendVerificationEmail(customer.getEmail(), token);
+        } catch (MessagingException e) {
+            System.out.println(e);
+        }
         return customer;
     }
 
