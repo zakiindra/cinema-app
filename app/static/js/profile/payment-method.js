@@ -1,16 +1,28 @@
+import { SessionData } from "../utils/session.js"
+
 document.addEventListener("DOMContentLoaded", () => {
+    const sessionData = new SessionData()
+    const s = sessionData.get_session()
+
     async function getPaymentMethods() {
-        const response = await fetch("http://localhost:8080/customer/1/creditCard")
+        const response = await fetch(`http://localhost:8080/customer/${s.id}/creditCard`)
         const data = await response.json()
         return data
     }
 
     function renderPaymentMethods(paymentMethods) {
-        console.log(paymentMethods)
-
         const container = document.getElementById("payment-method-list")
 
         container.innerHTML = "";
+
+        if (paymentMethods.length == 0) {
+            const content = document.createElement("tr")
+            content.innerHTML = `
+                <td colspan="5" style="text-align:center;">No payment methods configured</td>
+            `
+            container.appendChild(content)
+        } 
+
         paymentMethods.forEach(paymentMethod => {
 //             const movieCard = document.createElement("div");
 //             movieCard.className = "movie-card";

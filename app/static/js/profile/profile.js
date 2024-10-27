@@ -1,8 +1,9 @@
+import { ensureAuthenticated } from "../guards.js";
 
 function renderProfileForm(document, data) {
     document.getElementById("first-name").value = data.firstName;
     document.getElementById("last-name").value = data.lastName;
-    document.getElementById("email").value = data.email;
+    document.getElementById("username").value = data.username;
     document.getElementById("address").value = data.address;
     document.getElementById("phone-number").value = data.phoneNumber;
     document.getElementById("subscribe-promo").checked = data.subscribePromo;
@@ -11,36 +12,27 @@ function renderProfileForm(document, data) {
 let customer;
 
 document.addEventListener('DOMContentLoaded', function() {
+    const s = ensureAuthenticated()
 
-    const customer_id = sessionStorage.getItem("customer_id");
-    if (customer_id == null) { // notes(zaki): if customer_id does not exists, then go to login page.
-        window.location.href = "login.html";
-    } else {
-        fetch(`/customer/${customer_id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+    fetch(`http://localhost:8080/customer/${s.id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.json())
+        .then(data => {
+            console.log(data);
+            renderProfileForm(document, data);
+            customer = data;
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                renderProfileForm(document, data);
-                customer = data;
-            })
-            .catch(error => {
-                console.error('Error fetching profile data:', error);
-                alert('Failed to load profile data.');
-            });
-    }
+        .catch(error => {
+            console.error('Error fetching profile data:', error);
+            alert('Failed to load profile data.');
+        });
 });
 
-document.getElementById('editProfileForm')
-    .addEventListener('submit', function(event) {
-        const customer_id = sessionStorage.getItem("customer_id");
-        if (customer_id == null) { // notes(zaki): if customer_id does not exists, then go to login page.
-            window.location.pathname = "login.html";
-        }
+document.getElementById('editProfileForm').addEventListener('submit', function(event) {
+        ensureAuthenticated()
 
         event.preventDefault();
         const updatedPassword = document.getElementById('password').value;

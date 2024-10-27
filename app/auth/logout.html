@@ -16,27 +16,6 @@
         </section>
     </main>
 
-    <script>
-        
-        function logoutUser() {
-            
-            sessionStorage.clear();
-            localStorage.clear();
-
-            
-            document.cookie.split(";").forEach((cookie) => {
-                const name = cookie.split("=")[0];
-                document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
-            });
-
-            
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 2000);
-        }
-
-        
-        window.onload = logoutUser;
-    </script>
+    <script type="module" src="http://localhost:8001/static/js/auth/logout.js"></script>
 </body>
 </html>

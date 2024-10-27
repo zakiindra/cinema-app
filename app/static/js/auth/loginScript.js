@@ -1,3 +1,5 @@
+import { SessionData } from "../utils/session.js";
+
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector('.auth-form');
     const spinner = document.getElementById('spinner');
@@ -9,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
+        const rememberMe = document.getElementById('remember-me').checked;
         let valid = true;
 
         // Basic form validation
@@ -30,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
             spinner.style.display = 'block'; // Show spinner
 
             try {
-                const response = await fetch('localhost:8080/api/auth/login', {
+                const response = await fetch('http://localhost:8080/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -40,11 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (response.ok) {
                     const customer = await response.json();
-                    sessionStorage.setItem("customer_id", customer.id);
-                    sessionStorage.setItem("customer_name", customer.firstName);
+
+                    const s = new SessionData()
+                    s.set_session(customer.id, customer.firstName, rememberMe)
 
                     // window.location.href = `http://localhost:8080/movies.html?username=${encodeURIComponent(username)}`;
-                    window.location.href = `index.html`;
+                    window.location.href = `http://localhost:8001/index.html`;
                 } else {
                     const error = await response.text();
                     alert('Login failed: ' + error); 
