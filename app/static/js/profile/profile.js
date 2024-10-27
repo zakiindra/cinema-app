@@ -1,9 +1,10 @@
-import { ensureAuthenticated } from "../guards.js";
+import { SessionData } from "../utils/session.js";
 
 function renderProfileForm(document, data) {
     document.getElementById("first-name").value = data.firstName;
     document.getElementById("last-name").value = data.lastName;
     document.getElementById("username").value = data.username;
+    document.getElementById("email").value = data.email;
     document.getElementById("address").value = data.address;
     document.getElementById("phone-number").value = data.phoneNumber;
     document.getElementById("subscribe-promo").checked = data.subscribePromo;
@@ -12,7 +13,8 @@ function renderProfileForm(document, data) {
 let customer;
 
 document.addEventListener('DOMContentLoaded', function() {
-    const s = ensureAuthenticated()
+    const session = new SessionData()
+    const s = session.get_session()
 
     fetch(`http://localhost:8080/customer/${s.id}`, {
         method: 'GET',
@@ -32,32 +34,34 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.getElementById('editProfileForm').addEventListener('submit', function(event) {
-        ensureAuthenticated()
-
         event.preventDefault();
-        const updatedPassword = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirm-password').value;
+        const session = new SessionData()
 
-        if (updatedPassword !== confirmPassword) {
-            alert("Confirm password did not match password.");
+        const s = session.get_session()
 
-            document.getElementById('password').value = "";
-            document.getElementById('confirm-password').value = "";
+        // const updatedPassword = document.getElementById('password').value;
+        // const confirmPassword = document.getElementById('confirm-password').value;
 
-            return;
-        }
+        // if (updatedPassword !== confirmPassword) {
+        //     alert("Confirm password did not match password.");
+
+        //     document.getElementById('password').value = "";
+        //     document.getElementById('confirm-password').value = "";
+
+        //     return;
+        // }
 
         const updatedProfile = {
             firstName: document.getElementById('first-name').value,
             lastName: document.getElementById('last-name').value,
+            username: document.getElementById('username').value,
             email: document.getElementById('email').value,
-            password: document.getElementById('password').value,
             phoneNumber: document.getElementById('phone-number').value,
             address: document.getElementById('address').value,
             subscribePromo: document.getElementById('subscribe-promo').checked
         };
 
-        fetch(`/customer/${customer_id}`, {
+        fetch(`http://localhost:8080/customer/${s.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

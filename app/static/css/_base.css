@@ -165,6 +165,12 @@ section {
     padding: 0.4rem 0.8rem;
 }
 
+.input-group input:read-only {
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    cursor: not-allowed;
+}
+
 .input-group textarea {
     resize: vertical;
 }
