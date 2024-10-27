@@ -31,7 +31,7 @@
             <section>
                 <div class="container">
                     <h2>Edit Profile</h2>
-                    <form class="auth-form" id="signupForm">
+                    <form class="profile-form" id="editProfileForm">
                         <div class="inline-input-group">
                             <div class="input-group">
                                 <label for="firstname">First Name:</label>
@@ -44,7 +44,11 @@
                         </div>
                         <div class="input-group">
                             <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" required>
+                            <input type="text" id="username" name="username" required readonly>
+                        </div>
+                        <div class="input-group">
+                            <label for="username">Email:</label>
+                            <input type="text" id="email" name="email" required readonly>
                         </div>
                         <div class="input-group">
                             <label for="phone-number">Phone Number</label>
@@ -54,13 +58,11 @@
                             <label for="address">Address</label>
                             <textarea name="address" id="address" rows="3" cols="10"></textarea>
                         </div>
-                        <div class="input-group">
-                            <span style="display: flex; align-items: center; gap: 6px">
-                                <input type="checkbox" id="subscribe-promo" name="subscribe-promo">
-                                <label for="subscribe-promo" style="font-weight: normal">Notify Me about New Promotions</label>
-                            </span>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="subscribe-promo" name="subscribe-promo">
+                            <label for="subscribe-promo" style="font-weight: normal">Notify Me about New Promotions</label>
                         </div>
-                        <button type="submit">Edit</button>
+                        <button type="submit" class="add-item-button">Edit</button>
                     </form>
         
                     <div id="confirmationMessage" class="confirmation-message"></div>
@@ -82,7 +84,7 @@
                             <label for="username">Confirm New Password:</label>
                             <input type="text" id="username" name="username" required>
                         </div>
-                        <button type="submit">Update</button>
+                        <button type="submit" class="add-item-button">Update</button>
                     </form>
         
                     <div id="confirmationMessage" class="confirmation-message"></div>
