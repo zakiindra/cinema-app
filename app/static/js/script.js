@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // const filterButton = document.querySelector("#dropdown-button");
-    // const dropdownContent = document.querySelector("#dropdown-content");
-    // const searchInput = document.getElementById("search-bar");
+    const filterButton = document.querySelector("#dropdown-button");
+    const dropdownContent = document.querySelector("#dropdown-content");
+    const searchInput = document.getElementById("search-bar");
 
     const moviesContainer = document.getElementById("upcoming-movies");
     const featuredContainer = document.getElementById("now-playing-movies");
@@ -150,74 +150,4 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
-
-    // // Toggle filter options
-    // filterButton.addEventListener("click", () => {
-    //     dropdownContent.classList.toggle("show");
-    // });
-    //
-    // // Filter movies based on genre
-    // dropdownContent.addEventListener("click", (event) => {
-    //     const genre = event.target.getAttribute("data-genre");
-    //     if (genre) {
-    //         if (genre === "all") {
-    //             renderMovies(movies);
-    //         } else {
-    //             const filteredMovies = movies.filter(movie => movie.genre.toLowerCase() === genre);
-    //             renderMovies(filteredMovies);
-    //         }
-    //         dropdownContent.classList.remove("show");
-    //     }
-    // });
-
-    // // Search movies based on query
-    // searchInput.addEventListener("input", () => {
-    //     const query = searchInput.value.toLowerCase();
-    //     const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(query));
-    //     renderMovies(filteredMovies);
-    // });
-
 });
-
-function updateNavigation() {
-    const customer_id = sessionStorage.getItem("customer_id");
-    const customer_name = sessionStorage.getItem("customer_name");
-
-    const header = document.querySelector('header');
-
-    if (customer_id != null) {
-        header.innerHTML = `
-            <div class="logo">
-                <a href="index.html">
-                    <img src="resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
-                </a>
-            </div>
-            <nav aria-label="Main navigation">
-                <input type="text" placeholder="Search for movies" id="search-bar" aria-label="Search Movies">
-                <ul>
-                    <li id="username-display" style="margin-right: 20px;">Welcome, ${customer_name}</li>
-                    <li><a href="movies.html">All Movies</a></li>
-                    <li><a href="profile.html" aria-label="Edit Profile Details">Edit Profile</a></li>
-                    <li><a href="logout.html" aria-label="Logout">Logout</a></li>
-                </ul>
-            </nav>
-        `;
-    } else {
-        header.innerHTML = `
-            <div class="logo">
-                <a href="index.html">
-                    <img src="resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
-                </a>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="movies.html">All Movies</a></li>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="signup.html">Signup</a></li>
-                </ul>
-            </nav>
-        `;
-    }
-}
-
-document.addEventListener('DOMContentLoaded', updateNavigation);

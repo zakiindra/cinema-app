@@ -35,6 +35,8 @@ document.getElementById('signupForm').addEventListener('submit', async function(
 
         const result = await response.json();
 
+        console.log(result)
+
         if (response.ok) {
             alert('User registered successfully!');
             window.location.href = 'confirm-registration.html';

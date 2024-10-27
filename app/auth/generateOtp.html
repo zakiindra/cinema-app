@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OTP Generation</title>
-    <link rel="stylesheet" href="otpStyles.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/otpStyles.css">
 </head>
 <body>
+    <!-- Navigation Bar -->
     <header>
         <div class="logo">
-            <a href="index.html">
-                <img src="./static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
+            <a href="http://localhost:8001/index.html">
+            <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
             </a>
         </div>
         <nav>
-            <ul>
-                <li><a href="movies.html">All Movies</a></li>
-                <li><a href="login.html">Login</a></li>
-                <li><a href="signup.html">Signup</a></li>
+            <input type="text" placeholder="Search for movies" id="search-bar" aria-label="Search Movies">
+            <ul id="nav-content">   
+                <!-- Dynamic -->
             </ul>
         </nav>
     </header>
@@ -34,6 +34,7 @@
         </div>
     </div>
 
-    <script src="generateOtpScript.js"></script>
+    <script src="http://localhost:8001/static/js/nav-adjust.js"></script>
+    <script src="http://localhost:8001/static/js/generateOtpScript.js"></script>
 </body>
 </html>

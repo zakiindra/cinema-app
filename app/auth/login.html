@@ -4,23 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - UGA Movie</title>
-    <link rel="icon" type="image/x-icon" href="./../static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
-    <link rel="stylesheet" href="./../static/loginStyle.css">
+    <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/loginStyle.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
     <header>
         <div class="logo">
-            <a href="../index.html">
-                <img src="../static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
+            <a href="http://localhost:8001/static/index.html">
+                <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
             </a>
         </div>
         <nav>
-            <ul>
-                <li><a href="../movies.html">Movies</a></li>
-<!--                <li><a href="login.html">Login</a></li>-->
-                <li><a href="signup.html">Signup</a></li>
-                <!--                <li><a href="admin/index.html">Admin</a></li>-->
+            <ul id="nav-content">
+                <!-- Dynamic -->
             </ul>
         </nav>
     </header>
@@ -30,10 +26,10 @@
         <section class="auth-section">
             <h2>Login</h2>
             <form class="auth-form" id="loginForm">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
 
-                <label for="password">Password:</label>
+                <label for="password">Password</label>
                 <div class="password-container">
                     <input type="password" id="password" name="password" required>
                     <button type="button" id="toggle-password">Show</button>
@@ -42,12 +38,14 @@
                 <button type="submit">Login</button>
             </form>
 
-            <p>Don't have an account? <a href="signup.html">Sign up here</a>.</p>
+            <p>Don't have an account? <a href="http://localhost:8001/auth/signup.html">Sign up here</a>.</p>
+            <p><a href="http://localhost:8001/auth/generateOtp.html">Forgot Password?</a></p> 
         </section>
     </main>
 
     <div id="spinner" class="spinner"></div>
 
-    <script src="./../static/loginScript.js"></script>
+    <script src="http://localhost:8001/static/js/nav-adjust.js"></script>
+    <script src="http://localhost:8001/static/js/loginScript.js"></script>
 </body>
 </html>

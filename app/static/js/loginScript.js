@@ -7,16 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener('submit', async (event) => {
         event.preventDefault(); // Prevent default form submission
 
-        const email = document.getElementById('email').value;
+        const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
         let valid = true;
 
         // Basic form validation
-        if (!email) {
-            document.getElementById('email').classList.add('error');
+        if (!username) {
+            document.getElementById('username').classList.add('error');
             valid = false;
         } else {
-            document.getElementById('email').classList.remove('error');
+            document.getElementById('username').classList.remove('error');
         }
 
         if (!password) {
@@ -30,25 +30,28 @@ document.addEventListener("DOMContentLoaded", () => {
             spinner.style.display = 'block'; // Show spinner
 
             try {
-                const response = await fetch('/api/auth/login', {
+                const response = await fetch('localhost:8080/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ email, password })
+                    body: JSON.stringify({ username, password })
                 });
 
                 if (response.ok) {
-                    const result = await response.text();
-                    alert(result); // Handle successful response
-                    // Optionally redirect or handle success
+                    const customer = await response.json();
+                    sessionStorage.setItem("customer_id", customer.id);
+                    sessionStorage.setItem("customer_name", customer.firstName);
+
+                    // window.location.href = `http://localhost:8080/movies.html?username=${encodeURIComponent(username)}`;
+                    window.location.href = `index.html`;
                 } else {
                     const error = await response.text();
-                    alert('Login failed: ' + error); // Handle error response
+                    alert('Login failed: ' + error); 
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('An error occurred. Please try again.'); // Handle network errors
+                alert('An error occurred. Please try again.'); 
             } finally {
                 spinner.style.display = 'none'; // Hide spinner
             }
