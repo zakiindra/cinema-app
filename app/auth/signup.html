@@ -22,60 +22,62 @@
         </nav>
     </header>
 
-    <section class="auth-section">
-        <div class="container">
-            <h2>Signup</h2>
-            <form class="auth-form" id="signupForm">
-                <div class="inline-input-group">
-                    <div class="input-group">
-                        <label for="firstname">First Name:</label>
-                        <input type="text" id="firstname" name="firstname" required>
+    <main>
+        <section class="auth-section">
+            <div class="container">
+                <h2>Signup</h2>
+                <form class="auth-form" id="signupForm">
+                    <div class="inline-input-group">
+                        <div class="input-group">
+                            <label for="firstname">First Name:</label>
+                            <input type="text" id="firstname" name="firstname" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="lastname">Last Name:</label>
+                            <input type="text" id="lastname" name="lastname" required>
+                        </div>
                     </div>
                     <div class="input-group">
-                        <label for="lastname">Last Name:</label>
-                        <input type="text" id="lastname" name="lastname" required>
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
                     </div>
-                </div>
-                <div class="input-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                <div class="input-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="input-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div class="input-group">
-                    <label for="confirm-password">Confirm Password:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" required>
-                </div>
-                <div class="input-group">
-                    <label for="phone-number">Phone Number</label>
-                    <input type="text" id="phone-number" name="phone number" placeholder="Enter your Phone Number">
-                </div>
-                <div class="input-group">
-                    <label for="address">Address</label>
-                    <textarea name="address" id="address" rows="3" cols="10"></textarea>
-                </div>
-                <div class="input-group">
-                    <span style="display: flex; align-items: center; gap: 6px">
-                        <input type="checkbox" id="subscribe-promo" name="subscribe-promo">
-                        <label for="subscribe-promo" style="font-weight: normal">Notify Me about New Promotions</label>
-                    </span>
-                </div>
-                <button type="submit">Signup</button>
-            </form>
+                    <div class="input-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirm-password">Confirm Password:</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="phone-number">Phone Number</label>
+                        <input type="text" id="phone-number" name="phone number" placeholder="Enter your Phone Number">
+                    </div>
+                    <div class="input-group">
+                        <label for="address">Address</label>
+                        <textarea name="address" id="address" rows="3" cols="10"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <span style="display: flex; align-items: center; gap: 6px">
+                            <input type="checkbox" id="subscribe-promo" name="subscribe-promo">
+                            <label for="subscribe-promo" style="font-weight: normal">Notify Me about New Promotions</label>
+                        </span>
+                    </div>
+                    <button type="submit">Signup</button>
+                </form>
+    
+                <p>Already have an account? <a href="login.html">Login here</a>.</p>
+    
+                <div id="confirmationMessage" class="confirmation-message"></div>
+            </div>
+        </section>
+    </main>
 
-            <p>Already have an account? <a href="login.html">Login here</a>.</p>
-
-            <div id="confirmationMessage" class="confirmation-message"></div>
-        </div>
-    </section>
-
-    <script src="http://localhost:8001/static/js/nav-adjust.js"></script>
-    <script src="http://localhost:8001/static/js/signupScript.js"></script>
+    <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/auth/signupScript.js"></script>
 </body>
 </html>
