@@ -13,7 +13,7 @@ document.getElementById('resetPasswordForm').addEventListener('submit', function
     }
 
     
-    fetch('/api/customer/forgot-password?email=' + encodeURIComponent(email) +
+    fetch('http://localhost:8080/api/customer/forgot-password?email=' + encodeURIComponent(email) +
           '&otp=' + encodeURIComponent(otp) +
           '&newPassword=' + encodeURIComponent(newPassword), {
         method: 'POST'
@@ -29,7 +29,7 @@ document.getElementById('resetPasswordForm').addEventListener('submit', function
 
         
         setTimeout(() => {
-            window.location.href = 'login.html'; 
+            window.location.href = 'http://localhost:8001/auth/login.html'; 
         }, 2000); 
     })
     .catch(error => {
