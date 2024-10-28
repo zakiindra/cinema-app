@@ -3,7 +3,6 @@ import { SessionData } from "../utils/session.js";
 function renderProfileForm(document, data) {
     document.getElementById("first-name").value = data.firstName;
     document.getElementById("last-name").value = data.lastName;
-    document.getElementById("username").value = data.username;
     document.getElementById("email").value = data.email;
     document.getElementById("address").value = data.address;
     document.getElementById("phone-number").value = data.phoneNumber;
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }).then(response => response.json())
         .then(data => {
-            console.log(data);
             renderProfileForm(document, data);
             customer = data;
         })
@@ -54,7 +52,6 @@ document.getElementById('editProfileForm').addEventListener('submit', function(e
         const updatedProfile = {
             firstName: document.getElementById('first-name').value,
             lastName: document.getElementById('last-name').value,
-            username: document.getElementById('username').value,
             email: document.getElementById('email').value,
             phoneNumber: document.getElementById('phone-number').value,
             address: document.getElementById('address').value,

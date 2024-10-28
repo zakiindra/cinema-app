@@ -4,8 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const s = new SessionData()
     const session = s.get_session()
 
-    console.log(session)
-
     const navbarContent = document.getElementById('nav-content');
 
     if (session.id != null) {

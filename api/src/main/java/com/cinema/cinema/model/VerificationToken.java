@@ -16,9 +16,13 @@ public class VerificationToken {
     @Column(name = "token", nullable = false)
     private String token;
 
+//    @OneToOne
+//    @JoinColumn(name = "customer_id", nullable = false)
+//    private Customer customer;
+
     @OneToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(name = "expiration_time", nullable = false)
     private LocalDateTime expirationTime;

@@ -1,6 +1,8 @@
 package com.cinema.cinema.controller;
 
-import com.cinema.cinema.service.CustomerService;
+import com.cinema.cinema.exception.ResourceNotFoundException;
+import com.cinema.cinema.service.AuthService;
+//import com.cinema.cinema.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,12 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/customer")
 public class PasswordController {
 
-    private final CustomerService customerService;
-
     @Autowired
-    public PasswordController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
+    private AuthService authService;
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(
@@ -23,9 +21,12 @@ public class PasswordController {
             @RequestParam int otp,
             @RequestParam String newPassword) {
 
-        System.out.println("PASSWORD");
-        boolean isUpdated = customerService.forgotPassword(email, otp, newPassword);
-        System.out.println("IS UPDATED:=" + isUpdated);
+        boolean isUpdated = false;
+        try {
+            isUpdated = authService.forgotPassword(email, otp, newPassword);
+        } catch (ResourceNotFoundException e) {
+            ResponseEntity.notFound().build();
+        }
 
         if (isUpdated) {
             return ResponseEntity.ok("Password updated successfully.");

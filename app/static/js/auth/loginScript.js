@@ -1,6 +1,13 @@
 import { SessionData } from "../utils/session.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+    const s = new SessionData();
+    const session = s.get_session();
+
+    if (session.id != null) {
+        window.location.href = 'http://localhost:8001/index.html';
+    }
+
     const form = document.querySelector('.auth-form');
     const spinner = document.getElementById('spinner');
     const togglePassword = document.getElementById('toggle-password');
@@ -9,17 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener('submit', async (event) => {
         event.preventDefault(); // Prevent default form submission
 
-        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
         const rememberMe = document.getElementById('remember-me').checked;
         let valid = true;
 
         // Basic form validation
-        if (!username) {
-            document.getElementById('username').classList.add('error');
+        if (!email) {
+            document.getElementById('email').classList.add('error');
             valid = false;
         } else {
-            document.getElementById('username').classList.remove('error');
+            document.getElementById('email').classList.remove('error');
         }
 
         if (!password) {
@@ -33,26 +40,39 @@ document.addEventListener("DOMContentLoaded", () => {
             spinner.style.display = 'block'; // Show spinner
 
             try {
-                const response = await fetch('http://localhost:8080/api/auth/login', {
+                let response = await fetch('http://localhost:8080/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ username, password })
+                    body: JSON.stringify({ email, password })
                 });
 
-                if (response.ok) {
+                if (response.status === 400) {
+                    alert('Invalid email or password');
+                    return;
+                }
+
+                if (!response.ok) {
+                    alert('Login failed, please try again later');
+                    return;
+                }
+
+                const user = await response.json();
+                console.log(user);
+
+                if (user.userType === 'ADMIN') {
+                    window.location.href = `http://localhost:8001/admin/index.html`;
+                } else if (user.userType === 'CUSTOMER') {
+                    response = await fetch(`http://localhost:8080/customer/${user.id}`);
                     const customer = await response.json();
+                    s.set_session(user.id, customer.firstName, rememberMe)
 
-                    const s = new SessionData()
-                    s.set_session(customer.id, customer.firstName, rememberMe)
-
-                    // window.location.href = `http://localhost:8080/movies.html?username=${encodeURIComponent(username)}`;
                     window.location.href = `http://localhost:8001/index.html`;
                 } else {
-                    const error = await response.text();
-                    alert('Login failed: ' + error); 
+                    window.location.href = `http://localhost:8001/index.html`;
                 }
+
             } catch (error) {
                 console.error('Error:', error);
                 alert('An error occurred. Please try again.'); 
