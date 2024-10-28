@@ -21,6 +21,7 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
 spring.mail.username=
+spring.mail.properties.mail.from=   # Make this identical to spring.mail.username
 spring.mail.password=
 
 encryption.secret-key=

@@ -5,7 +5,7 @@ document.getElementById('otpForm').addEventListener('submit', function(event) {
     const messageElement = document.getElementById('message');
 
     
-    fetch('/api/otp/generate?emailId=' + encodeURIComponent(emailId), {
+    fetch('http://localhost:8080/api/otp/generate?emailId=' + encodeURIComponent(emailId), {
         method: 'POST'
     })
     .then(response => {
@@ -18,7 +18,7 @@ document.getElementById('otpForm').addEventListener('submit', function(event) {
         messageElement.textContent = data;
         
         setTimeout(() => {
-            window.location.href = 'resetPassword.html';
+            window.location.href = 'http://localhost:8001/auth/resetPassword.html';
         }, 2000); 
     })
     .catch(error => {

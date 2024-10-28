@@ -23,8 +23,8 @@ document.getElementById("new-payment-method-form").addEventListener("submit", as
                     method: 'POST',
                     body: JSON.stringify(formDataObj),
                     headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
                     }
                 }
             )

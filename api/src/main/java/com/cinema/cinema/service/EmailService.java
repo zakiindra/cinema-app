@@ -61,6 +61,21 @@ public class EmailService {
         mailSender.send(message);
     }
 
+    public void sendPasswordChangedEmail(String toEmail) {
+
+        String subject = "Password Updated";
+        String body = "Hello,\n\nYour password has been successfully updated.";
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject(subject);
+        message.setText(body);
+        message.setFrom("your-email@gmail.com");
+
+        mailSender.send(message);
+    }
+
+
     public void sendVerificationEmail(String recipient, String token) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
