@@ -1,4 +1,8 @@
+import { ensureAuthenticated } from "../guards.js";
+
 function handleNewPaymentMethod(event) {
+    const s = ensureAuthenticated()
+
     event.preventDefault()
 
     const form = event.target;  // 'event.target' refers to the form element
@@ -6,7 +10,7 @@ function handleNewPaymentMethod(event) {
     const formDataObj = Object.fromEntries(formData.entries());
 
     fetch(
-        'http://localhost:8080/customer/1/creditCard', 
+        `http://localhost:8080/customer/${s.id}/creditCard`,
         {
             method: 'POST',
             body: JSON.stringify(formDataObj),
@@ -15,9 +19,16 @@ function handleNewPaymentMethod(event) {
               'Content-Type': 'application/json'
             }
         }
-    ).then((data) => {
-        console.log(data)
+    ).then((response) => {
+        if (response.ok) {
+            window.location.href = 'http://localhost:8001/profile/index.html';
+        }
     }).catch((e) => {
         console.log(e)
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('add-payment-form');
+    form.addEventListener('submit', handleNewPaymentMethod);
+});

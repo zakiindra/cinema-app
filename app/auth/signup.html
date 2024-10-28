@@ -38,10 +38,6 @@
                         </div>
                     </div>
                     <div class="input-group">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-                    <div class="input-group">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required>
                     </div>
@@ -61,12 +57,11 @@
                         <label for="address">Address</label>
                         <textarea name="address" id="address" rows="3" cols="10"></textarea>
                     </div>
-                    <div class="input-group">
-                        <span style="display: flex; align-items: center; gap: 6px">
-                            <input type="checkbox" id="subscribe-promo" name="subscribe-promo">
-                            <label for="subscribe-promo" style="font-weight: normal">Notify Me about New Promotions</label>
-                        </span>
+                    <div class="inline-input-group checkbox-group">
+                        <input type="checkbox" id="subscribe-promo" name="subscribe-promo">
+                        <label for="subscribe-promo" style="font-weight: normal">Notify Me about New Promotions</label>
                     </div>
+
                     <button type="submit">Signup</button>
                 </form>
     
@@ -78,6 +73,6 @@
     </main>
 
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
-    <script src="http://localhost:8001/static/js/auth/signupScript.js"></script>
+    <script src="http://localhost:8001/static/js/auth/signupScript.js" type="module" ></script>
 </body>
 </html>

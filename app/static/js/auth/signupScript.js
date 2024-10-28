@@ -1,9 +1,21 @@
+import { SessionData } from "../utils/session.js";
+
+document.addEventListener('DOMContentLoaded', () => {
+    const s = new SessionData();
+    const session = s.get_session();
+    console.log(session);
+
+    if (session.id != null) {
+        window.location.href = 'http://localhost:8001/index.html';
+    }
+
+})
+
 document.getElementById('signupForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     
     const firstname = document.getElementById('firstname').value;
     const lastname = document.getElementById('lastname').value;
-    const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
@@ -24,7 +36,6 @@ document.getElementById('signupForm').addEventListener('submit', async function(
             body: JSON.stringify({ 
                 "firstName": firstname,
                 "lastName": lastname,
-                "username": username,
                 "email": email,
                 "password": password,
                 "phoneNumber": phoneNumber,
@@ -33,16 +44,17 @@ document.getElementById('signupForm').addEventListener('submit', async function(
             }),
         });
 
-        const result = await response.json();
-
-        console.log(result)
-
-        if (response.ok) {
-            alert('User registered successfully!');
-            window.location.href = 'confirm-registration.html';
-        } else {
-            alert('Error: ' + result.message);
+        if (response.status === 409) {
+            alert('Email already exists');
+            return
         }
+
+        if (!response.ok) {
+            alert('Error registering account. Please try again later.');
+            return
+        }
+
+        window.location.href = 'confirm-registration.html';
     } catch (error) {
         console.error('Error:', error);
         alert('An error occurred');

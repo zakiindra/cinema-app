@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderPaymentMethods(paymentMethods) {
+        const addPaymentMethodButton = document.getElementById("add-payment-method")
+        console.log(paymentMethods.length)
+        if (paymentMethods.length >= 4) {
+            addPaymentMethodButton.style.display = "none"
+        }
+
         const container = document.getElementById("payment-method-list")
 
         container.innerHTML = "";
@@ -24,17 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } 
 
         paymentMethods.forEach(paymentMethod => {
-//             const movieCard = document.createElement("div");
-//             movieCard.className = "movie-card";
-//             movieCard.innerHTML = `
-//                 <img src="${movie.posterUrl}" alt="${movie.title} Poster">
-//                 <h3>${movie.title}</h3>
-//                 <div class="movie-actions">
-//                     <button class="preview" data-title="${movie.title}" aria-label="Preview Trailer">Preview</button>
-//                     <button class="view-details" data-title="${movie.title}" aria-label="View Details">Details</button>
-// <!--                    <button class="book-now" data-title="${movie.title}" aria-label="Book Now">Book Now</button>-->
-//                 </div>
-//             `;
             const content = document.createElement("tr")
             
             const tdNumbering = document.createElement("td");
@@ -69,22 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const elements = [tdNumbering, tdMovieTitle, tdPaymentType, tdExpiry, tdAction];
 
-            // Loop through the array and append each child
             elements.forEach(element => content.appendChild(element));
-            // movieCard.querySelector(".view-details").addEventListener("click", () => {
-            //     openPopup(movie);
-            // });
-            // movieCard.querySelector(".preview").addEventListener("click", () => {
-            //     openPreviewPopup(movie);
-            // });
-            // container.appendChild(movieCard);
             container.appendChild(content)
         });
     }
 
     getPaymentMethods().then(data => {
-        // allMovies = data
-        // console.log(data)
         renderPaymentMethods(data)
     }).catch(e => {
         console.log(e)

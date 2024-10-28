@@ -5,15 +5,14 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "otp")
-public class Otp {
+@Table(name = "user_type")
+public class UserType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
-    
-    private int otp;
-}
+    @Column(name = "name", unique = true, nullable = false, length = 10)
+    String name;
 
+}

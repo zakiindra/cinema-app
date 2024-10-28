@@ -3,7 +3,7 @@ import { ensureAuthenticated } from "../guards.js";
 function renderProfileForm(document, data) {
     document.getElementById("first-name").value = data.firstName;
     document.getElementById("last-name").value = data.lastName;
-    document.getElementById("username").value = data.username;
+    document.getElementById("email").value = data.email;
     document.getElementById("address").value = data.address;
     document.getElementById("phone-number").value = data.phoneNumber;
     document.getElementById("subscribe-promo").checked = data.subscribePromo;
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }).then(response => response.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
             renderProfileForm(document, data);
             customer = data;
         })
@@ -30,9 +30,56 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Failed to load profile data.');
         });
 });
+document.getElementById('edit-profile-form').addEventListener('submit', function(event) {
+    const s = ensureAuthenticated()
 
-document.getElementById('editProfileForm').addEventListener('submit', function(event) {
-        ensureAuthenticated()
+    event.preventDefault();
+    const updatedProfile = {
+        firstName: document.getElementById('first-name').value,
+        lastName: document.getElementById('last-name').value,
+        email: document.getElementById('email').value,
+        phoneNumber: document.getElementById('phone-number').value,
+        address: document.getElementById('address').value,
+        subscribePromo: document.getElementById('subscribe-promo').checked
+    };
+
+    fetch(`http://localhost:8080/customer/${s.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedProfile)
+    })
+        .then(response => {
+            if (response.status === 200 || response.status === 201) {
+                return response.json();
+            } else if (response.status === 400) {
+                throw new Error('Invalid data submitted');
+            } else if (response.status === 401) {
+                throw new Error('Unauthorized. Please login again');
+            } else if (response.status === 403) {
+                throw new Error('You do not have permission to update this profile');
+            } else if (response.status === 404) {
+                throw new Error('Customer not found');
+            } else if (response.status === 500) {
+                throw new Error('Server error occurred');
+            } else {
+                throw new Error(`Unexpected status: ${response.status}`);
+            }
+        })
+        .then(data => {
+            alert('Profile updated successfully!');
+            renderProfileForm(document, data);
+        })
+        .catch(error => {
+            // renderProfileForm(document, customer);
+            console.error('Error updating profile:', error);
+            alert('An error occurred while updating your profile. Try again later.');
+        });
+});
+
+document.getElementById('edit-password-form').addEventListener('submit', function(event) {
+        const s = ensureAuthenticated()
 
         event.preventDefault();
         const updatedPassword = document.getElementById('password').value;
@@ -41,23 +88,13 @@ document.getElementById('editProfileForm').addEventListener('submit', function(e
         if (updatedPassword !== confirmPassword) {
             alert("Confirm password did not match password.");
 
-            document.getElementById('password').value = "";
+            document.getElementById('new-password').value = "";
             document.getElementById('confirm-password').value = "";
 
             return;
         }
 
-        const updatedProfile = {
-            firstName: document.getElementById('first-name').value,
-            lastName: document.getElementById('last-name').value,
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value,
-            phoneNumber: document.getElementById('phone-number').value,
-            address: document.getElementById('address').value,
-            subscribePromo: document.getElementById('subscribe-promo').checked
-        };
-
-        fetch(`/customer/${customer_id}`, {
+        fetch(`/customer/${s.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

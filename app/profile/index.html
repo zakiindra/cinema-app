@@ -31,20 +31,20 @@
             <section>
                 <div class="container">
                     <h2>Edit Profile</h2>
-                    <form class="auth-form" id="signupForm">
+                    <form class="auth-form" id="edit-profile-form">
                         <div class="inline-input-group">
                             <div class="input-group">
-                                <label for="firstname">First Name:</label>
+                                <label for="first-name">First Name:</label>
                                 <input type="text" id="first-name" name="firstname" required>
                             </div>
                             <div class="input-group">
-                                <label for="lastname">Last Name:</label>
+                                <label for="last-name">Last Name:</label>
                                 <input type="text" id="last-name" name="lastname" required>
                             </div>
                         </div>
                         <div class="input-group">
-                            <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" required>
+                            <label for="email">Email</label>
+                            <input type="text" id="email" name="email" disabled>
                         </div>
                         <div class="input-group">
                             <label for="phone-number">Phone Number</label>
@@ -54,8 +54,8 @@
                             <label for="address">Address</label>
                             <textarea name="address" id="address" rows="3" cols="10"></textarea>
                         </div>
-                        <div class="input-group">
-                            <span style="display: flex; align-items: center; gap: 6px">
+                        <div class="inline-input-group checkbox-group">
+                            <span style="display: flex; align-items: flex-start; gap: 6px">
                                 <input type="checkbox" id="subscribe-promo" name="subscribe-promo">
                                 <label for="subscribe-promo" style="font-weight: normal">Notify Me about New Promotions</label>
                             </span>
@@ -63,29 +63,29 @@
                         <button type="submit">Edit</button>
                     </form>
         
-                    <div id="confirmationMessage" class="confirmation-message"></div>
+                    <div id="edit-profile-confirmation" class="confirmation-message"></div>
                 </div>
             </section>
             <section>
                 <div class="container">
                     <h2>Update Password</h2>
-                    <form class="auth-form" id="signupForm">
+                    <form class="auth-form" id="edit-password-form">
                         <div class="input-group">
-                            <label for="username">Old Password:</label>
-                            <input type="text" id="username" name="username" required>
+                            <label for="old-password">Old Password:</label>
+                            <input type="password" id="old-password" name="edit-password" required>
                         </div>
                         <div class="input-group">
-                            <label for="username">New Password:</label>
-                            <input type="text" id="username" name="username" required>
+                            <label for="new-password">New Password:</label>
+                            <input type="password" id="new-password" name="edit-password" required>
                         </div>
                         <div class="input-group">
-                            <label for="username">Confirm New Password:</label>
-                            <input type="text" id="username" name="username" required>
+                            <label for="confirm-password">Confirm New Password:</label>
+                            <input type="password" id="confirm-password" name="edit-password" required>
                         </div>
                         <button type="submit">Update</button>
                     </form>
         
-                    <div id="confirmationMessage" class="confirmation-message"></div>
+                    <div id="edit-password-confirmation" class="confirmation-message"></div>
                 </div>
             </section>
         </div>
@@ -93,7 +93,7 @@
             <div class="container">
                 <div class="content-head">
                     <h2 class="head-title">Manage Payment Methods</h2>
-                    <a href="http://localhost:8001/profile/new-payment-method.html" class="content-head-action add-item-button" id="add-movie">
+                    <a href="http://localhost:8001/profile/new-payment-method.html" class="content-head-action add-item-button" id="add-payment-method">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>                      
