@@ -66,18 +66,18 @@
             <section>
                 <div class="container">
                     <h2>Update Password</h2>
-                    <form class="auth-form" id="edit-password-form">
+                    <form class="password-form" id="password-form">
                         <div class="input-group">
-                            <label for="old-password">Old Password</label>
-                            <input type="password" id="old-password" name="edit-password" required>
+                            <label for="current-password">Current Password:</label>
+                            <input type="password" id="current-password" name="currentPassword" required>
                         </div>
                         <div class="input-group">
-                            <label for="new-password">New Password</label>
-                            <input type="password" id="new-password" name="edit-password" required>
+                            <label for="new-password">New Password:</label>
+                            <input type="password" id="new-password" name="newPassword" required>
                         </div>
                         <div class="input-group">
-                            <label for="confirm-password">Confirm New Password</label>
-                            <input type="password" id="confirm-password" name="edit-password" required>
+                            <label for="confirm-new-password">Confirm New Password:</label>
+                            <input type="password" id="confirm-new-password" name="confirmNewPassword" required>
                         </div>
                         <button type="submit" class="add-item-button">Update</button>
                     </form>
@@ -123,5 +123,6 @@
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
     <script src="http://localhost:8001/static/js/profile/profile.js" type="module"></script>
     <script src="http://localhost:8001/static/js/profile/payment-method.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/profile/update-password.js" type="module"></script>
 </body>
 </html>

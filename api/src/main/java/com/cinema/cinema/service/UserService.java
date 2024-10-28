@@ -1,5 +1,7 @@
 package com.cinema.cinema.service;
 
+import com.cinema.cinema.dto.PasswordDTO;
+import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.User;
 import com.cinema.cinema.model.UserType;
 import com.cinema.cinema.model.VerificationToken;
@@ -11,6 +13,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.module.ResolutionException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -77,5 +80,29 @@ public class UserService {
 
     public boolean validatePassword(User user, String password) {
         return passwordService.verifyPassword(password, user.getEncryptedPassword());
+    }
+
+    public boolean updatePassword(Long id, PasswordDTO passwordDTO) throws ResourceNotFoundException {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        System.out.println(passwordDTO.getCurrentPassword());
+        System.out.println(passwordDTO.getNewPassword());
+        System.out.println(passwordDTO.getConfirmNewPassword());
+
+        if (validatePassword(user, passwordDTO.getCurrentPassword())) {
+            return false;
+        }
+
+        if (!passwordDTO.getNewPassword().equals(passwordDTO.getConfirmNewPassword())) {
+            return false;
+        }
+
+        user.setEncryptedPassword(passwordService.hashPassword(passwordDTO.getNewPassword()));
+        userRepository.save(user);
+
+        emailService.sendPasswordChangedEmail(user.getEmail());
+
+        return true;
     }
 }

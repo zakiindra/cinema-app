@@ -2,6 +2,7 @@ package com.cinema.cinema.controller;
 
 import com.cinema.cinema.dto.CreditCardDTO;
 import com.cinema.cinema.dto.CustomerDTO;
+import com.cinema.cinema.dto.PasswordDTO;
 import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.CreditCard;
 //import com.cinema.cinema.model.Customer;
@@ -73,7 +74,6 @@ public class CustomerController {
     @GetMapping("/{id}")
     public ResponseEntity<CustomerDTO> getCustomer(@PathVariable Long id) {
         CustomerDTO customerDTO;
-
         try {
             customerDTO = customerProfileService.getProfileByUserId(id);
         } catch (ResourceNotFoundException e) {
@@ -93,6 +93,17 @@ public class CustomerController {
         }
 
         return ResponseEntity.ok(updatedCustomerDTO);
+    }
+
+    @PutMapping("/{id}/password")
+    public ResponseEntity<?> updateCustomerPassword(@PathVariable Long id, @RequestBody PasswordDTO passwordDTO) {
+        boolean isPasswordChangeSuccessful = false;
+        try {
+            isPasswordChangeSuccessful = userService.updatePassword(id, passwordDTO);
+        } catch (ResourceNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseEntity.ok(isPasswordChangeSuccessful);
     }
 
     @PostMapping("/{id}/creditCard")
