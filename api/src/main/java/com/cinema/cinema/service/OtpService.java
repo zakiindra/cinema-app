@@ -20,16 +20,15 @@ public class OtpService {
         this.emailService = emailService; 
     }
 
-    public Otp generateOtp(String emailId) {
+    public Otp generateOtp(String email) {
         
         int otpValue = 1000 + random.nextInt(9000);
-        Otp otp = new Otp(emailId, otpValue);
+        Otp otp = new Otp();
+        otp.setEmail(email);
+        otp.setOtp(otpValue);
 
-        
-        emailService.sendOtpEmail(emailId, otpValue);
-
-        
         otpRepository.save(otp);
+        emailService.sendOtpEmail(email, otpValue);
 
         return otp; 
     }

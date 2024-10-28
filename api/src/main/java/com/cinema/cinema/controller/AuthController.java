@@ -2,11 +2,13 @@
 package com.cinema.cinema.controller;
 
 import com.cinema.cinema.dto.LoginRequest;
-import com.cinema.cinema.model.Customer;
+//import com.cinema.cinema.model.Customer;
+import com.cinema.cinema.dto.UserDTO;
+import com.cinema.cinema.model.User;
 import com.cinema.cinema.service.AuthService;
-import com.cinema.cinema.service.CustomerService;
+//import com.cinema.cinema.service.CustomerService;
+import com.cinema.cinema.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,23 +17,50 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 public class AuthController {
     
+//    @Autowired
+//    private CustomerService customerService;
+
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        String username = loginRequest.getUsername();  
-        String password = loginRequest.getPassword();
-        Customer customer = customerService.getByUsername(username);
+//    @PostMapping("/login")
+//    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+//        String username = loginRequest.getUsername();
+//        String password = loginRequest.getPassword();
+//        Customer customer = customerService.getByUsername(username);
+//
+//        if (customer != null && customerService.validatePassword(customer, password)) {
+//            return ResponseEntity.ok(customer);
+//        }
+//
+//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
+//    }
+//
+//    @GetMapping("/verify")
+//    public ResponseEntity<?> verifyEmail(@RequestParam String email, @RequestParam String token) {
+//        boolean verified = authService.verifyEmail(email, token);
+//        if (verified) {
+//            return ResponseEntity.ok().build();
+//        }
+//        return ResponseEntity.badRequest().build();
+//    }
 
-        if (customer != null && customerService.validatePassword(customer, password)) {
-            return ResponseEntity.ok(customer);
+    @PostMapping("/login")
+    public ResponseEntity<UserDTO> login(@RequestBody LoginRequest loginRequest) {
+        User user = userService.getUserByEmail(loginRequest.getEmail());
+        if (user == null || !userService.validatePassword(user, loginRequest.getPassword())) {
+            return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setUserType(user.getUserType().getName());
+
+        return ResponseEntity.ok(userDTO);
     }
 
     @GetMapping("/verify")

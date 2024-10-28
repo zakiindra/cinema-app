@@ -57,9 +57,14 @@ public class CreditCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+//    @ManyToOne
+//    @JoinColumn(name = "customer_id", nullable = false)
+//    private Customer customer;
+
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
 
     @Column(name = "card_type", nullable = false)
     private String cardType;
