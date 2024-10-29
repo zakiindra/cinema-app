@@ -1,7 +1,7 @@
 import { SessionData } from "../utils/session.js";
 import { ensureCreditCardSlotAvailable } from "../guards.js";
 
-document.getElementById("new-payment-method-form").addEventListener("submit", async (event) => {
+document.getElementById("payment-method-form").addEventListener("submit", async (event) => {
     event.preventDefault()
 
     try {

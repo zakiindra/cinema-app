@@ -68,16 +68,28 @@
                     <h2>Update Password</h2>
                     <form class="password-form" id="password-form">
                         <div class="input-group">
-                            <label for="current-password">Current Password:</label>
-                            <input type="password" id="current-password" name="currentPassword" required>
+                            <label for="password">Current Password</label>
+                            <div class="password-container">
+                                <!-- <input type="password" id="password" name="password" required> -->
+                                <input type="password" id="current-password" name="currentPassword" required>
+                                <button type="button" class="toggle-password">Show</button>
+                            </div>
                         </div>
                         <div class="input-group">
-                            <label for="new-password">New Password:</label>
-                            <input type="password" id="new-password" name="newPassword" required>
+                            <label for="password">Current Password</label>
+                            <div class="password-container">
+                                <!-- <input type="password" id="password" name="password" required> -->
+                                <input type="password" id="new-password" name="newPassword" required>
+                                <button type="button" class="toggle-password">Show</button>
+                            </div>
                         </div>
                         <div class="input-group">
-                            <label for="confirm-new-password">Confirm New Password:</label>
-                            <input type="password" id="confirm-new-password" name="confirmNewPassword" required>
+                            <label for="password">Current Password</label>
+                            <div class="password-container">
+                                <!-- <input type="password" id="password" name="password" required> -->
+                                <input type="password" id="confirm-new-password" name="confirmNewPassword" required>
+                                <button type="button" class="toggle-password">Show</button>
+                            </div>
                         </div>
                         <button type="submit" class="add-item-button">Update</button>
                     </form>
@@ -90,7 +102,7 @@
             <div class="container">
                 <div class="content-head">
                     <h2 class="head-title">Manage Payment Methods</h2>
-                    <a href="http://localhost:8001/profile/new-payment-method.html" class="content-head-action add-item-button" id="add-payment-method">
+                    <a href="http://localhost:8001/profile/payment-method-form.html" class="content-head-action add-item-button" id="add-payment-method">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>                      

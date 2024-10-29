@@ -1,5 +1,21 @@
 import { SessionData } from "../utils/session.js"
 
+document.addEventListener("DOMContentLoaded", () => {
+    const toggleButtons = document.querySelectorAll(".toggle-password")
+    toggleButtons.forEach(toggle => {
+        toggle.addEventListener("click", () => {
+            const input = toggle.previousElementSibling; // Get the input before the button
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggle.textContent = 'Hide';
+            } else {
+                input.type = 'password';
+                toggle.textContent = 'Show';
+            }
+        })
+    })
+})
+
 document.getElementById("password-form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
