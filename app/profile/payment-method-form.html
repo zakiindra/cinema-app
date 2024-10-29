@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Payment Method</title>
+    <title>New Payment Method</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
     <link rel="stylesheet" href="http://localhost:8001/static/css/style.css">
     <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
 </head>
@@ -27,35 +28,45 @@
     <section class="admin-section">
         <div class="container">
             <div class="content-head">
-                <h2 class="head-title">Edit Payment Method</h2>
+                <h2 class="head-title">New Payment Method</h2>
             </div>
-            <form action="#">
+            <form id="payment-method-form">
                 <div class="main-content movie-form">
                     <div class="form-body">
                         <div class="input-group">
+                            <label for="">Name on Card</label><br>
+                            <input type="text" name="name" id="">
+                        </div>
+                        <div class="input-group">
                             <label for="">Payment Type</label><br>
-                            <select name="" id="">
+                            <select name="cardType" id="">
                                 <option value="VISA">VISA</option>
                                 <option value="MasterCard">MasterCard</option>
+                                <option value="AMEX">AMEX</option>
+                                <option value="Discover">Discover</option>
                             </select>
                         </div>
                         <div class="input-group">
                             <label for="">Card Number</label><br>
-                            <input type="number" name="movie_title" id="">
+                            <input type="number" name="cardNumber" id="">
                         </div>
                         <div class="inline-input-group">
                             <div class="input-group">
-                                <label for="">Expire Date</label><br>
-                                <input type="date" name="movie_title" id="">
+                                <label for="">Expiration Date</label><br>
+                                <input type="date" name="expirationDate" id="">
                             </div>
                             <div class="input-group">
                                 <label for="">CVV</label><br>
-                                <input type="number" name="movie_title" id="">
+                                <input type="number" name="cvv" id="">
                             </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="">Billing Address</label><br>
+                            <textarea name="billingAddress" id="" cols="10" rows="3"></textarea>
                         </div>
                         <div class="form-control">
                             <input type="reset" value="RESET" class="reset-button">
-                            <input type="submit" value="#" class="submit-button">
+                            <input type="submit" value="SUBMIT" class="submit-button">
                         </div>
                     </div>
                 </div>
@@ -64,6 +75,6 @@
     </section>
 
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
-    <script src="http://localhost:8001/static/js/script.js"></script>
+    <script src="http://localhost:8001/static/js/profile/payment-method-form.js" type="module"></script>
 </body>
 </html>
