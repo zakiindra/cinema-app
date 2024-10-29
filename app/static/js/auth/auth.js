@@ -19,10 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const token = urlParams.get('token');
     const email = urlParams.get('email');
 
-    console.log(email);
-    console.log(token);
-    console.log(email && token)
-
     if (email && token) {
         verifyEmail(email, token);
     } else {

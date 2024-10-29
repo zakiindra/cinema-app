@@ -1,38 +1,35 @@
 document.getElementById('resetPasswordForm').addEventListener('submit', function(event) {
-    event.preventDefault(); 
-    const email = document.getElementById('email').value;
-    const otp = document.getElementById('otp').value;
+    event.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const email = urlParams.get('email');
     const newPassword = document.getElementById('newPassword').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const messageElement = document.getElementById('message');
 
-    
     if (newPassword !== confirmPassword) {
-        alert('Passwords do not match.');
+        messageElement.textContent = 'Passwords do not match.';
         return;
     }
 
-    
-    fetch('http://localhost:8080/api/customer/forgot-password?email=' + encodeURIComponent(email) +
-          '&otp=' + encodeURIComponent(otp) +
-          '&newPassword=' + encodeURIComponent(newPassword), {
-        method: 'POST'
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to reset password. Please try again.');
+    fetch('http://localhost:8080/api/auth/reset-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, token, newPassword })
+    }).then(response => {
+        if (response.ok) {
+            window.location.href = 'http://localhost:8001/auth/reset-password-success.html';
         }
-        return response.text();
-    })
-    .then(data => {
-        messageElement.textContent = data;
 
-        
-        setTimeout(() => {
-            window.location.href = 'http://localhost:8001/auth/login.html'; 
-        }, 2000); 
-    })
-    .catch(error => {
-        messageElement.textContent = error.message;
+        if (response.status === 400) {
+            messageElement.textContent = 'Token is invalid or expired. Please try again.';
+        }
+
+        if (response.status === 500) {
+            messageElement.textContent = 'Failed to reset password. Please try again later.';
+        }
     });
+
 });

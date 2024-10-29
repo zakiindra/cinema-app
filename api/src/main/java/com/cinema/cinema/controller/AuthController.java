@@ -3,7 +3,9 @@ package com.cinema.cinema.controller;
 
 import com.cinema.cinema.dto.LoginRequest;
 //import com.cinema.cinema.model.Customer;
+import com.cinema.cinema.dto.ResetPasswordDTO;
 import com.cinema.cinema.dto.UserDTO;
+import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.User;
 import com.cinema.cinema.service.AuthService;
 //import com.cinema.cinema.service.CustomerService;
@@ -76,6 +78,32 @@ public class AuthController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestParam String email) {
+        try {
+            authService.handleForgotPassword(email);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
+        boolean passwordUpdated;
+        try {
+            passwordUpdated = authService.resetPassword(resetPasswordDTO);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (!passwordUpdated) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok().build();
     }
 
 //    @PostMapping("/resend-verification")

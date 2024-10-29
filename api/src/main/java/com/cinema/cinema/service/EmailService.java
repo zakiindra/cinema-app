@@ -102,4 +102,31 @@ public class EmailService {
         </html>
         """.formatted(link);
     }
+
+    public void sendResetPasswordEmail(String recipient, String token) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setTo(recipient);
+        helper.setSubject("Reset Password");
+        helper.setText(createResetPasswordEmailContent(recipient, token), true);
+
+        mailSender.send(message);
+    }
+
+    private String createResetPasswordEmailContent(String email, String token) {
+        String link = "http://localhost:8001/auth/resetPassword.html?email=%s&token=%s".formatted(email, token);
+
+        return """
+        <html>
+            <body>
+                <h2>C7 Cinema - Reset Your Password</h2>
+                <p>Please follow the link below to reset your password:</p>
+                <p><a href="%s">Reset Password</a></p>
+                <p>This link will expire in 24 hours.</p>
+                <p>If you did not request password reset, please ignore this email.</p>
+            </body>
+        </html>
+        """.formatted(link);
+    }
 }
