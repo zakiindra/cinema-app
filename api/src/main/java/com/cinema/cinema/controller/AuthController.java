@@ -10,6 +10,7 @@ import com.cinema.cinema.service.AuthService;
 import com.cinema.cinema.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -49,10 +50,15 @@ public class AuthController {
 //    }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDTO> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         User user = userService.getUserByEmail(loginRequest.getEmail());
         if (user == null || !userService.validatePassword(user, loginRequest.getPassword())) {
             return ResponseEntity.badRequest().build();
+        }
+
+        if (user == null || !user.getActive()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body("Email has to be verified before logging in");
         }
 
         UserDTO userDTO = new UserDTO();

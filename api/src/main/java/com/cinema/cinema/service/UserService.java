@@ -90,7 +90,7 @@ public class UserService {
         System.out.println(passwordDTO.getNewPassword());
         System.out.println(passwordDTO.getConfirmNewPassword());
 
-        if (validatePassword(user, passwordDTO.getCurrentPassword())) {
+        if (!this.validatePassword(user, passwordDTO.getCurrentPassword())) {
             return false;
         }
 
