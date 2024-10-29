@@ -53,6 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
+                if (response.status === 403) {
+                    alert('Email has to be verified before logging in');
+                    return;
+                }
+
                 if (!response.ok) {
                     alert('Login failed, please try again later');
                     return;
