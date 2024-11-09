@@ -26,6 +26,12 @@ public class Movie {
 
     private String rating;
 
+    private String directors;
+
+    private String producers;
+
+    private String casts;
+
     private String posterUrl;
 
     private String trailerUrl;
