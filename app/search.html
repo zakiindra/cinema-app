@@ -16,18 +16,9 @@
     <main>
         <section class="movies-section">
             <div class="movies-header">
-                <h2 class="color-primary">Now Playing</h2>
+              <h2 class="color-primary">Search results for: "<span id="search-query"></span>"</h2>
             </div>
-            <div class="movies-container" id="now-playing-movies" role="list">
-                <!-- Movie cards will be inserted here by JavaScript -->
-            </div>
-        </section>
-
-        <section class="movies-section">
-            <div class="movies-header">
-                <h2 class="color-primary">Upcoming Movies</h2>
-            </div>
-            <div class="movies-container" id="upcoming-movies" role="list">
+            <div class="movies-container" id="search-results-container" role="list">
                 <!-- Movie cards will be inserted here by JavaScript -->
             </div>
         </section>
@@ -38,7 +29,7 @@
 
     <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
-    <script src="http://localhost:8001/static/js/movies.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/search-movie.js" type="module"></script>
     <script src="http://localhost:8001/static/js/search-movie-bar.js" type="module"></script>
 </body>
 </html>
