@@ -3,23 +3,42 @@ async function addMovie (event) {
   const formData = new FormData(event.target)
   const entries = Object.fromEntries(formData.entries())
 
+  let isFormInvalid = false;
+  for (const value of Object.values(entries)) {
+    if (value === null || value.trim() === "") {
+      isFormInvalid = true
+      break; 
+    }
+  }
+
+  if (isFormInvalid) {
+    alert("Please complete all required fields")
+    return;
+  }
+
   entries["durationMinutes"] = parseInt(entries["durationMinutes"], 10)  // Convert durationMinutes back to numbers
 
-  const response = await fetch(
-    "http://localhost:8080/movie",
-    {
-      method: "POST",
-      body: JSON.stringify(entries),
-      headers: {
-        'Content-Type': "application/json",
-        'Accept': "application/json"
+  try {
+    const response = await fetch(
+      "http://localhost:8080/movie",
+      {
+        method: "POST",
+        body: JSON.stringify(entries),
+        headers: {
+          'Content-Type': "application/json",
+          'Accept': "application/json"
+        }
       }
-    }
-  )
+    )
 
-  const data = response.json()
-  if (data) {
-    console.log("Movie is good")
+    if (!response.ok) {
+      console.log(response)
+    }
+
+    alert("Movie added successfully")
+  } catch (error) {
+    console.log(error)
+    alert("Something is wrong. Please try again later")
   }
 }
 

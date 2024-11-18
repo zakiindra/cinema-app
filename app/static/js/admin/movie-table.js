@@ -25,7 +25,11 @@ function MovieTableRow(movie) {
 }
 
 async function deleteMovie(event) {
-  confirm("Are you sure? This action is not reversible")
+  const confirmation = confirm("Are you sure? This action is not reversible")
+
+  if (!confirmation) {
+    return;
+  }
 
   try {
     const response = await fetch(
