@@ -6,25 +6,16 @@
     <title>Signup - UGA Movie</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
     <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/signupStyle.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/forms.css">
+    <!-- <link rel="stylesheet" href="http://localhost:8001/static/css/signupStyle.css"> -->
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <a href="http://localhost:8001/index.html">
-                <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
-            </a>
-        </div>
-        <nav>
-            <ul id="nav-content">
-                <!-- Dynamic -->
-            </ul>
-        </nav>
+    <header id="header">
     </header>
 
     <main>
         <section class="auth-section">
-            <div class="container">
+            <div class="container-t">
                 <h2>Signup</h2>
                 <form class="auth-form" id="signupForm">
                     <div class="inline-input-group">
@@ -62,16 +53,22 @@
                         <label for="subscribe-promo" style="font-weight: normal">Notify Me about New Promotions</label>
                     </div>
 
-                    <button type="submit">Signup</button>
+                    <div class="form-control" id="form-actions"></div>
                 </form>
     
-                <p>Already have an account? <a href="login.html">Login here</a>.</p>
+                <p style="margin-top: 0.3rem;">Already have an account? <a href="login.html">Login here</a>.</p>
     
                 <div id="confirmationMessage" class="confirmation-message"></div>
             </div>
         </section>
     </main>
 
+    <script>
+      const secondButtonMessage = "Sign Up"
+    </script>
+
+    <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/form-components.js" type="module"></script>
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
     <script src="http://localhost:8001/static/js/auth/signupScript.js" type="module" ></script>
 </body>

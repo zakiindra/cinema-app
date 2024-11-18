@@ -5,106 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ordering - Order Summary | #</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/style.css">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/ordering.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
+    <!-- <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css"> -->
+    <link rel="stylesheet" href="http://localhost:8001/static/css/booking.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/forms.css">
 </head>
 <body>
     <!-- Navigation Bar -->
-    <header>
-        <div class="logo">
-            <a href="http://localhost:8001/index.html">
-                <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
-            </a>
-        </div>
-        <nav>
-            <ul id="nav-content">
-                <!-- Dynamic -->
-            </ul>
-        </nav>
+    <header id="header">
     </header>
 
     <!-- Admin Section -->
-    <section class="admin-section">
-        <div class="container">
-            <div class="content-head">
-                <button class="content-head-action back-button" id="add-movie">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                    </svg>                                       
-                    <span>To Movie List</span>
-                </button>
-                <h2 class="head-title">Order Confirmation: Breaking Bad</h2>
-            </div>
-            <form action="#">
-                <div class="divider">
-                    <hr>
-                    <small>Order Receipt</small>
-                    <hr>
-                </div>
-                <div class="main-content" style="width: 50%; margin: 1rem auto;">
-                    <h1 style="text-align: center; margin-bottom: 1rem;">
-                        Thank You for Ordering!
-                    </h1>
-                    <div style="text-align: center; margin-bottom: 1rem;">
-                        <h3>Breaking Bad</h3>
-                        <p>Showtime: Sep 28th, 2024</p>
-                    </div>
-                    <div class="applied-promo-info">
-                        <strong>Applied Promo Code</strong>
-                        <span>LELA25</span>
-                    </div>
-                    <table style="width: 100%; margin-bottom: 1rem;">
-                        <thead>
-                            <tr>
-                                <th class="numbering"></th>
-                                <th>Seat Number</th>
-                                <th>Type</th>
-                                <th>Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="numbering">1</td>
-                                <td>A1</td>
-                                <td>Adult</td>
-                                <td>$10</td>
-                            </tr>
-                            <tr>
-                                <td class="numbering">1</td>
-                                <td>A1</td>
-                                <td>Adult</td>
-                                <td>$10</td>
-                            </tr>
-                            <tr>
-                                <td class="numbering">1</td>
-                                <td>A1</td>
-                                <td>Adult</td>
-                                <td>$10</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2" style="text-align: right;" ></td>
-                                <td style="text-align: left;" >Order Total</td>
-                                <td>$30</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div class="applied-promo-info">
-                        <strong>Paid with</strong>
-                        <span>Visa ending ****8988</span>
-                    </div>
-                    <div class="applied-promo-info">
-                        <strong>Paid at</strong>
-                        <span>September 22nd, 2024</span>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+    <main>
+      <section>
+          <div class="container-t">
+              <form action="#">
+                  <div class="main-content" style="width: 50%; margin: 1rem auto;">
+                      <h2 style="text-align: center; margin-bottom: 1rem;">
+                          Thank You for Ordering!
+                      </h2>
+                      <div style="text-align: center; margin-bottom: 1rem;">
+                          <h3>Breaking Bad</h3>
+                          <p>Showtime: Sep 28th, 2024</p>
+                      </div>
+                      <div class="applied-promo-info">
+                          <strong>Applied Promo Code</strong>
+                          <span>LELA25</span>
+                      </div>
+                      <table style="width: 100%; margin-bottom: 1rem;">
+                          <thead>
+                              <tr>
+                                  <th class="numbering"></th>
+                                  <th>Seat Number</th>
+                                  <th>Type</th>
+                                  <th>Price</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td class="numbering">1</td>
+                                  <td>A1</td>
+                                  <td>Adult</td>
+                                  <td>$10</td>
+                              </tr>
+                              <tr>
+                                  <td class="numbering">1</td>
+                                  <td>A1</td>
+                                  <td>Adult</td>
+                                  <td>$10</td>
+                              </tr>
+                              <tr>
+                                  <td class="numbering">1</td>
+                                  <td>A1</td>
+                                  <td>Adult</td>
+                                  <td>$10</td>
+                              </tr>
+                          </tbody>
+                          <tfoot>
+                              <tr>
+                                  <td colspan="2" style="text-align: right;" ></td>
+                                  <td style="text-align: left;" >Order Total</td>
+                                  <td>$30</td>
+                              </tr>
+                          </tfoot>
+                      </table>
+                      <div class="applied-promo-info">
+                          <strong>Paid with</strong>
+                          <span>Visa ending ****8988</span>
+                      </div>
+                      <div class="applied-promo-info">
+                          <strong>Paid at</strong>
+                          <span>September 22nd, 2024</span>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </section>
+    </main>
 
+    <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/bookingcomponents.js" type="module"></script>
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
-    <script src="http://localhost:8001/static/js/script.js"></script>
 </body>
 </html>

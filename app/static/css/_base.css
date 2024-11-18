@@ -7,30 +7,51 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    /* background-color: #f4f4f4; */
+    /* color: #333; */
     line-height: 1.6;
 }
 
 
 /* Complementary classes */
 .hidden {
-    display: none;
+    display: none; 
 }
 
 
+/* Base colors */
+.bg-primary {
+  background: white;
+  color: black;
+}
+
+.bg-primary-action {
+  background-color: #C00000;
+  color: white;
+  border: none;
+}
+
+.bg-danger-action {
+  background-color: "#343A40";
+}
+
+
+.color-primary {
+  color: #C00000 ;
+}
+
 /* Header, navbar */
 header {
-    background-color: #FF5733;
+    /* background-color: #FF5733; */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0.25rem;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    border-bottom: 1px solid #ccc;
 }
 
 .logo img {
@@ -41,51 +62,73 @@ header {
 nav {
     display: flex;
     align-items: center;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    margin-left: 1rem;
 }
 
 nav input {
     padding: 8px 15px;
-    border-radius: 20px;
+    border-radius: 2px;
     border: none;
     width: 300px;
-    background-color: #fff;
-    outline: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
     transition: all 0.3s ease;
+    margin-right: 20px;
+    background-color: #ccc;
 }
 
 nav input:focus {
     width: 350px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    margin-left: 20px;
+align-items: center;
+    height: 100%;
 }
 
 nav ul li {
-    margin: 0 20px;
+    margin: 0 0.02rem;
+}
+
+.auth-link-box {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.auth-link-p, .auth-link {
+  font-size: 0.85rem;
+}
+
+.auth-link {
+  text-decoration: underline;
+  padding: 0;
+}
+
+.border-l {
+  height: 2rem;
+  border-left: 1px solid #ccc;
+  margin-right: 1rem;
 }
 
 nav ul li a {
-    color: white;
+    color: black ;
     text-decoration: none;
-    font-weight: bold;
     font-size: 16px;
     padding: 10px 15px;
     border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    height: 100%;
 }
 
-nav ul li a:hover {
-    background-color: white;
-    color: #FF5733;
+a:hover {
+  color: #4169E1;
 }
 
 #username-display {
-    color: white;
     font-weight: bold;
     cursor: pointer;
 }
@@ -95,28 +138,22 @@ nav ul li a:hover {
     background: white;
     border: 1px solid #ccc;
     z-index: 1000;
+    right: 0.3rem;
 }
 
-
-#user-control-popup li {
-    list-style: none;
+#user-control-popup p {
+  padding: 0.5rem;
 }
 
-#user-control-popup li a {
-    display: block;
-    padding: 0.5rem;
-    text-decoration: none;
-    color: black;
+.rounded-box {
+  border: 2px solid black;
+  border-radius: 50%;
+  padding: 0.2rem;
 }
-
-#user-control-popup li a:hover {
-    text-decoration: underline;
-}
-
 
 /* Content */
 main {
-    padding-top: 5.5rem;
+    padding-top: 4rem;
 }
 
 section {
@@ -129,13 +166,17 @@ section {
     display: flex;
 }
 
-.inline-section section {
+.inline-sections section {
     padding-top: 2rem;
     padding-bottom: 1rem;
 }
 
 .inline-sections:first-child section {
     flex-grow: 1;
+}
+
+.inline-sections > section > .container {
+    border: 1px solid #ddd;
 }
 
 .container {
@@ -146,100 +187,119 @@ section {
     background-color: white;
 }
 
-.container > h2 {
+.container-t {
+    border-radius: 0.6rem;
+    width: 50%;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: white;
+}
+
+.container > h2,
+.container-t > h2 {
     margin-bottom: 1rem;
     font-size: 24px;
-    color: #FF5733;
+    color: #C00000;
 }
 
-.form-body {
-    flex-grow: 1;
-}
-
-.input-group {
-    margin-bottom: 0.5rem;
-}
-
-.input-group input, .input-group textarea, .input-group select {
-    width: 100%;
-    padding: 0.4rem 0.8rem;
-}
-
-.input-group input:read-only {
-    background-color: #ccc;
-    border: 1px solid #ccc;
-    cursor: not-allowed;
-}
-
-.input-group textarea {
-    resize: vertical;
-}
-
-.inline-input-group {
+.content-head {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: 1.2rem;
+    margin-bottom: 1rem;
 }
 
-.checkbox-group {
-    justify-content: start !important;
-    align-items: center;
-    margin-bottom: 0.3rem;
+.content-head-w-backs {
+  justify-content: flex-start;
+  gap: 1rem;
 }
 
-.checkbox-group > label, .checkbox-group > input {
-    margin-bottom: 0;
+
+.content-head a.back-button {
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  text-decoration: none;
+  color: #333;
 }
 
-.inline-input-group > .input-group {
-    flex: 1;
+.content-head > h2 {
+    color: #C00000;
 }
 
-.divider {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.content-head-action {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  justify-content: space-between;
+  gap: 0.3rem;
 }
 
-.divider hr {
-    flex: 1;
+button.content-head-action {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+button.content-head-action:hover {
+  color: #C00000;
+  text-decoration: underline;
+}
+
+table {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+th.text-col, td.text-col {
+  padding: 0.4rem 0;
+  text-align: left;
+}
+
+/* Popup Styles */
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+}
+
+.popup-content {
+    background-color: #fefefe;
+    margin: auto; /* Center horizontally */
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 4px;
+    width: 50%; /* Adjust width as needed */
+    max-width: 600px; /* Max width to ensure it doesn’t get too wide */
+    position: relative; /* For vertical centering */
+    top: 20%; /* Center vertically; adjust as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#popup-title {
+  color: #C00000;
+}
+
+.close-btn {
+    background-color: transparent;
     border: none;
-    border-top: 1px solid #ccc;
+    color: #333;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
-.divider hr:first-child {
-    margin-right: 1rem;
-}
-
-.divider hr:last-child {
-    margin-left: 1rem;
-}
-
-.form-control {
-    margin-top: 2rem;
-    display: flex;
-    gap: 1.2rem;
-}
-
-.form-control input[type="reset"],
-.form-control input[type="submit"] {
+.close-btn:hover,
+.close-btn:focus {
+    color: red;
+    text-decoration: none;
     cursor: pointer;
-}
-
-.form-control .reset-button {
-    padding: 0.5rem 0.9rem;
-    width: 25%;
-    border: 1px solid #DEDEDE;
-}
-
-.form-control .submit-button {
-    flex: 1;
-    padding: 0.5rem 0.9rem;
-    color: white;
-    background-color: rgb(16, 58, 175);
-    border: 1px solid rgb(16, 58, 175);
-}
-
-.form-info-box {
-    margin-top: 1.5rem;
 }

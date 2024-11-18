@@ -54,13 +54,13 @@ h2 > svg {
 
 thead tr, thead td, tbody tr, tbody td {
     border-top: 1px solid #DEDEDE;
-    /* border-bottom: 1px solid #DEDEDE; */
     border-collapse: collapse;
     text-align: left;
 }
 
 table > tfoot tr, table > tfoot td {
-    border: none;
+    border-top: 1px solid #DEDEDE;
+    /* border: none; */
     font-weight: bold;
 }
 
@@ -100,19 +100,7 @@ th, td {
     height: 1.2rem;
 }
 
-.add-item-button {
-    background-color: green;
-    color: white;
-    border: 1px solid green;
-}
-
-.add-item-button:hover {
-    background-color: rgb(0, 94, 0);
-    border: 1px solid rgb(0, 94, 0);
-}
-
 .back-button {
-    background-color: #ddd;
     border: 1px solid #ddd;
 }
 
@@ -151,7 +139,7 @@ th, td {
 .movie-form {
     display: flex;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 3rem;
 }
 
 .form-body {
@@ -225,3 +213,5 @@ th, td {
     background-color: rgb(16, 58, 175);
     border: 1px solid rgb(16, 58, 175);
 }
+
+

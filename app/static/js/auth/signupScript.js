@@ -28,6 +28,17 @@ document.getElementById('signupForm').addEventListener('submit', async function(
     }
 
     try {
+      const body = JSON.stringify({ 
+                "firstName": firstname,
+                "lastName": lastname,
+                "email": email,
+                "password": password,
+                "phoneNumber": phoneNumber,
+                "address": address,
+                "subscribePromo": subscribePromo
+            })
+        console.log(body)
+
         const response = await fetch('http://localhost:8080/customer', {
             method: 'POST',
             headers: {
@@ -48,6 +59,8 @@ document.getElementById('signupForm').addEventListener('submit', async function(
             alert('Email already exists');
             return
         }
+
+        console.log(response)
 
         if (!response.ok) {
             alert('Error registering account. Please try again later.');

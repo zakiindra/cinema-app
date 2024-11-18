@@ -5,35 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UGA Movie</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/movieStyle.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
+    <!-- <link rel="stylesheet" href="http://localhost:8001/static/css/movieStyle.css"> -->
 </head>
 <body>
 <!-- Navigation Bar -->
-    <header>
-        <div class="logo">
-            <a href="http://localhost:8001/index.html">
-                <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
-            </a>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="http://localhost:8001/movies.html">All Movies</a></li>
-                <li><a href="http://localhost:8001/auth/login.html">Login</a></li>
-<!--                <li><a href="http://localhost:8080/signup.html">Signup</a></li>-->
-            </ul>
-        </nav>
+    <header id="header">
     </header>
 
     <main>
-        <div class="verification-container">
+      <section>
+        <div class="container verification-container">
             <h2>Email Verification</h2>
             <div id="message">Verifying your email...</div>
             <div id="loginLink" style="display: none;">
                 <a href="http://localhost:8001/auth/login.html">Proceed to Login</a>
             </div>
         </div>
+      </section>
     </main>
-<script src="http://localhost:8001/static/js/auth/auth.js">
-</script>
+
+    <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/auth/auth.js"></script>
 </body>
 </html>

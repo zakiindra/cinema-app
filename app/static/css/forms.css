@@ -1,7 +1,102 @@
-.registration-box {
-    width: 60%;
+.form-body {
+    flex-grow: 1;
 }
 
-.login-box {
-    width: 45%;
+input:focus {
+  outline: none;
+}
+
+.input-group {
+    margin-bottom: 0.5rem;
+}
+
+.input-group input, .input-group textarea, .input-group select {
+    width: 100%;
+    padding: 0.4rem 0.8rem;
+}
+
+.input-group input:read-only {
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    cursor: not-allowed;
+}
+
+.input-group textarea {
+    resize: vertical;
+}
+
+.inline-input-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+}
+
+.checkbox-group {
+    justify-content: start ;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
+.checkbox-group > label, .checkbox-group > input {
+    margin-bottom: 0;
+}
+
+.inline-input-group > .input-group {
+    flex: 1;
+}
+
+.divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider hr {
+    flex: 1;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+.divider hr:first-child {
+    margin-right: 1rem;
+}
+
+.divider hr:last-child {
+    margin-left: 1rem;
+}
+
+.form-info-box {
+    margin-top: 1.5rem;
+}
+
+.form-control {
+  margin-top: 1rem;
+}
+
+/* .form-actions { */
+/*   margin-top: 1rem; */
+/* } */
+
+.form-actions button {
+    padding: .7rem 1.4rem;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 900;
+    /* transition: background-color 0.3s ease; */
+}
+
+
+.form-actions input[type="submit"],
+.form-actions input[type="reset"] {
+    padding: .7rem 1.4rem;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 900;
+    margin-right: 0.3rem;
+    /* transition: background-color 0.3s ease; */
 }

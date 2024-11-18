@@ -5,56 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Movies | Admin</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/style.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
     <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/forms.css">
 </head>
 <body>
     <!-- Navigation Bar -->
-    <header>
-        <div class="logo">
-            <a href="http://localhost:8001/index.html">
-                <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
-            </a>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="http://localhost:8001/index.html">Logout</a></li>
-            </ul>
-        </nav>
+    <header id="header">
     </header>
 
     <!-- Admin Section -->
-    <section class="admin-section">
-        <div class="container">
-            <div class="content-head">
-                <h2 class="head-title">Manage Movies</h2>
-                <input type="text" name="" id="" placeholder="Search Movie..." class="content-head-search-box">
-                <a href="./movie-form.html" class="content-head-action add-item-button" id="add-movie">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>                      
-                    <span>New Movie</span>
-                </a>
-            </div>
-            <div class="movie-list">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="movie-title">Movie Title</th>
-                            <th>Release date</th>
-                            <th>Showtime</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="movie-table-body">
-                        <!-- Will be dynamically inserted -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
+    <main>
+      <section>
+          <div class="container">
+              <div class="content-head">
+                  <h2 class="head-title">Manage Movies</h2>
+                  <div class="input-group">
+                    <input type="text" name="" id="" placeholder="Search Movie..." class="content-head-search-box">
+                  </div>
+                  <a href="./movie-form.html" class="content-head-action add-item-button" id="add-movie">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="18" height="18">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>                      
+                      <span>New Movie</span>
+                  </a>
+              </div>
+              <div class="movie-list">
+                  <table>
+                      <thead>
+                          <tr>
+                              <th class="movie-title">Movie Title</th>
+                              <th>Release date</th>
+                              <th>Showtime</th>
+                              <th>Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody id="movie-table-body">
+                          <!-- Will be dynamically inserted -->
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </section>
+    </main>
 
     <!-- <script src="http://localhost:8001/static/js/script.js"></script> -->
+    <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
     <script src="http://localhost:8001/static/js/admin/movie-table.js" type="module"></script>
 </body>
 </html>
