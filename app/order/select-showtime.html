@@ -5,73 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking: Step 1 - Select Showtime | UGA Movies</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/style.css">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/booking.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/forms.css">
 </head>
 <body>
     <!-- Navigation Bar -->
-    <header>
-        <div class="logo">
-            <a href="http://localhost:8001/index.html">
-                <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
-            </a>
-        </div>
-        <nav>
-            <ul id="nav-content">
-                <!-- Dynamic -->
-            </ul>
-        </nav>
+    <header id="header">
     </header>
 
-    <!-- Admin Section -->
-    <section class="admin-section">
-        <div class="container">
-            <div class="content-head">
-                <button class="content-head-action back-button" id="add-movie">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                    </svg>                                       
-                    <span>To Movie List</span>
-                </button>
-                <h2 class="head-title">Booking: Breaking Bad</h2>
-            </div>
-            <form action="#">
-                <div class="main-content movie-form">
-                    <div class="movie-media">
-                        <div class="movie-media-poster">
-                            <h3>Movie Poster</h3>
-                            <img src="https://via.placeholder.com/200x300" alt="" srcset="">
-                        </div>
-                    </div>
-                    <div class="form-body">
-                        <div class="divider">
-                            <hr>
-                            <small>Booking: Step 1 - Select Showtime</small>
-                            <hr>
-                        </div>
-                        <h3>Breaking Bad</h3>
-                        <small>Rating: R -- Category: Drama</small>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Suscipit consectetur similique vel vero reiciendis labore ducimus modi ex debitis hic. Modi, totam obcaecati placeat omnis ipsa debitis laboriosam quos maiores.</p>
-                        <div class="input-group" style="margin-top: 1.3rem;">
-                            <label for="">Select Showtime</label><br>
-                            <select name="" id="" >
-                                <option value="">-- Choose Showtime --</option>
-                                <option value="">Available Showtime 1</option>
-                                <option value="">Available Showtime 2</option>
-                                <option value="">Available Showtime 3</option>
-                            </select>
-                        </div>
-                        <div class="form-control">
-                            <input type="reset" value="RESET" class="reset-button">
-                            <input type="submit" value="CONTINUE" class="submit-button">
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+    <main>
+      <section>
+          <div class="container">
+              <form action="#">
+                  <div class="main-content booking-form">
+                      <div class="movie-media">
+                          <div class="movie-media-poster">
+                              <img src="" alt="" srcset="" id="movie-poster">
+                          </div>
+                      </div>
+                      <div class="form-body">
+                          <div class="divider">
+                              <hr>
+                              <small>Booking: Step 1 - Select Showtime</small>
+                              <hr>
+                          </div>
+                          <h2>BOOK A SHOW: <span id="movie-title"></span></h2>
+                          <div class="movie-details">
+                            <span id="movie-context"></span>
+                            <span id="movie-release-date"></span>
+                            <span id="movie-genre"></span>
+                          </div>
+                          <p id="movie-description"></p>
+                          <div class="input-group" style="margin-top: 1.3rem;">
+                            <p class="selections-label"><b>Select Showtime:</b></p>
+                            <div class="selections" id="showtime-selection">
+                            </div>
+                          </div>
+                          <div class="form-control" id="booking-actions">
+                            <!-- Dynamic  -->
+                          </div>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </section>
+    </main>
 
-    <script src="http://localhost:8001/static/js/script.js"></script>
+    <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/bookingcomponents.js" type="module"></script>
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/booking/select-showtime.js" type="module"></script>
 </body>
 </html>

@@ -3,152 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ordering - Select Seats | #</title>
+    <title>Booking: Step 2 - Select Seats | UGA Cinema</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/style.css">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/ordering.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/booking.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/forms.css">
 </head>
 <body>
     <!-- Navigation Bar -->
-    <header>
-        <div class="logo">
-            <a href="http://localhost:8001/index.html">
-                <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
-            </a>
-        </div>
-        <nav>
-            <ul id="nav-content">
-                <!-- Dynamic -->
-            </ul>
-        </nav>
+    <header id="header">
     </header>
 
     <!-- Admin Section -->
-    <section class="admin-section">
-        <div class="container">
-            <div class="content-head">
-                <button class="content-head-action back-button" id="add-movie">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                    </svg>                                       
-                    <span>To Movie List</span>
-                </button>
-                <h2 class="head-title">Booking: Breaking Bad</h2>
-            </div>
-            <form action="#">
-                <div class="main-content seats-form">
-                    <div class="pricing-list">
-                        <h3>Pricing List</h3>
-                        <ul>
-                            <li>Elderly: $XX</li>
-                            <li>Adult: $XX</li>
-                            <li>Children: $XX</li>
-                        </ul>
-                    </div>
-                    <div class="form-body">
-                        <div class="divider">
-                            <hr>
-                            <small>Booking: Step 2 - Select Seats</small>
-                            <hr>
-                        </div>
-                        <div class="screen">
-                            Screen
-                        </div>
-                        <div class="seats">
-                            <div class="row">
-                                <label class="seat">
-                                    <input type="radio" name="option" value="A1" />
-                                    <span class="radio-label">A1</span>
-                                    <select name="" id="" style="margin-top: 0.3rem;">
-                                        <option value="">Adult</option>
-                                        <option value="">Children</option>
-                                    </select>
-                                </label>
-                                <label class="seat">
-                                    <input type="radio" name="option" value="A1" />
-                                    <span class="radio-label">A2</span>
-                                    <select name="" id="" style="margin-top: 0.3rem;">
-                                        <option value="">Adult</option>
-                                        <option value="">Children</option>
-                                    </select>
-                                </label>
-                                <label class="seat">
-                                    <input type="radio" name="option" value="A1" />
-                                    <span class="radio-label">A3</span>
-                                    <select name="" id="" style="margin-top: 0.3rem;">
-                                        <option value="">Adult</option>
-                                        <option value="">Children</option>
-                                    </select>
-                                </label>
-                                <label class="seat">
-                                    <input type="radio" name="option" value="A1" />
-                                    <span class="radio-label">A4</span>
-                                    <select name="" id="" style="margin-top: 0.3rem;">
-                                        <option value="">Adult</option>
-                                        <option value="">Children</option>
-                                    </select>
-                                </label>
-                                <label class="seat">
-                                    <input type="radio" name="option" value="A1" />
-                                    <span class="radio-label">A5</span>
-                                    <select name="" id="" style="margin-top: 0.3rem;">
-                                        <option value="">Adult</option>
-                                        <option value="">Children</option>
-                                    </select>
-                                </label>
-                                <label class="seat">
-                                    <input type="radio" name="option" value="A1" />
-                                    <span class="radio-label">A6</span>
-                                    <select name="" id="" style="margin-top: 0.3rem;">
-                                        <option value="">Adult</option>
-                                        <option value="">Children</option>
-                                    </select>
-                                </label>
-                                <label class="seat">
-                                    <input type="radio" name="option" value="A1" />
-                                    <span class="radio-label">A7</span>
-                                    <select name="" id="" style="margin-top: 0.3rem;">
-                                        <option value="">Adult</option>
-                                        <option value="">Children</option>
-                                    </select>
-                                </label>
-                                <label class="seat">
-                                    <input type="radio" name="option" value="A1" />
-                                    <span class="radio-label">A8</span>
-                                    <select name="" id="" style="margin-top: 0.3rem;">
-                                        <option value="">Adult</option>
-                                        <option value="">Children</option>
-                                    </select>
-                                </label>
-                                <label class="seat">
-                                    <input type="radio" name="option" value="A1" />
-                                    <span class="radio-label">AX</span>
-                                    <select name="" id="" style="margin-top: 0.3rem;">
-                                        <option value="">Adult</option>
-                                        <option value="">Children</option>
-                                    </select>
-                                </label>
-                                <label class="seat">
-                                    <input type="radio" name="option" value="A1" />
-                                    <span class="radio-label">AX</span>
-                                    <select name="" id="" style="margin-top: 0.3rem;">
-                                        <option value="">Adult</option>
-                                        <option value="">Children</option>
-                                    </select>
-                                </label>
+    <main>
+      <section>
+          <div class="container">
+              <form action="#">
+                  <div class="main-content booking-form">
+                      <div class="pricing-list">
+                          <h3 class="color-primary">Pricing List</h3>
+                          <table class="pricing-table">
+                            <tr>
+                              <td><b>Adult</b></td>
+                              <td><b>:</b></td>
+                              <td>$$</td>
+                            </tr>
+                            <tr>
+                              <td><b>Children</b></td>
+                              <td><b>:</b></td>
+                              <td>$$</td>
+                            </tr>
+                            <tr>
+                              <td><b>Elderly</b></td>
+                              <td><b>:</b></td>
+                              <td>$$</td>
+                            </tr>
+                          </table>
+                      </div>
+                      <div class="form-body">
+                          <div class="divider">
+                              <hr>
+                              <small>Booking: Step 2 - Select Seats</small>
+                              <hr>
+                          </div>
+                          <h2>BOOK A SHOW: <span id="movie-title"></span></h2>
+                          <div class="movie-details">
+                            <span id="movie-context"></span>
+                            <span>Selected showtime: <span id="selected-showtime"></span></span>
+                          </div>
+                          <div class="input-group" style="margin-top:1.3rem;">
+                            <p class="selections-label"><b>Select Seats:</b></p>
+                            <div class="selections" id="seat-selection">
                             </div>
-                        </div>
-                        <div class="form-control">
-                            <input type="reset" value="RESET" class="reset-button">
-                            <input type="submit" value="CONTINUE" class="submit-button">
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+                          </div>
+                          <div class="form-control" id="booking-actions">
+                          </div>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </section>
+    </main>
 
+    <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/bookingcomponents.js" type="module"></script>
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/booking/select-seats.js" type="module"></script>
 </body>
 </html>

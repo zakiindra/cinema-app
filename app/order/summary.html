@@ -5,116 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ordering - Order Summary | #</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/style.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/booking.css">
     <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/ordering.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/forms.css">
 </head>
 <body>
     <!-- Navigation Bar -->
-    <header>
-        <div class="logo">
-            <a href="http://localhost:8001/index.html">
-                <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
-            </a>
-        </div>
-        <nav>
-            <ul id="nav-content">
-                <!-- Dynamic -->
-            </ul>
-        </nav>
+    <header id="header">
     </header>
 
     <!-- Admin Section -->
-    <section class="admin-section">
-        <div class="container">
-            <div class="content-head">
-                <button class="content-head-action back-button" id="add-movie">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                    </svg>                                       
-                    <span>To Movie List</span>
-                </button>
-                <h2 class="head-title">Booking: Breaking Bad</h2>
-            </div>
-            <form action="#">
-                <div class="divider">
-                    <hr>
-                    <small>Booking: Step 3 - Order Summary</small>
-                    <hr>
-                </div>
-                <div class="main-content">
-                    <table style="width: 50%; margin: 1.5rem auto;">
-                        <thead>
-                            <tr>
-                                <th class="numbering"></th>
-                                <th>Seat Number</th>
-                                <th>Type</th>
-                                <th>Price</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="numbering">1</td>
-                                <td>A1</td>
-                                <td>Adult</td>
-                                <td>$10</td>
-                                <td class="actions">
-                                    <button class="table-button delete-button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z" />
-                                        </svg>
-                                        <span>Delete</span>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="numbering">1</td>
-                                <td>A1</td>
-                                <td>Adult</td>
-                                <td>$10</td>
-                                <td class="actions">
-                                    <button class="table-button delete-button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z" />
-                                        </svg>
-                                        <span>Delete</span>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="numbering">1</td>
-                                <td>A1</td>
-                                <td>Adult</td>
-                                <td>$10</td>
-                                <td class="actions">
-                                    <button class="table-button delete-button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58 4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0 1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z" />
-                                        </svg>
-                                        <span>Delete</span>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2" style="text-align: right;" ></td>
-                                <td style="text-align: left;" >Order Total</td>
-                                <td>$30</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div class="form-control" style="width:50%; margin: 0 auto;">
-                        <a href="#" class="reset-button">Reselect Seats</a>
-                        <a href="#" class="submit-button">Checkout</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+    <main>
+      <section>
+          <div class="container-t">
+              <form action="#">
+                  <div class="divider">
+                      <hr>
+                      <small>Booking: Step 3 - Order Summary</small>
+                      <hr>
+                  </div>
+                  <h2>BOOK A SHOW: <span id="movie-title"></span></h2>
+                  <div class="movie-details">
+                    <span id="movie-context"></span>
+                    <span>
+                      Selected showtime: 
+                      <span id="selected-showtime"></span>
+                    </span>
+                  </div>
+                  <div class="main-content">
+                      
+                      <table>
+                          <thead>
+                              <tr>
+                                  <th class="text-col">Seat Number</th>
+                                  <th class="text-col">Type</th>
+                                  <th class="text-col">Price</th>
+                                  <th class="text-col">Actions</th>
+                              </tr>
+                          </thead>
+                          <tbody id="seat-summary-list">
+                          </tbody>
+                          <tfoot>
+                              <tr>
+                                  <td class="text-col"></td>
+                                  <td class="text-col"><b>Order Total</b></td>
+                                  <td class="text-col" colspan="2"><b>$30</b></td>
+                              </tr>
+                          </tfoot>
+                      </table>
+                      <div class="form-control" id="booking-actions">
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </section>
+    </main>
 
-    <script src="http://localhost:8001/static/js/script.js"></script>
+    <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/bookingcomponents.js" type="module"></script>
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/order-summary.js" type="module"></script>
 </body>
 </html>

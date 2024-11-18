@@ -5,165 +5,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ordering - Order Summary | #</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/style.css">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
-    <link rel="stylesheet" href="http://localhost:8001/static/css/ordering.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/booking.css">
 </head>
 <body>
     <!-- Navigation Bar -->
-    <header>
-        <div class="logo">
-            <a href="http://localhost:8001/index.html">
-                <img src="http://localhost:8001/static/resources/UGA_logo_Formal_BW_MARCM-1536x502.png" alt="Logo">
-            </a>
-        </div>
-        <nav>
-            <ul id="nav-content">
-                <!-- Dynamic -->
-            </ul>
-        </nav>
+    <header id="header">
     </header>
 
     <!-- Admin Section -->
-    <section class="admin-section">
-        <div class="container">
-            <div class="content-head">
-                <button class="content-head-action back-button" id="add-movie">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                    </svg>                                       
-                    <span>To Movie List</span>
-                </button>
-                <h2 class="head-title">Booking: Breaking Bad</h2>
-            </div>
-            <form action="#">
-                <div class="divider">
-                    <hr>
-                    <small>Booking: Step 4 - Checkout</small>
-                    <hr>
-                </div>
-                <div class="main-content" style="width: 50%; margin: 0 auto;">
-                    <div style="margin: 1rem auto;">
-                        <form action="#">
-                            <h3>Promo Code</h3>
-                            <p>Apply active promo code and get discounts up to 60%!</p>
-                            <div class="inline-input-group" style="margin-top: 0.7rem;">
-                                <div class="input-group">
-                                    <input type="text" name="" id="" placeholder="Promo Code...">
-                                </div>
-                                <div class="input-group">
-                                    <input type="submit" value="Apply">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <table style="margin: 1rem auto; width: 100%;">
-                        <thead>
-                            <tr>
-                                <th class="numbering"></th>
-                                <th>Seat Number</th>
-                                <th>Type</th>
-                                <th>Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="numbering">1</td>
-                                <td>A1</td>
-                                <td>Adult</td>
-                                <td>$10</td>
-                            </tr>
-                            <tr>
-                                <td class="numbering">1</td>
-                                <td>A2</td>
-                                <td>Adult</td>
-                                <td>$10</td>
-                            </tr>
-                            <tr>
-                                <td class="numbering">1</td>
-                                <td>A3</td>
-                                <td>Adult</td>
-                                <td>$10</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2"></td>
-                                <td>Order Total:</td>
-                                <td>$30</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div style="margin: 1rem auto;">
-                        <form action="#">
-                            <h3>Pay</h3>
-                            <p>Checkout with existing payment you have set, or <span class="new-payment-popup">create a new one</span></p>
-                            <div class="inline-input-group" style="margin-top: 0.7rem;">
-                                <div class="input-group">
-                                    <select name="" id="">
-                                        <option value="">Visa ending ****8988</option>
-                                        <option value="">PayPal ending ****7794</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="form-control" style="margin: 0 auto;">
-                        <a href="#" class="reset-button">Cancel</a>
-                        <a href="#" class="submit-button">Confirm</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </section>
+    <main>
+      <section>
+          <div class="container">
+              <form action="#">
+                  <div class="divider">
+                      <hr>
+                      <small>Booking: Step 4 - Checkout</small>
+                      <hr>
+                  </div>
+                  <div class="main-content" style="width: 50%; margin: 0 auto;">
+                      <div style="margin: 1rem auto;">
+                          <form action="#">
+                              <h3>Promo Code</h3>
+                              <p>Apply active promo code and get discounts up to 60%!</p>
+                              <div class="inline-input-group" style="margin-top: 0.7rem;">
+                                  <div class="input-group">
+                                      <input type="text" name="" id="" placeholder="Promo Code...">
+                                  </div>
+                                  <div class="input-group">
+                                      <input type="submit" value="Apply">
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                      <table style="margin: 1rem auto; width: 100%;">
+                          <thead>
+                              <tr>
+                                  <th class="numbering"></th>
+                                  <th>Seat Number</th>
+                                  <th>Type</th>
+                                  <th>Price</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td class="numbering">1</td>
+                                  <td>A1</td>
+                                  <td>Adult</td>
+                                  <td>$10</td>
+                              </tr>
+                              <tr>
+                                  <td class="numbering">1</td>
+                                  <td>A2</td>
+                                  <td>Adult</td>
+                                  <td>$10</td>
+                              </tr>
+                              <tr>
+                                  <td class="numbering">1</td>
+                                  <td>A3</td>
+                                  <td>Adult</td>
+                                  <td>$10</td>
+                              </tr>
+                          </tbody>
+                          <tfoot>
+                              <tr>
+                                  <td colspan="2"></td>
+                                  <td>Order Total:</td>
+                                  <td>$30</td>
+                              </tr>
+                          </tfoot>
+                      </table>
+                      <div style="margin: 1rem auto;">
+                          <form action="#">
+                              <h3>Pay</h3>
+                              <p>Checkout with existing payment you have set, or <span class="new-payment-popup">create a new one</span></p>
+                              <div class="inline-input-group" style="margin-top: 0.7rem;">
+                                  <div class="input-group">
+                                      <select name="" id="">
+                                          <option value="">Visa ending ****8988</option>
+                                          <option value="">PayPal ending ****7794</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="form-control" style="margin: 0 auto;">
+                          <a href="#" class="reset-button">Cancel</a>
+                          <a href="#" class="submit-button">Confirm</a>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </section>
+    </main>
 
-    <div id="popup" class="popup" role="dialog" aria-labelledby="popup-title" aria-hidden="true">
-        <div class="popup-content">
-            <button class="close-btn" aria-label="Close Popup">&times;</button>
-            <h2 id="popup-title" style="margin-bottom: 1.5rem;">#</h2>
-            <div class="popup-info">
-                <form action="#">
-                    <div class="input-group">
-                        <label for="">Type</label>
-                        <select name="" id="">
-                            <option value="">Visa</option>
-                            <option value="">MasterCard</option>
-                            <option value="">PayPal</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="">Name on Card</label>
-                        <input type="text" name="" id="" min="1" max="100">
-                    </div>
-                    <div class="input-group">
-                        <label for="">Billing Address</label>
-                        <input type="text" name="" id="" min="1" max="100">
-                    </div>
-                    <div class="input-group">
-                        <label for="">Card Number</label>
-                        <input type="number" name="" id="" min="1" max="100">
-                    </div>
-                    <div class="inline-input-group">
-                        <div class="input-group">
-                            <label for="">Valid Thru</label>
-                            <input type="date" name="" id="">
-                        </div>
-                        <div class="input-group">
-                            <label for="">CVV</label>
-                            <input type="number" name="" id="">
-                        </div>
-                    </div>
-                    <div class="form-control">
-                        <input type="reset" value="RESET" class="reset-button">
-                        <input type="submit" value="SUBMIT" class="submit-button" id="popup-form-submit-button">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    <!-- <div id="popup" class="popup" role="dialog" aria-labelledby="popup-title" aria-hidden="true"> -->
+    <!--     <div class="popup-content"> -->
+    <!--         <button class="close-btn" aria-label="Close Popup">&times;</button> -->
+    <!--         <h2 id="popup-title" style="margin-bottom: 1.5rem;">#</h2> -->
+    <!--         <div class="popup-info"> -->
+    <!--             <form action="#"> -->
+    <!--                 <div class="input-group"> -->
+    <!--                     <label for="">Type</label> -->
+    <!--                     <select name="" id=""> -->
+    <!--                         <option value="">Visa</option> -->
+    <!--                         <option value="">MasterCard</option> -->
+    <!--                         <option value="">PayPal</option> -->
+    <!--                     </select> -->
+    <!--                 </div> -->
+    <!--                 <div class="input-group"> -->
+    <!--                     <label for="">Name on Card</label> -->
+    <!--                     <input type="text" name="" id="" min="1" max="100"> -->
+    <!--                 </div> -->
+    <!--                 <div class="input-group"> -->
+    <!--                     <label for="">Billing Address</label> -->
+    <!--                     <input type="text" name="" id="" min="1" max="100"> -->
+    <!--                 </div> -->
+    <!--                 <div class="input-group"> -->
+    <!--                     <label for="">Card Number</label> -->
+    <!--                     <input type="number" name="" id="" min="1" max="100"> -->
+    <!--                 </div> -->
+    <!--                 <div class="inline-input-group"> -->
+    <!--                     <div class="input-group"> -->
+    <!--                         <label for="">Valid Thru</label> -->
+    <!--                         <input type="date" name="" id=""> -->
+    <!--                     </div> -->
+    <!--                     <div class="input-group"> -->
+    <!--                         <label for="">CVV</label> -->
+    <!--                         <input type="number" name="" id=""> -->
+    <!--                     </div> -->
+    <!--                 </div> -->
+    <!--                 <div class="form-control"> -->
+    <!--                     <input type="reset" value="RESET" class="reset-button"> -->
+    <!--                     <input type="submit" value="SUBMIT" class="submit-button" id="popup-form-submit-button"> -->
+    <!--                 </div> -->
+    <!--             </form> -->
+    <!--         </div> -->
+    <!--     </div> -->
+    <!-- </div> -->
 
+    <!-- <script src="http://localhost:8001/static/js/checkout.js"></script> -->
+    <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/bookingcomponents.js" type="module"></script>
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
-    <script src="http://localhost:8001/static/js/script.js"></script>
-    <script src="http://localhost:8001/static/js/checkout.js"></script>
 </body>
 </html>
