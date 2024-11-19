@@ -1,7 +1,9 @@
 package com.cinema.cinema.service;
 
 import com.cinema.cinema.exception.ResourceNotFoundException;
+import com.cinema.cinema.model.CustomerProfile;
 import com.cinema.cinema.model.Promotion;
+import com.cinema.cinema.repository.CustomerProfileRepository;
 import com.cinema.cinema.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +17,19 @@ public class PromotionService {
     @Autowired
     private PromotionRepository promotionRepository;
 
+    @Autowired
+    private CustomerProfileRepository profileRepository;
+
+    @Autowired
+    private EmailService emailService;
+
     public List<Promotion> getAllPromotions() {
         return promotionRepository.findAll();
     }
 
     public Promotion getPromotionById(Long id) throws ResourceNotFoundException {
-        return promotionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Promotion not found"));
+        return promotionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Promotion not found"));
     }
 
     public Promotion addPromotion(Promotion promotion) {
@@ -44,6 +53,20 @@ public class PromotionService {
     public void deletePromotion(Long id) throws ResourceNotFoundException {
         Promotion promotion = getPromotionById(id);
         promotionRepository.delete(promotion);
+    }
+
+    public void sendPromotionEmail(Long id) throws ResourceNotFoundException {
+        Promotion promotion = getPromotionById(id);
+
+        // TODO: properly handle getting subscribed users
+        List<CustomerProfile> subscribedUsers = profileRepository.findBySubscribePromoTrue();
+
+        String promoDetails = "New Promotion Added: " + promotion.getCode();
+        subscribedUsers.forEach(user -> {
+                System.out.println("Sending email for " + user.getUser().getEmail());
+                emailService.sendPromotionalEmail(user.getUser().getEmail(), promoDetails);
+            }
+        );
     }
 
 }

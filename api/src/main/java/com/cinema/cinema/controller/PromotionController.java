@@ -48,4 +48,14 @@ public class PromotionController {
 
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{id}/send-email")
+    public ResponseEntity<?> sendPromotionEmail(@PathVariable Long id) {
+        try {
+            promotionService.sendPromotionEmail(id);
+            return ResponseEntity.ok().build();
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

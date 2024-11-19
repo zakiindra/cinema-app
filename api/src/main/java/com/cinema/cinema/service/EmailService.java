@@ -129,4 +129,28 @@ public class EmailService {
         </html>
         """.formatted(link);
     }
+
+    public void sendPromotionalEmail(String toEmail, String promoDetails) {
+        String subject = "Exciting New Promotion!";
+        String body = """
+            Hello,
+            
+            We have an exciting new promotion for you:
+            %s
+            
+            Don't miss out!
+            
+            Best regards,
+            C7 Cinema Team
+            """.formatted(promoDetails);
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject(subject);
+        message.setText(body);
+        message.setFrom("your-email@gmail.com");
+
+        mailSender.send(message);
+    }
+
 }
