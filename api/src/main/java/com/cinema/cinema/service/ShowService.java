@@ -54,7 +54,11 @@ public class ShowService {
 
         return shows.stream()
                 .filter(show -> show.getMovie().getId().equals(movieId))
-//                .filter(show -> show.getStartTime().isBefore(now))
+                .filter(show -> {
+                    LocalDateTime dt = LocalDateTime.of(show.getDate(), show.getTimeslot().getStartTime());
+
+                    return dt.isAfter(now) && dt.isBefore(now.plusDays(3));
+                })
                 .toList();
     }
 

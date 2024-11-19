@@ -48,7 +48,7 @@ public class MovieController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{id}/upcomingshow")
+    @GetMapping("/{id}/upcoming-show")
     public List<Show> getUpcomingShow(@PathVariable Long id) {
         return showService.getUpcomingShowByMovieId(id);
     }
