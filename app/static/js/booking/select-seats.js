@@ -7,6 +7,20 @@ async function getMovieById(id) {
   return data
 }
 
+async function getShowById(id) {
+  const response = await fetch(`${API_BASE_URL}/show/${id}`)
+  const data = await response.json()
+
+  return data
+}
+
+async function getOccupiedSeats(showId) {
+    const response = await fetch(`${API_BASE_URL}/show/${showId}/occupied-seat`)
+    const data = await response.json()
+
+    return data
+}
+
 function SeatBoxSelector(num, seatValue) {
   return `
     <div class="box-option">
@@ -25,14 +39,17 @@ function SeatBoxSelector(num, seatValue) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
-  const movieId = params.get("movieId");
+  const showId = params.get("show");
 
-  const movie = await getMovieById(movieId)
+  const show = await getShowById(showId);
+  const movie = show.movie;
+
   const hours = Math.floor(movie.durationMinutes / 60)  // divide by 60 minutes
   const minutes = movie.durationMinutes % 60
 
   document.getElementById("movie-title").textContent = movie.title
   document.getElementById("movie-context").textContent = `${hours} HOURS ${minutes} MINUTES | ${movie.rating}`
+  document.getElementById("selected-showtime").textContent = `${show.timeslot.startTime.split(":").slice(0, 2).join(":")}`
 
   const leftSideSeats = document.createElement("div");
   leftSideSeats.classList = ["seat-group"]
@@ -60,6 +77,26 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("seat-selection").append(leftSideSeats)
   document.getElementById("seat-selection").append(rightSideSeats)
+
+  getOccupiedSeats(showId).then(occupiedSeats => {
+    occupiedSeats.forEach((seat) => {
+      const seatName = seat.rowNumber+seat.seatNumber;
+      document.getElementById(`seat${seatName}`).disabled = true;
+      document.getElementById(`seat${seatName}`).style.backgroundColor = "#ff000040";
+    });
+  })
+
+  // Add event listener for checkbox changes
+  document.getElementById("seat-selection").addEventListener("change", (event) => {
+    if (event.target.type === "checkbox") {
+      const checkedBoxes = document.querySelectorAll('input[name="seat[]"]:checked');
+
+      if (checkedBoxes.length > 4) {
+        alert("You can only select up to 4 seats!");
+        event.target.checked = false;
+      }
+    }
+  });
 })
 
 

@@ -19,10 +19,21 @@ public class ShowController {
     @Autowired
     ShowService showService;
 
+    @GetMapping("/{id}")
+    public Show getShow(@PathVariable Long id) {
+        return showService.getShowById(id);
+    }
+
     @GetMapping("/{id}/availableSeat")
     public List<Seat> getAvailableSeat(@PathVariable Long id) {
         return showService.getAvailableSeatByShowId(id);
     }
+
+    @GetMapping("/{id}/occupied-seat")
+    public List<Seat> getOccupiedSeat(@PathVariable Long id) {
+        return showService.getOccupiedSeatByShowId(id);
+    }
+
 
     @GetMapping("/timeslot")
     public List<Timeslot> getAllTimeslot() {

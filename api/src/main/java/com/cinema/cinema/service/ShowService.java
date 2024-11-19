@@ -149,8 +149,8 @@ public class ShowService {
         // TODO: change to findAll(Example)
         List<Long> occupiedSeatIds = ticketRepository.findAll()
                 .stream()
+                .filter(ticket -> bookingIds.contains(ticket.getBookingId()))
                 .map(Ticket::getSeatId)
-                .filter(bookingIds::contains)
                 .toList();
 
         // TODO: change to findAll(Example)
@@ -158,6 +158,36 @@ public class ShowService {
                 .stream()
                 .filter(seat -> seat.getTheaterId().equals(theater.getId()))
                 .filter(seat -> !occupiedSeatIds.contains(seat.getId()))
+                .toList();
+    }
+
+    public List<Seat> getOccupiedSeatByShowId(Long id) {
+        Show show = getShowById(id);
+
+        Theater theater = theaterRepository
+                .findById(show.getTheater().getId())
+                .orElse(null);
+
+        if (theater == null) {
+            return Collections.emptyList();
+        }
+
+        List<Long> bookingIds = bookingRepository.findAll()
+                .stream()
+                .filter(booking -> booking.getShow().getId().equals(show.getId()))
+                .map(Booking::getId)
+                .toList();
+
+        List<Long> occupiedSeatIds = ticketRepository.findAll()
+                .stream()
+                .filter(ticket -> bookingIds.contains(ticket.getBookingId()))
+                .map(Ticket::getSeatId)
+                .toList();
+
+        return seatRepository.findAll()
+                .stream()
+                .filter(seat -> seat.getTheaterId().equals(theater.getId()))
+                .filter(seat -> occupiedSeatIds.contains(seat.getId()))
                 .toList();
     }
 
