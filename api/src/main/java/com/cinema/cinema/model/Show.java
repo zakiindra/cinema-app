@@ -1,9 +1,9 @@
-// Show.java
 package com.cinema.cinema.model;
 
 import lombok.Data;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -23,13 +23,11 @@ public class Show {
     private Theater theater;
 
     @Column(nullable = false)
-    private LocalDateTime startTime;
+    private LocalDate date;
 
-    @Column(nullable = false)
-    private LocalDateTime endTime;
-
-    @Column(nullable = false)
-    private BigDecimal price;
+    @ManyToOne
+    @JoinColumn(name = "timeslot_id")
+    private Timeslot timeslot;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
