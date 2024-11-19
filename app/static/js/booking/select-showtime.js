@@ -18,10 +18,19 @@ async function getUpcomingShows(id) {
 function ShowtimeBoxSelector(upcomingShow) {
  return `
     <div class="box-option">
-      <input type="radio" name="showtimeId" value="showtimeId${upcomingShow.id}" id="showtimeId${upcomingShow.id}">
+      <input type="radio" name="showtimeId" value="${upcomingShow.id}" id="showtimeId${upcomingShow.id}">
       <label for="showtimeId${upcomingShow.id}">${upcomingShow.date}<br>${upcomingShow.timeslot.startTime}<br>${upcomingShow.theater.name}</label>
     </div>
   `
+}
+
+function continueToSeatSelection(event) {
+  event.preventDefault()
+  const formData = new FormData(event.target)
+
+  const entries = Object.fromEntries(formData.entries())
+  
+  window.location.href = `http://localhost:8001/order/select-seats.html?show=${entries.showtimeId}`
 }
 
 
@@ -54,6 +63,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   })
 
   document.getElementById("showtime-selection").innerHTML = upcomingShowContent
+
+  document.getElementById("select-showtime-form").addEventListener("submit", continueToSeatSelection)
 })
 
 
