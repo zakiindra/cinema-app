@@ -8,11 +8,18 @@ async function getMovieById(id) {
   return data
 }
 
-function ShowtimeBoxSelector(num, value) {
+async function getUpcomingShows(id) {
+  const response = await fetch(`${API_BASE_URL}/movie/${id}/upcoming-show`)
+  const data = await response.json()
+  
+  return data
+}
+
+function ShowtimeBoxSelector(upcomingShow) {
  return `
     <div class="box-option">
-      <input type="radio" name="showtimeId" value="${value}" id="showtimeId${num}">
-      <label for="showtimeId1">${value}<br>1:00PM</label>
+      <input type="radio" name="showtimeId" value="showtimeId${upcomingShow.id}" id="showtimeId${upcomingShow.id}">
+      <label for="showtimeId${upcomingShow.id}">${upcomingShow.date}<br>${upcomingShow.timeslot.startTime}<br>${upcomingShow.theater.name}</label>
     </div>
   `
 }
@@ -40,7 +47,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("movie-genre").textContent = movie.genre 
   document.getElementById("movie-description").textContent = movie.description 
 
-  document.getElementById("showtime-selection").innerHTML = ShowtimeBoxSelector(1, "4/11")
+  const upcomingShows = await getUpcomingShows(movieId) 
+  let upcomingShowContent = ""
+  upcomingShows.forEach(upcomingShow => {
+    upcomingShowContent += ShowtimeBoxSelector(upcomingShow)
+  })
+
+  document.getElementById("showtime-selection").innerHTML = upcomingShowContent
 })
 
 
