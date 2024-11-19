@@ -1,4 +1,5 @@
 import { API_BASE_URL } from "./../config.js"
+import {SessionData} from "../utils/session.js";
 
 
 async function getMovieById(id) {
@@ -26,6 +27,14 @@ function ShowtimeBoxSelector(upcomingShow) {
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const session = new SessionData()
+
+  const s = session.get_session();
+
+  if (session.id != null && session.userType === "ADMIN") {
+    window.location.href = 'http://localhost:8001/admin/index.html';
+  }
+
   const params = new URLSearchParams(window.location.search);
   const movieId = params.get("movieId");
 

@@ -6,9 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(session);
 
     if (session.id != null) {
-        window.location.href = 'http://localhost:8001/index.html';
-    }
+        if (session.userType === "ADMIN") {
+            window.location.href = 'http://localhost:8001/admin/index.html';
+        } else {
+            window.location.href = 'http://localhost:8001/index.html';
+        }
 
+    }
 })
 
 document.getElementById('signupForm').addEventListener('submit', async function(event) {

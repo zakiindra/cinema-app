@@ -5,7 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const session = s.get_session();
 
     if (session.id != null) {
-        window.location.href = 'http://localhost:8001/index.html';
+        if (session.userType === "ADMIN") {
+            window.location.href = 'http://localhost:8001/admin/index.html';
+        } else {
+            window.location.href = 'http://localhost:8001/index.html';
+        }
     }
 
     const form = document.querySelector('.auth-form');
@@ -67,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 console.log(user);
 
                 if (user.userType === 'ADMIN') {
+                    s.set_session(user.id, "admin", rememberMe, "ADMIN")
                     window.location.href = `http://localhost:8001/admin/index.html`;
                 } else if (user.userType === 'CUSTOMER') {
                     response = await fetch(`http://localhost:8080/customer/${user.id}`);

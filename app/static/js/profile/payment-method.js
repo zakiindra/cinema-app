@@ -12,11 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function renderPaymentMethods(paymentMethods) {
+        const addPaymentMethodButton = document.getElementById("add-payment-method")
+        if (paymentMethods.length >= 4) {
+            addPaymentMethodButton.style.display = "none"
+        }
+
         const container = document.getElementById("payment-method-list")
 
         container.innerHTML = "";
 
-        if (paymentMethods.length == 0) {
+        if (paymentMethods.length === 0) {
             const content = document.createElement("tr")
             content.innerHTML = `
                 <td colspan="5" style="text-align:center;">No payment methods configured</td>

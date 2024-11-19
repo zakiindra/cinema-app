@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const session = new SessionData()
     const s = session.get_session()
 
+    if (s.id == null || s.userType === "ADMIN") {
+        window.location.href = 'http://localhost:8001/index.html';
+        return;
+    }
+
     fetch(`http://localhost:8080/customer/${s.id}`, {
         method: 'GET',
         headers: {
