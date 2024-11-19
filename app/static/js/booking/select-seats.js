@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   rightSideSeats.classList = ["seat-group"]
 
   for(let i = 0; i < 8; i++) {
-    let seatCodes = ["A", "B", "C"]
+    let seatCodes = ["A", "B"]
     let currentRowBoxes = ""
     seatCodes.forEach(seatCode => {
       currentRowBoxes += SeatBoxSelector(`${seatCode}${i+1}`, `${seatCode}${i+1}`)
