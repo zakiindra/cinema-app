@@ -1,16 +1,26 @@
 package com.cinema.cinema.service;
 
+import com.cinema.cinema.dto.NewShowDTO;
+import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.*;
 import com.cinema.cinema.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
 @Service
 public class ShowService {
+
+    @Autowired
+    private MovieRepository movieRepository;
+
     @Autowired
     private ShowRepository showRepository;
 
@@ -25,6 +35,9 @@ public class ShowService {
 
     @Autowired
     private TicketRepository ticketRepository;
+
+    @Autowired
+    private TimeslotRepository timeslotRepository;
 
     public List<Show> getAllShow() {
         return showRepository.findAll();
@@ -41,29 +54,78 @@ public class ShowService {
 
         return shows.stream()
                 .filter(show -> show.getMovie().getId().equals(movieId))
-                .filter(show -> show.getStartTime().isBefore(now))
+//                .filter(show -> show.getStartTime().isBefore(now))
                 .toList();
     }
 
-    public Show createShow(Show show) {
+    @Transactional
+    public Show createShow(NewShowDTO newShowDTO) throws ResourceNotFoundException {
+
+        Movie movie = movieRepository.findById(newShowDTO.getMovieId())
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
+
+        Theater theater = theaterRepository.findById(newShowDTO.getTheaterId())
+                .orElseThrow(() -> new ResourceNotFoundException("Theater not found"));
+
+        Timeslot timeslot = timeslotRepository.findById(newShowDTO.getTimeslotId())
+                .orElseThrow(() -> new ResourceNotFoundException("Timeslot not found"));
+
+        LocalDate date = LocalDate.parse(newShowDTO.getDate());
+
+        Show show = new Show();
+        show.setMovie(movie);
+        show.setTheater(theater);
+        show.setDate(date);
+        show.setTimeslot(timeslot);
+
         return showRepository.save(show);
     }
 
-    public Show updateShow(Long id, Show updatedShow) {
-        Show existingShow = getShowById(id);
+    public List<Show> getShowByMovieId(Long movieId) throws ResourceNotFoundException {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
 
-        existingShow.setMovie(updatedShow.getMovie());
-        existingShow.setTheater(updatedShow.getTheater());
-        existingShow.setStartTime(updatedShow.getStartTime());
-        existingShow.setEndTime(updatedShow.getEndTime());
-        existingShow.setPrice(updatedShow.getPrice());
-
-        return showRepository.save(existingShow);
+        return showRepository.findAllByMovie(movie);
     }
 
-    public void deleteShow(Long id) {
-        Show show = getShowById(id);
-        showRepository.delete(show);
+//    public Show updateShow(Long id, Show updatedShow) {
+//        Show existingShow = getShowById(id);
+//
+//        existingShow.setMovie(updatedShow.getMovie());
+//        existingShow.setTheater(updatedShow.getTheater());
+//        existingShow.setDate(updatedShow.getDate());
+//        existingShow.setTimeslot(updatedShow.getTimeslot());
+//
+//        return showRepository.save(existingShow);
+//    }
+//
+//    public void deleteShow(Long id) {
+//        Show show = getShowById(id);
+//        showRepository.delete(show);
+//    }
+
+    public List<Timeslot> getAllTimeslot() {
+        return timeslotRepository.findAll();
+    }
+
+    public List<Timeslot> getAvailableTimeslot(Long movieId, String dateStr, Long theaterId) throws ResourceNotFoundException {
+        LocalDate date = LocalDate.parse(dateStr);
+
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
+
+        Theater theater = theaterRepository.findById(theaterId)
+                .orElseThrow(() -> new ResourceNotFoundException("Theater not found"));
+
+        List<Timeslot> occupiedTimeslot = showRepository.findAllByMovieAndDateAndTheater(movie, date, theater)
+                .stream()
+                .map(Show::getTimeslot)
+                .toList();
+
+        return timeslotRepository.findAll()
+                .stream()
+                .filter(timeslot -> !occupiedTimeslot.contains(timeslot))
+                .toList();
     }
 
     public List<Seat> getAvailableSeatByShowId(Long id) {

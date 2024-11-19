@@ -1,7 +1,9 @@
 package com.cinema.cinema.controller;
 
+import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.Movie;
 import com.cinema.cinema.model.Show;
+import com.cinema.cinema.model.Timeslot;
 import com.cinema.cinema.service.MovieService;
 import com.cinema.cinema.service.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,28 @@ public class MovieController {
     @GetMapping("/{id}/upcomingshow")
     public List<Show> getUpcomingShow(@PathVariable Long id) {
         return showService.getUpcomingShowByMovieId(id);
+    }
+
+    @GetMapping("/{id}/show")
+    public ResponseEntity<List<Show>> getShowByMovieId(@PathVariable Long id) {
+        try {
+            List<Show> shows = showService.getShowByMovieId(id);
+            return ResponseEntity.ok(shows);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}/show/available-timeslots")
+    public ResponseEntity<List<Timeslot>> getAvailableTimeslot(@PathVariable Long id,
+                                                               @RequestParam String date,
+                                                               @RequestParam Long theater) {
+        try {
+            List<Timeslot> timeslots = showService.getAvailableTimeslot(id, date, theater);
+            return ResponseEntity.ok(timeslots);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
