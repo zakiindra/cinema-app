@@ -25,10 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const navbarContent = document.getElementById('nav-content');
 
-    if (session.id != null) { 
-      navbarContent.innerHTML = CustomerNavLinks(session.customerName)
+    if (session.id != null) {
+        navbarContent.innerHTML = CustomerNavLinks(session.customerName, session.userType)
     } else {
-      navbarContent.innerHTML = DefaultNavLinks()
+        navbarContent.innerHTML = DefaultNavLinks()
     }
 
     const popupMenu = document.getElementById('user-control-popup');

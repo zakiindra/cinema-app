@@ -37,22 +37,42 @@ export function DefaultNavLinks() {
   `
 }
 
-export function CustomerNavLinks(customerName) {
-  return `
-    <input type="text" placeholder="Search for movies" id="search-bar" aria-label="Search Movies">
-    <li class="border-l"></li>
-    <li class="auth-link-box" id="username-display">
-      <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-      <div class="auth-link-p">
-        <span>Welcome,</span><br>
-        <b>${customerName}</b>
-        <div id="user-control-popup" class="hidden">
-          <p><a href="http://localhost:8001/profile/index.html">Edit Profile</a></p>
-          <p><a href="http://localhost:8001/auth/logout.html">Logout</a></p>
+export function CustomerNavLinks(customerName, userType) {
+  let navLinks;
+
+  if (userType === 'ADMIN') {
+    navLinks = `
+      <input type="text" placeholder="Search for movies" id="search-bar" aria-label="Search Movies">
+      <li class="border-l"></li>
+      <li class="auth-link-box" id="username-display">
+        <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <div class="auth-link-p">
+          <span>Welcome,</span><br>
+          <b>${customerName}</b>
+          <div id="user-control-popup" class="hidden">
+            <p><a href="http://localhost:8001/auth/logout.html">Logout</a></p>
+          </div>
         </div>
-      </div>
-  </li>
+    </li>
   `
+  } else {
+    navLinks = `
+      <input type="text" placeholder="Search for movies" id="search-bar" aria-label="Search Movies">
+      <li class="border-l"></li>
+      <li class="auth-link-box" id="username-display">
+        <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <div class="auth-link-p">
+          <span>Welcome,</span><br>
+          <b>${customerName}</b>
+          <div id="user-control-popup" class="hidden">
+            <p><a href="http://localhost:8001/profile/index.html">Edit Profile</a></p>
+            <p><a href="http://localhost:8001/auth/logout.html">Logout</a></p>
+          </div>
+        </div>
+    </li>
+  `
+  }
+  return navLinks
 }
 
 export function MovieCard(movie) {

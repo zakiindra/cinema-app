@@ -8,7 +8,7 @@ document.getElementById("payment-method-form").addEventListener("submit", async 
         const isSlotAvailable = await ensureCreditCardSlotAvailable()
 
         if (isSlotAvailable == false) {
-            alert("Not allowed! You have reached the maximum allowed number of credit cards (four)")
+            alert("You have reached the maximum allowed number of four credit cards.")
         } else {
             const sesssionData = new SessionData()
             const s = sesssionData.get_session()
@@ -31,6 +31,7 @@ document.getElementById("payment-method-form").addEventListener("submit", async 
 
             const data = response.json()
             alert("Credit card added successfully!")
+            window.location.href = "http://localhost:8001/profile/index.html"
         }
     } catch (error) {
         console.log(error)

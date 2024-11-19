@@ -26,8 +26,6 @@ document.getElementById("password-form").addEventListener("submit", async (event
     const formData = new FormData(form);
     const formDataObj = Object.fromEntries(formData.entries());
 
-    console.log(formDataObj)
-
     const response = await fetch(
         `http://localhost:8080/customer/${sd.id}/password`,
         {
@@ -41,11 +39,18 @@ document.getElementById("password-form").addEventListener("submit", async (event
     )
 
     const data = await response.json()
-    console.log(data)
 
     if (data === false) {
-        alert("Failed to update the password, please check the current password or new password again")
+        alert("Failed to update the password, please check the current password or new password again");
+        document.getElementById("current-password").value = null;
+        document.getElementById("new-password").value = null;
+        document.getElementById("confirm-new-password").value = null;
     } else {
         alert("Password successfully updated")
+        document.getElementById("current-password").value = null;
+        document.getElementById("new-password").value = null;
+        document.getElementById("confirm-new-password").value = null;
     }
+
+
 })
