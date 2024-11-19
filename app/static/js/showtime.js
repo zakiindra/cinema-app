@@ -50,7 +50,10 @@ const addShow = async (event) => {
     const formData = new FormData(event.target)
 
     const entries = Object.fromEntries(formData.entries())
+    entries.theaterId = parseInt(entries.theaterId)
+    entries.timeslotId = parseInt(entries.timeslotId)
     entries.movieId = new URLSearchParams(window.location.search).get("movie");
+    entries.movieId = parseInt(entries.movieId)
 
     try {
         const response = await fetch(
