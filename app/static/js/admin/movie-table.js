@@ -11,11 +11,12 @@ async function getAllMovies() {
 }
 
 function MovieTableRow(movie) {
+    const url = `showtime.html?movie=${movie.id}`
   return `
     <tr>
       <td class="movie-title">${movie.title}</td>
       <td>${movie.releaseDate}</td>
-      <td><a href="showtime.html">Edit Showtime</a></td>
+      <td><a href=${url}>Edit Showtime</a></td>
       <td class="actions">
         ${EditButton()}
         ${DeleteButton(movie.id)}
