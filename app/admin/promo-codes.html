@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Promo Codes | Admin</title>
@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
     <link rel="stylesheet" href="http://localhost:8001/static/css/forms.css">
     <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navigation Bar -->
     <header id="header">
     </header>
@@ -17,84 +17,80 @@
     <!-- Admin Section -->
     <main>
       <section>
-          <div class="container">
-              <div class="content-head">
-                  <h2 class="head-title">Manage Promo Codes</h2>
-                  <div class="input-group">
-                    <input type="text" name="" id="" placeholder="Search Promo Code..." class="content-head-search-box">
-                  </div>
-                  <button class="content-head-action add-item-button">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="18" height="18">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                      </svg>                      
-                      <span>New Promo Code</span>
-                  </button>
-              </div>
-              <div class="movie-list">
-                  <table id="promotion-list">
-                      <thead>
-                          <tr>
-                              <th>Promo Code</th>
-                              <th>Amount</th>
-                              <th>Start - End Date</th>
-                              <th>Is Sent?</th>
-                              <th>Actions</th>
-                          </tr>
-                      </thead>
-                      <tbody id="promotion-list-body">
-                        <!-- Dynamically appended -->
-                      </tbody>
-                  </table>
-              </div>
+        <div class="container">
+          <div class="content-head">
+            <h2 class="head-title">Manage Promo Codes</h2>
+            <div class="input-group">
+              <input type="text" name="" id="" placeholder="Search Promo Code..." class="content-head-search-box">
+            </div>
+            <button class="content-head-action add-item-button">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="18" height="18">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>                      
+              <span>New Promo Code</span>
+            </button>
           </div>
+          <div class="movie-list">
+            <table id="promotion-list">
+              <thead>
+                <tr>
+                  <th>Promo Code</th>
+                  <th>Amount</th>
+                  <th>Start - End Date</th>
+                  <th>Is Sent?</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="promotion-list-body">
+                <!-- Dynamically appended -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
     </main>
 
     <div id="popup" class="popup" role="dialog" aria-labelledby="popup-title" aria-hidden="true">
-        <div class="popup-content">
-            <button class="close-btn" aria-label="Close Popup">&times;</button>
-            <h2 id="popup-title" style="margin-bottom: 1.5rem;">#</h2>
-            <div class="popup-info">
-                <form id="promotion-form">
-                    <div class="input-group">
-                        <label for="">Promo Code</label>
-                        <input type="text" name="code" id="">
-                    </div>
-                    <div class="input-group">
-                        <label for="">Promotion Value</label>
-                        <input type="number" name="promotionValue" id="" min="1" max="100">
-                    </div>
-                    <div class="input-group">
-                        <label for="">Description</label>
-                        <input type="text" name="description" id="" min="1" max="100">
-                    </div>
-                    <div class="inline-input-group">
-                        <div class="input-group">
-                            <label for="">Start Date</label>
-                            <input type="date" name="startTime" id="">
-                        </div>
-                        <div class="input-group">
-                            <label for="">End Date</label>
-                            <input type="date" name="endTime" id="">
-                        </div>
-                    </div>
-                    <div class="form-control" id="form-actions"></div>
-                    <!-- <div class="form-control"> -->
-                    <!--     <input type="reset" value="RESET" class="reset-button"> -->
-                    <!--     <input type="submit" value="SUBMIT" class="submit-button" id="popup-form-submit-button"> -->
-                    <!-- </div> -->
-                </form>
+      <div class="popup-content">
+        <button class="close-btn" aria-label="Close Popup">&times;</button>
+        <h2 id="popup-title" style="margin-bottom: 1.5rem;">#</h2>
+        <div class="popup-info">
+          <form id="promotion-form">
+            <div class="input-group">
+              <label for="">Promo Code</label>
+              <input type="text" name="code" id="">
             </div>
+            <div class="input-group">
+              <label for="">Promotion Value</label>
+              <input type="number" name="promotionValue" id="" min="1" max="100">
+            </div>
+            <div class="input-group">
+              <label for="">Description</label>
+              <input type="text" name="description" id="" min="1" max="100">
+            </div>
+            <div class="inline-input-group">
+              <div class="input-group">
+                <label for="">Start Date</label>
+                <input type="date" name="startTime" id="">
+              </div>
+              <div class="input-group">
+                <label for="">End Date</label>
+                <input type="date" name="endTime" id="">
+              </div>
+            </div>
+            <div class="form-control" id="form-actions"></div>
+          </form>
         </div>
+      </div>
     </div>
 
     <script>
-      const secondButtonMessage = "Submit"
+    const secondButtonMessage = "Submit"
     </script>
 
     <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
     <script src="http://localhost:8001/static/js/form-components.js" type="module"></script>
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
     <script src="http://localhost:8001/static/js/promotions.js" type="module"></script>
-</body>
+  </body>
 </html>
