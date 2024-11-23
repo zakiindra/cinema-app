@@ -23,6 +23,12 @@ public class PromotionController {
         return promotionService.getAllPromotions();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Promotion> getPromotion(@PathVariable Long id) {
+        Promotion promotion = promotionService.getPromotionById(id);
+        return ResponseEntity.ok(promotion);
+    }
+
     @PostMapping
     public Promotion createPromotion(@RequestBody Promotion promotion) {
         return promotionService.addPromotion(promotion);
