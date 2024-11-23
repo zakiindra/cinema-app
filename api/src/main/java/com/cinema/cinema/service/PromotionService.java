@@ -27,9 +27,9 @@ public class PromotionService {
         return promotionRepository.findAll();
     }
 
-    public Promotion getPromotionById(Long id) throws ResourceNotFoundException {
+    public Promotion getPromotionById(Long id) {
         return promotionRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Promotion not found"));
+                .orElseThrow(() -> null);
     }
 
     public Promotion addPromotion(Promotion promotion) {
@@ -40,6 +40,7 @@ public class PromotionService {
     public Promotion editPromotion(Long id, Promotion promotion) throws ResourceNotFoundException {
         Promotion existingPromotion = getPromotionById(id);
 
+        existingPromotion.setCode(promotion.getCode());
         existingPromotion.setPromotionValue(promotion.getPromotionValue());
         existingPromotion.setDescription(promotion.getDescription());
         existingPromotion.setStartTime(promotion.getStartTime());
