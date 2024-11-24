@@ -21,7 +21,7 @@ async function getTheaters() {
 
 async function getAvailableTimeslots(movieId, theaterId, date) {
     const response = await fetch(
-        `${API_BASE_URL}/movie/${movieId}/show/available-timeslots?date=${date}&theater=${theaterId}`,
+        `${API_BASE_URL}/show/available-timeslots?date=${date}&theater=${theaterId}`,
         { method: "GET", headers: API_HEADERS }
     )
 

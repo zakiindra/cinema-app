@@ -132,6 +132,23 @@ public class ShowService {
                 .toList();
     }
 
+    public List<Timeslot> getAvailableTimeslot(String dateStr, Long theaterId) throws ResourceNotFoundException {
+        LocalDate date = LocalDate.parse(dateStr);
+
+        Theater theater = theaterRepository.findById(theaterId)
+                .orElseThrow(() -> new ResourceNotFoundException("Theater not found"));
+
+        List<Timeslot> occupiedTimeslot = showRepository.findAllByDateAndTheater(date, theater)
+                .stream()
+                .map(Show::getTimeslot)
+                .toList();
+
+        return timeslotRepository.findAll()
+                .stream()
+                .filter(timeslot -> !occupiedTimeslot.contains(timeslot))
+                .toList();
+    }
+
     public List<Seat> getAvailableSeatByShowId(Long id) {
         Show show = getShowById(id);
 
