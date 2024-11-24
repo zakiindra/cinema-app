@@ -34,6 +34,16 @@ public class ShowController {
         return showService.getOccupiedSeatByShowId(id);
     }
 
+    @GetMapping("/available-timeslots")
+    public ResponseEntity<List<Timeslot>> getAvailableTimeslot(@RequestParam String date,
+                                                               @RequestParam Long theater) {
+        try {
+            List<Timeslot> timeslots = showService.getAvailableTimeslot(date, theater);
+            return ResponseEntity.ok(timeslots);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping("/timeslot")
     public List<Timeslot> getAllTimeslot() {
