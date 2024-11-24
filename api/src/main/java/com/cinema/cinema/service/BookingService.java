@@ -1,4 +1,3 @@
-// BookingService.java
 package com.cinema.cinema.service;
 
 import com.cinema.cinema.model.Booking;
