@@ -5,10 +5,8 @@ import com.cinema.cinema.dto.CustomerDTO;
 import com.cinema.cinema.dto.PasswordDTO;
 import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.CreditCard;
-//import com.cinema.cinema.model.Customer;
 import com.cinema.cinema.service.CreditCardService;
 import com.cinema.cinema.service.CustomerProfileService;
-//import com.cinema.cinema.service.CustomerService;
 import com.cinema.cinema.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,8 +19,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-//    @Autowired
-//    private CustomerService customerService;
 
     @Autowired
     private UserService userService;
@@ -33,33 +29,6 @@ public class CustomerController {
     @Autowired
     private
     CreditCardService creditCardService;
-
-//    @PostMapping
-//    public ResponseEntity<Customer> registerCubstomer(@RequestBody Customer customer) {
-//        if (customerService.getByEmail(customer.getEmail()) != null) {
-//            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-//        }
-//        Customer newCustomer = customerService.addCustomer(customer);
-//        return ResponseEntity.ok(newCustomer);
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
-//        Customer customer = customerService.getCustomerById(id);
-//        if (customer == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(customer);
-//    }
-//
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Customer> updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
-//        if (customerService.getCustomerById(id) == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        Customer updatedCustomer = customerService.updateCustomer(id, customer);
-//        return ResponseEntity.ok(updatedCustomer);
-//    }
 
     @PostMapping
     public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody CustomerDTO customerDTO) {

@@ -2,10 +2,8 @@ package com.cinema.cinema.service;
 
 import com.cinema.cinema.dto.ResetPasswordDTO;
 import com.cinema.cinema.exception.ResourceNotFoundException;
-//import com.cinema.cinema.model.Customer;
 import com.cinema.cinema.model.ResetPasswordToken;
 import com.cinema.cinema.model.User;
-//import com.cinema.cinema.repository.CustomerRepository;
 import com.cinema.cinema.repository.ResetPasswordTokenRepository;
 import com.cinema.cinema.repository.UserRepository;
 import com.cinema.cinema.repository.VerificationTokenRepository;
@@ -19,9 +17,6 @@ import java.util.UUID;
 
 @Service
 public class AuthService {
-
-//    @Autowired
-//    private CustomerRepository customerRepository;
 
     @Autowired
     private VerificationTokenRepository tokenRepository;
