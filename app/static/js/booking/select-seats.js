@@ -1,5 +1,5 @@
 import { API_BASE_URL } from "./../config.js"
-import {SessionData} from "../utils/session";
+import {SessionData} from "../utils/session.js";
 
 async function getMovieById(id) {
   const response = await fetch(`${API_BASE_URL}/movie/${id}`)
