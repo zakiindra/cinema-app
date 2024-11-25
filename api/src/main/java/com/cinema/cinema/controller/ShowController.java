@@ -20,18 +20,23 @@ public class ShowController {
     ShowService showService;
 
     @GetMapping("/{id}")
-    public Show getShow(@PathVariable Long id) {
-        return showService.getShowById(id);
-    }
-
-    @GetMapping("/{id}/availableSeat")
-    public List<Seat> getAvailableSeat(@PathVariable Long id) {
-        return showService.getAvailableSeatByShowId(id);
+    public ResponseEntity<Show> getShow(@PathVariable Long id) {
+        try {
+            Show show = showService.getShowById(id);
+            return ResponseEntity.ok(show);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/{id}/occupied-seat")
-    public List<Seat> getOccupiedSeat(@PathVariable Long id) {
-        return showService.getOccupiedSeatByShowId(id);
+    public ResponseEntity<List<Seat>> getOccupiedSeat(@PathVariable Long id) {
+        try {
+            List<Seat> occupiedSeats = showService.getOccupiedSeatByShowId(id);
+            return ResponseEntity.ok(occupiedSeats);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/available-timeslots")
@@ -58,6 +63,15 @@ public class ShowController {
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.badRequest().build();
         }
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteShow(@PathVariable Long id) {
+        try {
+            showService.deleteShow(id);
+            return ResponseEntity.ok().build();
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

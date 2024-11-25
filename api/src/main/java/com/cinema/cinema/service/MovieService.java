@@ -1,7 +1,7 @@
 package com.cinema.cinema.service;
 
-import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.Movie;
+import com.cinema.cinema.model.Show;
 import com.cinema.cinema.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,8 +9,12 @@ import java.util.List;
 
 @Service
 public class MovieService {
+
     @Autowired
     private MovieRepository movieRepository;
+
+    @Autowired
+    private ShowService showService;
 
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
@@ -41,5 +45,21 @@ public class MovieService {
     public void deleteMovie(Long id) {
         Movie movie = getMovieById(id);
         movieRepository.delete(movie);
+    }
+
+    public List<Movie> getNowPlaying() {
+        return showService.getNowPlayingShow()
+                .stream()
+                .map(Show::getMovie)
+                .distinct()
+                .toList();
+    }
+
+    public List<Movie> getUpcoming() {
+        return showService.getUpcomingShow()
+                .stream()
+                .map(Show::getMovie)
+                .distinct()
+                .toList();
     }
 }

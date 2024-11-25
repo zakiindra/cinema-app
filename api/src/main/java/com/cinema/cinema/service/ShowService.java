@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,28 +41,44 @@ public class ShowService {
         return showRepository.findAll();
     }
 
-    public Show getShowById(Long id) {
+    public Show getShowById(Long id) throws ResourceNotFoundException {
         return showRepository.findById(id)
-                .orElseThrow(() -> null);
+                .orElseThrow(() -> new ResourceNotFoundException("Show not found"));
     }
 
-    public List<Show> getUpcomingShowByMovieId(Long movieId) {
+    public boolean isNowPlaying(Show show, LocalDateTime now) {
+        LocalDateTime dt = LocalDateTime.of(show.getDate(), show.getTimeslot().getStartTime());
+        return dt.isAfter(now) && dt.isBefore(now.plusDays(7));
+    }
+
+    public List<Show> getNowPlayingByMovieId(Long movieId) {
         LocalDateTime now = LocalDateTime.now();
-        List<Show> shows = showRepository.findAll();
-
-        return shows.stream()
+        return getAllShow()
+                .stream()
                 .filter(show -> show.getMovie().getId().equals(movieId))
-                .filter(show -> {
-                    LocalDateTime dt = LocalDateTime.of(show.getDate(), show.getTimeslot().getStartTime());
+                .filter(show -> isNowPlaying(show, now))
+                .toList();
+    }
 
-                    return dt.isAfter(now) && dt.isBefore(now.plusDays(3));
-                })
+    public List<Show> getNowPlayingShow() {
+        LocalDateTime now = LocalDateTime.now();
+        return getAllShow()
+                .stream()
+                .filter(show -> isNowPlaying(show, now))
+                .toList();
+    }
+
+    public List<Show> getUpcomingShow() {
+        LocalDateTime now = LocalDateTime.now();
+        return getAllShow()
+                .stream()
+                .filter(show -> LocalDateTime.of(show.getDate(), show.getTimeslot().getStartTime())
+                        .isAfter(now.plusDays(7)))
                 .toList();
     }
 
     @Transactional
     public Show createShow(NewShowDTO newShowDTO) throws ResourceNotFoundException {
-
         Movie movie = movieRepository.findById(newShowDTO.getMovieId())
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
 
@@ -92,21 +106,10 @@ public class ShowService {
         return showRepository.findAllByMovie(movie);
     }
 
-//    public Show updateShow(Long id, Show updatedShow) {
-//        Show existingShow = getShowById(id);
-//
-//        existingShow.setMovie(updatedShow.getMovie());
-//        existingShow.setTheater(updatedShow.getTheater());
-//        existingShow.setDate(updatedShow.getDate());
-//        existingShow.setTimeslot(updatedShow.getTimeslot());
-//
-//        return showRepository.save(existingShow);
-//    }
-//
-//    public void deleteShow(Long id) {
-//        Show show = getShowById(id);
-//        showRepository.delete(show);
-//    }
+    public void deleteShow(Long id) throws ResourceNotFoundException {
+        Show show = getShowById(id);
+        showRepository.delete(show);
+    }
 
     public List<Timeslot> getAllTimeslot() {
         return timeslotRepository.findAll();
@@ -149,40 +152,7 @@ public class ShowService {
                 .toList();
     }
 
-    public List<Seat> getAvailableSeatByShowId(Long id) {
-        Show show = getShowById(id);
-
-        Theater theater = theaterRepository
-                .findById(show.getTheater().getId())
-                .orElse(null);
-
-        if (theater == null) {
-            return Collections.emptyList();
-        }
-
-        // TODO: change to findAll(Example) or findByShowId()
-        List<Long> bookingIds = bookingRepository.findAll()
-                .stream()
-                .filter(booking -> booking.getShow().getId().equals(show.getId()))
-                .map(Booking::getId)
-                .toList();
-
-        // TODO: change to findAll(Example)
-        List<Long> occupiedSeatIds = ticketRepository.findAll()
-                .stream()
-                .filter(ticket -> bookingIds.contains(ticket.getBookingId()))
-                .map(Ticket::getSeatId)
-                .toList();
-
-        // TODO: change to findAll(Example)
-        return seatRepository.findAll()
-                .stream()
-                .filter(seat -> seat.getTheaterId().equals(theater.getId()))
-                .filter(seat -> !occupiedSeatIds.contains(seat.getId()))
-                .toList();
-    }
-
-    public List<Seat> getOccupiedSeatByShowId(Long id) {
+    public List<Seat> getOccupiedSeatByShowId(Long id) throws ResourceNotFoundException {
         Show show = getShowById(id);
 
         Theater theater = theaterRepository
