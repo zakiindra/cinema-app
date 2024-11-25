@@ -69,10 +69,6 @@ public class PromotionService {
         Promotion promotion = getPromotionById(id);
 
         // TODO: properly handle getting subscribed users
-        promotion.setSent(true);
-        promotionRepository.save(promotion);
-
-
         List<CustomerProfile> subscribedUsers = profileRepository.findBySubscribePromoTrue();
 
         String promoDetails = "New Promotion Added: " + promotion.getCode();
@@ -81,6 +77,10 @@ public class PromotionService {
                 emailService.sendPromotionalEmail(user.getUser().getEmail(), promoDetails);
             }
         );
+    
+        // Set promotion to sent
+        promotion.setSent(true);
+        promotionRepository.save(promotion);
     }
 
 }
