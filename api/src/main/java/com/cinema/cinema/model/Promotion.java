@@ -24,6 +24,9 @@ public class Promotion {
     private BigDecimal promotionValue;
 
     @Column(nullable = false)
+    private Boolean sent;
+
+    @Column(nullable = false)
     private LocalDateTime startTime;
 
     @Column(nullable = false)
