@@ -4,6 +4,12 @@ import { MovieActions, TrailerPopup } from "./sharedcomponents.js"
 
 async function getMovieById(id) {
   const response = await fetch(`${API_BASE_URL}/movie/${id}`)
+
+  if (response.status === 404) {
+    alert("Movie not found");
+    window.location.href = "http://localhost:8001/index.html";
+  }
+
   const data = await response.json()
 
   return data

@@ -1,5 +1,6 @@
 package com.cinema.cinema.service;
 
+import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.Movie;
 import com.cinema.cinema.model.Show;
 import com.cinema.cinema.repository.MovieRepository;
@@ -20,16 +21,16 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public Movie getMovieById(Long id) {
+    public Movie getMovieById(Long id) throws ResourceNotFoundException {
         return movieRepository.findById(id)
-                .orElseThrow(() -> null);
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
     }
 
     public Movie createMovie(Movie movie) {
         return movieRepository.save(movie);
     }
 
-    public Movie updateMovie(Long id, Movie movieDetails) {
+    public Movie updateMovie(Long id, Movie movieDetails) throws ResourceNotFoundException {
         Movie movie = getMovieById(id);
         movie.setTitle(movieDetails.getTitle());
         movie.setDescription(movieDetails.getDescription());
@@ -42,7 +43,7 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    public void deleteMovie(Long id) {
+    public void deleteMovie(Long id) throws ResourceNotFoundException {
         Movie movie = getMovieById(id);
         movieRepository.delete(movie);
     }
