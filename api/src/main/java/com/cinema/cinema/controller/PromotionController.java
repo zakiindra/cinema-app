@@ -1,5 +1,6 @@
 package com.cinema.cinema.controller;
 
+import com.cinema.cinema.exception.BadRequestException;
 import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.Promotion;
 import com.cinema.cinema.model.Theater;
@@ -37,11 +38,13 @@ public class PromotionController {
     @PutMapping("/{id}")
     public ResponseEntity<Promotion> editPromotion(@PathVariable Long id, @RequestBody Promotion promotion) {
         try {
-            promotionService.editPromotion(id, promotion);
+            Promotion updated = promotionService.editPromotion(id, promotion);
+            return ResponseEntity.ok(updated);
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
+        } catch (BadRequestException e) {
+            return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.ok(promotion);
     }
 
     @DeleteMapping("/{id}")
@@ -50,6 +53,8 @@ public class PromotionController {
             promotionService.deletePromotion(id);
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
+        } catch (BadRequestException e) {
+            return ResponseEntity.badRequest().build();
         }
 
         return ResponseEntity.ok().build();

@@ -1,5 +1,6 @@
 package com.cinema.cinema.service;
 
+import com.cinema.cinema.exception.BadRequestException;
 import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.CustomerProfile;
 import com.cinema.cinema.model.Promotion;
@@ -33,12 +34,17 @@ public class PromotionService {
     }
 
     public Promotion addPromotion(Promotion promotion) {
+        promotion.setSent(false);
         return promotionRepository.save(promotion);
     }
 
     @Transactional
-    public Promotion editPromotion(Long id, Promotion promotion) throws ResourceNotFoundException {
+    public Promotion editPromotion(Long id, Promotion promotion) throws ResourceNotFoundException, BadRequestException {
         Promotion existingPromotion = getPromotionById(id);
+
+        if (existingPromotion.getSent()) {
+            throw new BadRequestException("Promotion cannot be edited");
+        }
 
         existingPromotion.setCode(promotion.getCode());
         existingPromotion.setPromotionValue(promotion.getPromotionValue());
@@ -51,8 +57,11 @@ public class PromotionService {
         return existingPromotion;
     }
 
-    public void deletePromotion(Long id) throws ResourceNotFoundException {
+    public void deletePromotion(Long id) throws ResourceNotFoundException, BadRequestException {
         Promotion promotion = getPromotionById(id);
+        if (promotion.getSent()) {
+            throw new BadRequestException("Promotion cannot be deleted");
+        }
         promotionRepository.delete(promotion);
     }
 
