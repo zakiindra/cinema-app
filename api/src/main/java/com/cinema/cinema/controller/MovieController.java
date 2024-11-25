@@ -50,7 +50,7 @@ public class MovieController {
 
     @GetMapping("/{id}/upcoming-show")
     public List<Show> getUpcomingShow(@PathVariable Long id) {
-        return showService.getUpcomingShowByMovieId(id);
+        return showService.getNowPlayingByMovieId(id);
     }
 
     @GetMapping("/{id}/show")
@@ -73,6 +73,16 @@ public class MovieController {
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("now-playing")
+    public List<Movie> getNowPlaying() {
+        return movieService.getNowPlaying();
+    }
+
+    @GetMapping("upcoming")
+    public List<Movie> getUpcoming() {
+        return movieService.getUpcoming();
     }
 
 }

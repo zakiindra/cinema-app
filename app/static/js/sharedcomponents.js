@@ -42,7 +42,7 @@ export function CustomerNavLinks(customerName, userType) {
 
   if (userType === 'ADMIN') {
     navLinks = `
-      <input type="text" placeholder="Search for movies" id="search-bar" aria-label="Search Movies">
+<!--      <input type="text" placeholder="Search for movies" id="search-bar" aria-label="Search Movies">-->
       <li class="border-l"></li>
       <li class="auth-link-box" id="username-display">
         <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -75,7 +75,7 @@ export function CustomerNavLinks(customerName, userType) {
   return navLinks
 }
 
-export function MovieCard(movie) {
+export function MovieCard(movie, enableBooking=false) {
   const hours = Math.floor(movie.durationMinutes / 60)  // divide by 60 minutes
   const minutes = movie.durationMinutes % 60
 
@@ -86,6 +86,20 @@ export function MovieCard(movie) {
     day: "numeric"
   })
 
+  if (enableBooking) {
+    return `
+      <div class="movie-card">
+        <a href="http://localhost:8001/movie-profile.html?movie-id=${movie.id}" style="text-decoration:none;">
+          <img src="${movie.posterUrl}" alt="${movie.title} Poster">
+        </a>
+        <a href="http://localhost:8001/movie-profile.html?movie-id=${movie.id}">${movie.title}</a>
+        <span>${hours} HR ${minutes} MIN | ${movie.rating}</span>
+        <span>Released ${readableReleaseDate}</span>
+        ${MovieActions(movie)}
+      </div>
+    `;
+  }
+
   return `
     <div class="movie-card">
       <a href="http://localhost:8001/movie-profile.html?movie-id=${movie.id}" style="text-decoration:none;">
@@ -94,7 +108,6 @@ export function MovieCard(movie) {
       <a href="http://localhost:8001/movie-profile.html?movie-id=${movie.id}">${movie.title}</a>
       <span>${hours} HR ${minutes} MIN | ${movie.rating}</span>
       <span>Released ${readableReleaseDate}</span>
-      ${MovieActions(movie)}
     </div>
   `;
 }

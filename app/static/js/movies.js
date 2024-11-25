@@ -24,6 +24,18 @@ async function getAllMovies() {
   }
 }
 
+async function getNowPlaying() {
+  const response = await fetch("http://localhost:8080/movie/now-playing")
+  const data = await response.json();
+  return data
+}
+
+async function getUpcomingMovies() {
+  const response = await fetch("http://localhost:8080/movie/upcoming")
+  const data = await response.json();
+  return data
+}
+
 
 document.addEventListener("DOMContentLoaded", async function () {
     const upcomingMoviesContainer = document.getElementById("upcoming-movies");
@@ -33,16 +45,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     let nowPlayingMovieCards = ""
     
     try {
-      const { nowPlayingMovies, upcomingMovies } = await getAllMovies()
-      console.log(nowPlayingMovies)
-      console.log(upcomingMovies)
+      let nowPlayingMovies = await getNowPlaying();
+      let upcomingMovies = await getUpcomingMovies();
 
       upcomingMovies.forEach((movie) => {
-        upcomingMovieCards += MovieCard(movie)
+        upcomingMovieCards += MovieCard(movie, false)
       })
 
       nowPlayingMovies.forEach((movie) => {
-        nowPlayingMovieCards += MovieCard(movie)
+        nowPlayingMovieCards += MovieCard(movie, true)
       })
       
       upcomingMoviesContainer.innerHTML = upcomingMovieCards
