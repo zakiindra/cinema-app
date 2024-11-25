@@ -82,7 +82,7 @@ th, td {
     display: flex;
 }
 
-.actions > .table-button:first-child {
+.actions > .table-button {
     margin-right: 1rem;
 }
 
@@ -98,6 +98,13 @@ th, td {
     margin-right: 0.2rem;
     width: 1.2rem;
     height: 1.2rem;
+}
+
+.table-button:disabled {
+    border: 1px solid #ddd;
+    background-color: #ddd;
+    color: black;
+    cursor: not-allowed;
 }
 
 .back-button {
@@ -126,6 +133,12 @@ th, td {
     background-color: rgb(138, 16, 16);
     border: 1px solid rgb(138, 16, 16);
     color: white;
+}
+
+.table-button:disabled:hover {
+    background-color: #ddd;
+    border: 1px solid #ddd;
+    color: black;
 }
 
 .movie-media-poster {
