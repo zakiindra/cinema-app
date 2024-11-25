@@ -77,6 +77,10 @@ public class PromotionService {
                 emailService.sendPromotionalEmail(user.getUser().getEmail(), promoDetails);
             }
         );
+    
+        // Set promotion to sent
+        promotion.setSent(true);
+        promotionRepository.save(promotion);
     }
 
 }

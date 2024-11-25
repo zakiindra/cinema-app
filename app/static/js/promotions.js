@@ -19,11 +19,11 @@ const PromotionRow = (promotion) => {
       <td>${promotion.code}</td>
       <td>${promotion.promotionValue}</td>
       <td style="width: 35%;">${promotion.startTime} - ${promotion.endTime}</td>
-      <td>No</td>
+      <td>${promotion.sent ? "Yes": "No"}</td>
       <td class="actions">
-        ${SendEmailButton(promotion.id)}
-        ${EditButton(promotion.id)}
-        ${DeleteButton(promotion.id)}
+        ${SendEmailButton(promotion.id, promotion.sent)}
+        ${EditButton(promotion.id, promotion.sent)}
+        ${DeleteButton(promotion.id, promotion.sent)}
       </td>
     </tr>
   `
@@ -32,6 +32,14 @@ const PromotionRow = (promotion) => {
 
 // Popup
 const openPopup = async (event) => {
+    const inputs = document.querySelectorAll('#promotion-form input');
+    inputs.forEach(input => {
+      const name = input.name
+      if (name !== undefined && name !== "") {
+        input.value = ""
+      }
+    })
+
     const promotionId = event.currentTarget.dataset.id
 
     if (promotionId) {
@@ -40,7 +48,6 @@ const openPopup = async (event) => {
 
       console.log(data)
 
-      const inputs = document.querySelectorAll('#promotion-form input');
 
       inputs.forEach(input => {
         const name = input.name
@@ -132,8 +139,7 @@ const sendEmailForPromotion = async (event) => {
 
   const promotionId = event.currentTarget.dataset.id
 
-  const response = await fetch(`${API_BASE_URL}/promotion/${promotionId}`)
-  const data = await response.data
+  const response = await fetch(`${API_BASE_URL}/promotion/${promotionId}/send-email`)
 
   alert("Promotion sent successfully!")
 
