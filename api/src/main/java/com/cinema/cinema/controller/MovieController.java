@@ -27,7 +27,12 @@ public class MovieController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Movie> getMovieById(@PathVariable Long id) {
-        Movie movie = movieService.getMovieById(id);
+        Movie movie = null;
+        try {
+            movie = movieService.getMovieById(id);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(movie);
     }
 
@@ -38,13 +43,23 @@ public class MovieController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Movie> updateMovie(@PathVariable Long id, @RequestBody Movie movieDetails) {
-        Movie updatedMovie = movieService.updateMovie(id, movieDetails);
+        Movie updatedMovie = null;
+        try {
+            updatedMovie = movieService.updateMovie(id, movieDetails);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+
         return ResponseEntity.ok(updatedMovie);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
-        movieService.deleteMovie(id);
+        try {
+            movieService.deleteMovie(id);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok().build();
     }
 

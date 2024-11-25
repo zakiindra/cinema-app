@@ -16,6 +16,7 @@ public class Movie {
     @Column(nullable = false)
     private String title;
 
+    @Column(length = 1024)
     private String description;
 
     private Integer durationMinutes;

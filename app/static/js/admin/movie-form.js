@@ -31,11 +31,14 @@ async function addMovie (event) {
       }
     )
 
-    if (!response.ok) {
-      console.log(response)
+    if (response.ok) {
+      window.location.href = "http://localhost:8001/admin/movies.html"
     }
 
-    alert("Movie added successfully")
+    if (!response.ok) {
+      console.log(response)
+      alert("Something is wrong. Please try again later")
+    }
   } catch (error) {
     console.log(error)
     alert("Something is wrong. Please try again later")
