@@ -4,6 +4,7 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -24,6 +25,11 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "credit_card_id", nullable = false)
     private CreditCard creditCard;
+
+
+    @ManyToMany
+    @JoinTable(name = "booking_seats", joinColumns = @JoinColumn(name = "booking_id"), inverseJoinColumns = @JoinColumn(name = "seat_id"))
+    private List<Seat> seats;
 
     @ManyToOne
     @JoinColumn(name = "promotion_id")

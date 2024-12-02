@@ -1,5 +1,6 @@
 package com.cinema.cinema.controller;
 
+import com.cinema.cinema.dto.BookingDTO;
 import com.cinema.cinema.model.Booking;
 import com.cinema.cinema.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,19 @@ public class BookingController {
         return ResponseEntity.ok(booking);
     }
 
+//    @PostMapping
+//    public Booking createBooking(@RequestBody Booking booking) {
+//        return bookingService.createBooking(booking);
+//    }
+
     @PostMapping
-    public Booking createBooking(@RequestBody Booking booking) {
-        return bookingService.createBooking(booking);
+    public Booking createBooking(@RequestBody BookingDTO bookingDTO) {
+        return bookingService.createBooking(
+                bookingDTO.getBooking(),
+                bookingDTO.getSeatIds()
+        );
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody Booking bookingDetails) {
