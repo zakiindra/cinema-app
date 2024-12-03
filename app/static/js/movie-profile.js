@@ -15,6 +15,14 @@ async function getMovieById(id) {
   return data
 }
 
+async function getUpcoming() {
+  const response = await fetch(`${API_BASE_URL}/movie/upcoming`)
+
+  const data = await response.json()
+
+  return data
+}
+
 
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(window.location.search);
@@ -22,6 +30,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const movie = await getMovieById(id)
+    const upcomingMovies = await getUpcoming()
+    let enableBooking = true
+    if (upcomingMovies.some(item => JSON.stringify(item) === JSON.stringify(movie))) {
+        enableBooking = false
+    }
 
     const hours = Math.floor(movie.durationMinutes / 60)  // divide by 60 minutes
     const minutes = movie.durationMinutes % 60
@@ -43,7 +56,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("producers").textContent = movie.producers
     document.getElementById("casts").textContent = movie.casts
 
-    document.getElementById("movie-profile-actions").innerHTML = MovieActions(movie)
+    document.getElementById("movie-profile-actions").innerHTML = MovieActions(movie, enableBooking)
 
     const popupSpace = document.getElementById("popup-space")
     const trailerTriggers = document.querySelectorAll(".trailer-trigger")
