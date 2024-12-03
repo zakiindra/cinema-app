@@ -165,7 +165,7 @@ public class ShowService {
 
         List<Long> bookingIds = bookingRepository.findAll()
                 .stream()
-                .filter(booking -> booking.getShow().getId().equals(show.getId()))
+                .filter(booking -> booking.getShowId().equals(show.getId())) 
                 .map(Booking::getId)
                 .toList();
 
