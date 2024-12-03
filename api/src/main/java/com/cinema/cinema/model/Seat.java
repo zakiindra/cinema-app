@@ -2,14 +2,12 @@ package com.cinema.cinema.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "seat")
 public class Seat {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +15,7 @@ public class Seat {
     @Column(nullable = false)
     private Long theaterId;
 
-    @Column(nullable = false)
+    @Column(name = "`row_number`", nullable = false)  // Escaped with backticks
     private String rowNumber;
 
     @Column(nullable = false)

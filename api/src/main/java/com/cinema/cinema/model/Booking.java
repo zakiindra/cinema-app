@@ -13,21 +13,18 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    // Changed from ManyToOne to simple Column
+    @Column(name = "user_id", nullable = false)
+    private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "show_id", nullable = false)
-    private Show show;
+    @Column(name = "show_id", nullable = false)
+    private Long showId;
 
-    @ManyToOne
-    @JoinColumn(name = "credit_card_id", nullable = false)
-    private CreditCard creditCard;
+    @Column(name = "credit_card_id", nullable = false)
+    private Long creditCardId;
 
-    @ManyToOne
-    @JoinColumn(name = "promotion_id")
-    private Promotion promotion;
+    @Column(name = "promotion_id")
+    private Long promotionId;
 
     @Column(nullable = false)
     private BigDecimal totalAmount;
