@@ -114,7 +114,16 @@ export function MovieCard(movie, enableBooking=false) {
   `;
 }
 
-export function MovieActions(movie) {
+export function MovieActions(movie, enableBooking=true) {
+  if (!enableBooking) {
+    return `
+      <div class="movie-actions">
+          <button class="trailer-trigger" data-movie-title="${movie.title}" data-trailer-url="${movie.trailerUrl}" aria-label="Book Now">
+            <svg viewBox="0 0 22 22" width="18" height="18" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          </button>
+      </div>
+  `
+  }
   return `
       <div class="movie-actions">
           <a href="http://localhost:8001/order/select-showtime.html?movieId=${movie.id}" aria-label="Book Now">
