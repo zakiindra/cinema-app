@@ -10,10 +10,13 @@ public class BookingMapper {
         BookingResponse dto = new BookingResponse();
         dto.setId(booking.getId());
         dto.setUserId(booking.getUser().getId());
-        dto.setShowId(booking.getShow().getId());
-        dto.setCreditCardId(booking.getCreditCard().getId());
+//        dto.setShowId(booking.getShow().getId());
+//        dto.setCreditCardId(booking.getCreditCard().getId());
+        dto.setShow(booking.getShow());
+        dto.setCreditCard(booking.getCreditCard());
         if (booking.getPromotion() != null) {
-            dto.setPromotionId(booking.getPromotion().getId());
+//            dto.setPromotionId(booking.getPromotion().getId());
+            dto.setPromotion(booking.getPromotion());
         }
         dto.setTotalAmount(booking.getTotalAmount());
         dto.setStatus(booking.getStatus());
@@ -35,10 +38,12 @@ public class BookingMapper {
     private TicketDTO toTicketDTO(Ticket ticket) {
         TicketDTO dto = new TicketDTO();
         dto.setId(ticket.getId());
-        dto.setSeatId(ticket.getSeat().getId());
-        if (ticket.getPriceType() != null) {
-            dto.setPriceTypeId(ticket.getPriceType().getId());
-        }
+//        dto.setSeatId(ticket.getSeat().getId());
+//        if (ticket.getPriceType() != null) {
+//            dto.setPriceTypeId(ticket.getPriceType().getId());
+//        }
+        dto.setSeat(ticket.getSeat());
+        dto.setPriceType(ticket.getPriceType());
         dto.setCreatedAt(ticket.getCreatedAt());
         dto.setUpdatedAt(ticket.getUpdatedAt());
         return dto;
