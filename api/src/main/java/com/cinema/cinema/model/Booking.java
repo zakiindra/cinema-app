@@ -4,6 +4,7 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -13,18 +14,24 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Changed from ManyToOne to simple Column
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @Column(name = "show_id", nullable = false)
-    private Long showId;
+    @ManyToOne
+    @JoinColumn(name = "show_id", nullable = false)
+    private Show show;
 
-    @Column(name = "credit_card_id", nullable = false)
-    private Long creditCardId;
+    @ManyToOne
+    @JoinColumn(name = "credit_card_id", nullable = false)
+    private CreditCard creditCard;
 
-    @Column(name = "promotion_id")
-    private Long promotionId;
+    @ManyToOne
+    @JoinColumn(name = "promotion_id")
+    private Promotion promotion;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    private List<Ticket> tickets;
 
     @Column(nullable = false)
     private BigDecimal totalAmount;

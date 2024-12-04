@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,14 +24,14 @@ public class ShowService {
     @Autowired
     private TheaterRepository theaterRepository;
 
-    @Autowired
-    private SeatRepository seatRepository;
+//    @Autowired
+//    private SeatRepository seatRepository;
 
     @Autowired
     private BookingRepository bookingRepository;
 
-    @Autowired
-    private TicketRepository ticketRepository;
+//    @Autowired
+//    private TicketRepository ticketRepository;
 
     @Autowired
     private TimeslotRepository timeslotRepository;
@@ -152,33 +151,64 @@ public class ShowService {
                 .toList();
     }
 
+//    public List<Seat> getOccupiedSeatByShowId(Long id) throws ResourceNotFoundException {
+//        Show show = getShowById(id);
+//
+//        Theater theater = theaterRepository
+//                .findById(show.getTheater().getId())
+//                .orElse(null);
+//
+//        if (theater == null) {
+//            return Collections.emptyList();
+//        }
+//
+//        // Find all bookings for the show
+//        List<Long> bookingIds = bookingRepository.findAll()
+//                .stream()
+//                .filter(booking -> booking.getShow().getId().equals(show.getId()))
+//                .map(Booking::getId)
+//                .toList();
+//
+//
+//        // Find all occupied seats
+//        // - find all tickets
+//        // - filter tickets belong to all bookings for the show
+//        // - get seat id
+//        List<Long> occupiedSeatIds = ticketRepository.findAll()
+//                .stream()
+//                .filter(ticket -> bookingIds.contains(ticket.getBooking().getId()))
+//                .map(ticket -> ticket.getSeat().getId())
+//                .toList();
+//
+//        // Filter occupied seats
+//        // - find all seats
+//        // - filter seats belong to theater
+//        // - filter seats in occupied seats
+//        // - return list of Seat object
+//        return seatRepository.findAll()
+//                .stream()
+//                .filter(seat -> seat.getTheaterId().equals(theater.getId()))
+//                .filter(seat -> occupiedSeatIds.contains(seat.getId()))
+//                .toList();
+//    }
+
     public List<Seat> getOccupiedSeatByShowId(Long id) throws ResourceNotFoundException {
         Show show = getShowById(id);
 
-        Theater theater = theaterRepository
-                .findById(show.getTheater().getId())
-                .orElse(null);
-
-        if (theater == null) {
-            return Collections.emptyList();
-        }
-
-        List<Long> bookingIds = bookingRepository.findAll()
+        // Find all bookings for the show
+        List<Booking> bookings = bookingRepository.findAll()
                 .stream()
-                .filter(booking -> booking.getShowId().equals(show.getId())) 
-                .map(Booking::getId)
+                .filter(booking -> booking.getShow().getId().equals(show.getId()))
                 .toList();
 
-        List<Long> occupiedSeatIds = ticketRepository.findAll()
+        List<Ticket> tickets = bookings
                 .stream()
-                .filter(ticket -> bookingIds.contains(ticket.getBookingId()))
-                .map(Ticket::getSeatId)
+                .flatMap(booking -> booking.getTickets().stream())
                 .toList();
 
-        return seatRepository.findAll()
+        return tickets
                 .stream()
-                .filter(seat -> seat.getTheaterId().equals(theater.getId()))
-                .filter(seat -> occupiedSeatIds.contains(seat.getId()))
+                .map(Ticket::getSeat)
                 .toList();
     }
 

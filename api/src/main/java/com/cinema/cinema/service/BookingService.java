@@ -2,12 +2,9 @@ package com.cinema.cinema.service;
 
 import com.cinema.cinema.dto.BookingRequest;
 import com.cinema.cinema.dto.SeatBooking;
-import com.cinema.cinema.model.Booking;
-import com.cinema.cinema.model.Ticket;
+import com.cinema.cinema.exception.ResourceNotFoundException;
+import com.cinema.cinema.model.*;
 import com.cinema.cinema.repository.BookingRepository;
-import com.cinema.cinema.repository.PromotionRepository;
-import com.cinema.cinema.repository.TicketRepository;
-import com.cinema.cinema.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,66 +17,89 @@ import java.util.List;
 public class BookingService {
 
     @Autowired
-    private PriceTypeService priceTypeService;
-
-    @Autowired
     private BookingRepository bookingRepository;
 
     @Autowired
-    private PromotionRepository promotionRepository;
+    private UserService userService;
 
     @Autowired
-    private TicketRepository ticketRepository;
+    private ShowService showService;
 
     @Autowired
-    private UserRepository userRepository;
+    private CreditCardService creditCardService;
+
+    @Autowired
+    private PromotionService promotionService;
+
+    @Autowired
+    private SeatService seatService;
+
+    @Autowired
+    private PriceTypeService priceTypeService;
 
     @Autowired
     private EmailService emailService;
 
-    @Transactional
-    public String processBooking(BookingRequest bookingRequest) {
-        // Calculate total amount
-        BigDecimal totalAmount = priceTypeService.calculateTotalAmount(
-            bookingRequest.getSeatBookings(),
-            bookingRequest.getPromotionCode()
-        );
+    public List<Booking> getAllBookings() {
+        return bookingRepository.findAll();
+    }
 
-        // Create new booking entity
-        Booking booking = new Booking();
-        booking.setUserId(bookingRequest.getUserId());
-        booking.setShowId(bookingRequest.getShowId());
-        booking.setCreditCardId(bookingRequest.getCreditCardId());
-        booking.setTotalAmount(totalAmount);
-        booking.setStatus("CONFIRMED");
+    public Booking getBookingById(Long id) {
+        return bookingRepository.findById(id)
+                .orElseThrow(() -> null);
+    }
 
-        // Set promotion ID if promotion code exists
-        if (bookingRequest.getPromotionCode() != null && !bookingRequest.getPromotionCode().isEmpty()) {
-            promotionRepository.findByCode(bookingRequest.getPromotionCode())
-                .ifPresent(promotion -> booking.setPromotionId(promotion.getId()));
+    private BigDecimal calculateTotalAmount(Booking booking) {
+        BigDecimal totalAmount = BigDecimal.ZERO;
+
+        for (Ticket ticket : booking.getTickets()) {
+            totalAmount = totalAmount.add(ticket.getPriceType().getAmount());
         }
 
-        // Save the booking
-        Booking savedBooking = bookingRepository.save(booking);
+        if (booking.getPromotion() != null) {
+            totalAmount = totalAmount.subtract(booking.getPromotion().getPromotionValue());
+            if (totalAmount.compareTo(BigDecimal.ZERO) < 0) {
+                totalAmount = BigDecimal.ZERO;
+            }
+        }
 
-        // Create tickets for each seat booking
+        return totalAmount;
+    }
+
+    // TODO: proper validation of booking form
+    @Transactional
+    public Booking createBooking(BookingRequest bookingRequest) throws ResourceNotFoundException {
+        Booking booking = new Booking();
+        booking.setUser(userService.getById(bookingRequest.getUserId()));
+        booking.setShow(showService.getShowById(bookingRequest.getShowId())); // TODO: check show is valid, still playing or upcoming
+        booking.setCreditCard(creditCardService.getById(bookingRequest.getCreditCardId())); // TODO: check credit card belongs to user
+        booking.setPromotion(promotionService.getByCode(bookingRequest.getPromotionCode())); // TODO: check promotion used more than once
+        booking.setStatus("COMPLETED");
+
+        // TODO: check duplicate seats
         List<Ticket> tickets = new ArrayList<>();
         for (SeatBooking seatBooking : bookingRequest.getSeatBookings()) {
             Ticket ticket = new Ticket();
-            ticket.setBookingId(savedBooking.getId());
-            ticket.setSeatId(seatBooking.getSeatId());
+            ticket.setBooking(booking);
+            ticket.setSeat(seatService.getById(seatBooking.getSeatId())); // TODO: check seat already booked for the show
+            ticket.setPriceType(priceTypeService.getById(seatBooking.getPriceTypeId()));
             tickets.add(ticket);
         }
+        booking.setTickets(tickets);
 
-        // Save all tickets
-        ticketRepository.saveAll(tickets);
+        BigDecimal totalAmount = calculateTotalAmount(booking);
+        booking.setTotalAmount(totalAmount);
 
-        String userEmail = userRepository.findById(bookingRequest.getUserId())
-        .map(user -> user.getEmail())
-        .orElseThrow(() -> new RuntimeException("User not found"));
+        Booking savedBooking = bookingRepository.save(booking);
 
-        emailService.sendBookingConfirmationEmail(userEmail, bookingRequest, totalAmount, savedBooking.getId());
+        emailService.sendBookingConfirmationEmail(savedBooking);
 
-        return "Booking processed successfully! Booking ID: " + savedBooking.getId();
+        return savedBooking;
+    }
+
+    public Booking updateBooking(Long id, Booking booking) {
+        Booking existingBooking = getBookingById(id);
+        existingBooking.setStatus(booking.getStatus());
+        return bookingRepository.save(existingBooking);
     }
 }

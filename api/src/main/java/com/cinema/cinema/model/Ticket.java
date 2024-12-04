@@ -14,11 +14,17 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long bookingId;
+    @ManyToOne
+    @JoinColumn(name = "booking_id", nullable = false)
+    private Booking booking;
 
-    @Column(nullable = false)
-    private Long seatId;
+    @ManyToOne
+    @JoinColumn(name = "seat_id", nullable = false)
+    private Seat seat;
+
+    @ManyToOne
+    @JoinColumn(name = "price_type_id")
+    private PriceType priceType;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
