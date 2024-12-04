@@ -19,6 +19,15 @@ function SeatSummaryRow(label, type, price) {
   `
 }
 
+function continueToCheckout(event) {
+  event.preventDefault()
+
+  const params = new URLSearchParams(window.location.search);
+  console.log(params)
+
+  window.location.href = `http://localhost:8001/order/checkout.html?${params}`
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const session = new SessionData()
 
@@ -57,4 +66,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const totalPrice = seatPrices.reduce((total, num) => total + parseInt(num), 0)
   document.getElementById("total-price").textContent = `$${totalPrice}`
+
+  document.getElementById("summary-form").addEventListener("submit", continueToCheckout)
 })
