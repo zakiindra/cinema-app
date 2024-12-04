@@ -1,6 +1,7 @@
 package com.cinema.cinema.service;
 
 import com.cinema.cinema.dto.BookingRequest;
+import com.cinema.cinema.dto.BookingResponse;
 import com.cinema.cinema.dto.SeatBooking;
 import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.*;
@@ -47,6 +48,12 @@ public class BookingService {
     public Booking getBookingById(Long id) {
         return bookingRepository.findById(id)
                 .orElseThrow(() -> null);
+    }
+
+    public List<Booking> getAllBookingsByUserId(Long userId) throws ResourceNotFoundException {
+        User user = userService.getById(userId);
+
+        return bookingRepository.findAllByUser(user);
     }
 
     private BigDecimal calculateTotalAmount(Booking booking) {
