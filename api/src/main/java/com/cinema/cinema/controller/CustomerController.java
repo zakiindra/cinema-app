@@ -1,10 +1,10 @@
 package com.cinema.cinema.controller;
 
-import com.cinema.cinema.dto.CreditCardDTO;
-import com.cinema.cinema.dto.CustomerDTO;
-import com.cinema.cinema.dto.PasswordDTO;
+import com.cinema.cinema.dto.*;
 import com.cinema.cinema.exception.ResourceNotFoundException;
+import com.cinema.cinema.model.Booking;
 import com.cinema.cinema.model.CreditCard;
+import com.cinema.cinema.service.BookingService;
 import com.cinema.cinema.service.CreditCardService;
 import com.cinema.cinema.service.CustomerProfileService;
 import com.cinema.cinema.service.UserService;
@@ -27,8 +27,13 @@ public class CustomerController {
     private CustomerProfileService customerProfileService;
 
     @Autowired
-    private
-    CreditCardService creditCardService;
+    private CreditCardService creditCardService;
+
+    @Autowired
+    private BookingService bookingService;
+
+    @Autowired
+    private BookingMapper bookingMapper;
 
     @PostMapping
     public ResponseEntity<CustomerDTO> registerCustomer(@RequestBody CustomerDTO customerDTO) {
@@ -78,7 +83,6 @@ public class CustomerController {
     @PostMapping("/{id}/creditCard")
     public ResponseEntity<CreditCardDTO> addCreditCard(@PathVariable Long id, @RequestBody CreditCardDTO creditCardDTO) {
         try {
-            System.out.println(creditCardDTO);
             List<CreditCardDTO> creditCardDTOs = creditCardService.getCreditCards(id);
             if (creditCardDTOs.size() > 4) {
                 return ResponseEntity.badRequest().build();
@@ -123,4 +127,16 @@ public class CustomerController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/{id}/booking")
+    public ResponseEntity<List<BookingResponse>> getOrderHistory(@PathVariable Long id) {
+        try {
+            List<BookingResponse> bookingResponses = bookingService.getAllBookingsByUserId(id)
+                    .stream()
+                    .map(booking -> bookingMapper.toDTO(booking))
+                    .toList();
+            return ResponseEntity.ok(bookingResponses);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

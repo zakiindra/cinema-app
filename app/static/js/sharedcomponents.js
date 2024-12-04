@@ -67,6 +67,7 @@ export function CustomerNavLinks(customerName, userType) {
           <b>${customerName}</b>
           <div id="user-control-popup" class="hidden">
             <p><a href="http://localhost:8001/profile/index.html">Edit Profile</a></p>
+            <p><a href="http://localhost:8001/profile/order-history.html">Order History</a></p>
             <p><a href="http://localhost:8001/auth/logout.html">Logout</a></p>
           </div>
         </div>
