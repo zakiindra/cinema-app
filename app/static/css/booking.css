@@ -61,10 +61,16 @@
 }
 
 .seat-group {
+  /* display: flex; */
+  /* flex-wrap: nowrap; */
+  /* gap: 0.5rem; */
+  /* justify-content: flex-start; */
+}
+
+.row {
   display: flex;
-  flex-wrap: nowrap;
+  flex-direction: row;
   gap: 0.5rem;
-  justify-content: flex-start;
 }
 
 .selections-label {
@@ -86,6 +92,16 @@
 }
 
 .box-option label {
+  width: 100%;
+  text-align: center;
+  padding: 1.3rem 0;
+  cursor: pointer;
+  background-color: inherit;
+  transition: background-color 0.3s;
+  font-weight: bold;
+}
+
+.box-option input[type="checkbox"] + label {
   width: 100%;
   text-align: center;
   padding: 1.3rem 0;

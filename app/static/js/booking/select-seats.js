@@ -22,21 +22,60 @@ async function getOccupiedSeats(showId) {
     return data
 }
 
-function SeatBoxSelector(num, seatValue) {
+function SeatBoxSelector(num, seatLabel, seatValue) {
   return `
     <div class="box-option">
       <input type="checkbox" name="seat[]" id="seat${num}" value="${seatValue}">
-      <label for="seat${num}">${seatValue}</label>
+      <label for="seat${num}">${seatLabel}</label>
       <select name="seatType[]" id="">
         <option value="">Type</option>
         <option value="Adult">Adult</option>
-        <option value="Child">Child</option>
+        <option value="Children">Children</option>
         <option value="Elderly">Elderly</option>
       </select>
     </div>
   `
 }
 
+function continueToSummary(event, showId) {
+  event.preventDefault()
+
+  const priceMapping = {
+    'Adult': 12,
+    'Children': 6,
+    'Elderly': 8
+  }
+
+  const form = document.getElementById("select-seats-form")
+
+  const checkedSeatsF = form.querySelectorAll('input[name="seat[]"]:checked');
+  const checkedSeats = Array.from(checkedSeatsF).map(input => input.value);
+
+  const checkedSeatsL = Array.from(checkedSeatsF).map(input => {
+    const label = document.querySelector(`label[for="${input.id}"]`);
+    return label ? label.textContent : null;
+  });
+
+  const checkedSeatsTypesF = form.querySelectorAll('select[name="seatType[]"]');
+  const checkedSeatsTypes = Array.from(checkedSeatsTypesF)
+    .map(input => input.value)
+    .filter(value => value !== "");
+
+  const seatPrices = Array.from(checkedSeatsTypes).map(dropdown => {
+    console.log(dropdown)
+    const selectedValue = dropdown;
+    return priceMapping[selectedValue] || 0; // Default to 0 if no matching value
+  });
+
+  const params = new URLSearchParams();
+  params.append("show", showId);
+  params.append("seatIds", checkedSeats.join(","));
+  params.append("seatLabels", checkedSeatsL.join(","));
+  params.append("seatTypes", checkedSeatsTypes.join(","));
+  params.append("seatPrices", seatPrices.join(","));
+
+  window.location.href=`http://localhost:8001/order/summary.html?${params}`
+}
 
 document.addEventListener("DOMContentLoaded", async () => {
   const session = new SessionData()
@@ -58,31 +97,46 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("movie-title").textContent = movie.title
   document.getElementById("movie-context").textContent = `${hours} HOURS ${minutes} MINUTES | ${movie.rating}`
-  document.getElementById("selected-showtime").textContent = `${show.timeslot.startTime.split(":").slice(0, 2).join(":")}`
+  document.getElementById("selected-theater").textContent = `${show.theater.name}`
+  document.getElementById("selected-showtime").textContent = `${show.date} ${show.timeslot.startTime.split(":").slice(0, 2).join(":")}`
 
   const leftSideSeats = document.createElement("div");
   leftSideSeats.classList = ["seat-group"]
   const rightSideSeats = document.createElement("div");
   rightSideSeats.classList = ["seat-group"]
 
-  for(let i = 0; i < 8; i++) {
-    let seatCodes = ["A", "B", "C"]
-    let currentRowBoxes = ""
-    seatCodes.forEach(seatCode => {
-      currentRowBoxes += SeatBoxSelector(`${seatCode}${i+1}`, `${seatCode}${i+1}`)
-    })
+  let seatBoxCount = 0
+  const baseValue = (show.theater.id - 1) * 24;
+  const seatCodes = ["A", "B", "C"]
+  seatCodes.forEach(seatCodesV => {
+    let leftRowBoxes = ""
+    let rightRowBoxes = ""
 
-    const currentRow = document.createElement("div")
-    currentRow.innerHTML = currentRowBoxes
-    
-    document.getElementById("seat-selection").appendChild(currentRow)
+    for (let i = 0; i < 8; i++) {
+      const seatBox = SeatBoxSelector(
+        `${seatCodesV}${i + 1}`,
+        `${seatCodesV}${i + 1}`,
+        `${baseValue + (seatBoxCount + 1)}`
+      );
 
-    if (i < 4) {
-      leftSideSeats.append(currentRow)
-    } else {
-      rightSideSeats.append(currentRow)
+      if (i < 4) {
+        leftRowBoxes += seatBox
+      } else {
+        rightRowBoxes += seatBox
+      }
+
+      seatBoxCount++
     }
-  }
+
+    const leftRow = document.createElement("div")
+    leftRow.classList.add("row");
+    leftRow.innerHTML = leftRowBoxes;
+    leftSideSeats.append(leftRow);
+    const rightRow = document.createElement("div")
+    rightRow.classList.add("row");
+    rightRow.innerHTML = rightRowBoxes;
+    rightSideSeats.append(rightRow);
+  })
 
   document.getElementById("seat-selection").append(leftSideSeats)
   document.getElementById("seat-selection").append(rightSideSeats)
@@ -106,6 +160,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
   });
+
+  document.getElementById("select-seats-form").addEventListener("submit", (event) => {
+    continueToSummary(event, showId)
+  })
 })
 
 
