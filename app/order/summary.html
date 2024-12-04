@@ -29,6 +29,10 @@
                   <div class="movie-details">
                     <span id="movie-context"></span>
                     <span>
+                      Selected theater: 
+                      <span id="selected-theater"></span>
+                    </span>
+                    <span>
                       Selected showtime: 
                       <span id="selected-showtime"></span>
                     </span>
@@ -41,7 +45,6 @@
                                   <th class="text-col">Seat Number</th>
                                   <th class="text-col">Type</th>
                                   <th class="text-col">Price</th>
-                                  <th class="text-col">Actions</th>
                               </tr>
                           </thead>
                           <tbody id="seat-summary-list">
@@ -50,7 +53,7 @@
                               <tr>
                                   <td class="text-col"></td>
                                   <td class="text-col"><b>Order Total</b></td>
-                                  <td class="text-col" colspan="2"><b>$30</b></td>
+                                  <td class="text-col" colspan="2"><b id="total-price"></b></td>
                               </tr>
                           </tfoot>
                       </table>
