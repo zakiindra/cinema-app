@@ -33,6 +33,22 @@ public class PromotionService {
                 .orElseThrow(() -> null);
     }
 
+    public Promotion getByCode(String code) {
+
+//        // TODO: proper validation of this in model validation
+//        if (code == null || code.isEmpty() || code.isBlank()) {
+//            throw new BadRequestException("Invalid promo code value");
+//        }
+//        return promotionRepository.findByCode(code)
+//                .orElseThrow(() -> new ResourceNotFoundException("Promo code not found"));
+
+        if (code == null || code.isEmpty() || code.isBlank()) {
+            return null;
+        }
+
+        return promotionRepository.findByCode(code).orElse(null);
+    }
+
     public Promotion addPromotion(Promotion promotion) {
         promotion.setSent(false);
         return promotionRepository.save(promotion);

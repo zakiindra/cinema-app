@@ -25,6 +25,11 @@ public class CreditCardService {
     @Autowired
     private UserRepository userRepository;
 
+    public CreditCard getById(Long id) throws ResourceNotFoundException {
+        return creditCardRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Credit card not found"));
+    }
+
     @Transactional
     public CreditCardDTO addCreditCard(Long userId, CreditCardDTO creditCardDTO) throws ResourceNotFoundException {
         User user = userRepository.findById(userId)

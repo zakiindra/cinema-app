@@ -7,24 +7,22 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "price_type")
 public class PriceType {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "price_type_id")
-    private Long priceTypeId;
+    @Column(name = "id")
+    private Long id;
     
-    @Column(name = "price_type", nullable = false)
-    private String priceType;
+    @Column(name = "name", nullable = false)
+    private String name;
     
-    @Column(name = "price", nullable = false)
-    private Double price;
+    @Column(name = "amount", nullable = false)
+    private BigDecimal amount;
 }
