@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ordering - Order Summary | #</title>
     <link rel="icon" type="image/x-icon" href="http://localhost:8001/static/resources/UGA_logo_TopShield_FC_MARCM-768x1151.png">
     <link rel="stylesheet" href="http://localhost:8001/static/css/_base.css">
     <link rel="stylesheet" href="http://localhost:8001/static/css/booking.css">
-</head>
-<body>
+    <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
+    <link rel="stylesheet" href="http://localhost:8001/static/css/forms.css">
+  </head>
+  <body>
     <!-- Navigation Bar -->
     <header id="header">
     </header>
@@ -16,86 +18,90 @@
     <!-- Admin Section -->
     <main>
       <section>
-          <div class="container">
-              <form action="#">
-                  <div class="divider">
-                      <hr>
-                      <small>Booking: Step 4 - Checkout</small>
-                      <hr>
-                  </div>
-                  <div class="main-content" style="width: 50%; margin: 0 auto;">
-                      <div style="margin: 1rem auto;">
-                          <form action="#">
-                              <h3>Promo Code</h3>
-                              <p>Apply active promo code and get discounts up to 60%!</p>
-                              <div class="inline-input-group" style="margin-top: 0.7rem;">
-                                  <div class="input-group">
-                                      <input type="text" name="" id="" placeholder="Promo Code...">
-                                  </div>
-                                  <div class="input-group">
-                                      <input type="submit" value="Apply">
-                                  </div>
-                              </div>
-                          </form>
-                      </div>
-                      <table style="margin: 1rem auto; width: 100%;">
-                          <thead>
-                              <tr>
-                                  <th class="numbering"></th>
-                                  <th>Seat Number</th>
-                                  <th>Type</th>
-                                  <th>Price</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              <tr>
-                                  <td class="numbering">1</td>
-                                  <td>A1</td>
-                                  <td>Adult</td>
-                                  <td>$10</td>
-                              </tr>
-                              <tr>
-                                  <td class="numbering">1</td>
-                                  <td>A2</td>
-                                  <td>Adult</td>
-                                  <td>$10</td>
-                              </tr>
-                              <tr>
-                                  <td class="numbering">1</td>
-                                  <td>A3</td>
-                                  <td>Adult</td>
-                                  <td>$10</td>
-                              </tr>
-                          </tbody>
-                          <tfoot>
-                              <tr>
-                                  <td colspan="2"></td>
-                                  <td>Order Total:</td>
-                                  <td>$30</td>
-                              </tr>
-                          </tfoot>
-                      </table>
-                      <div style="margin: 1rem auto;">
-                          <form action="#">
-                              <h3>Pay</h3>
-                              <p>Checkout with existing payment you have set, or <span class="new-payment-popup">create a new one</span></p>
-                              <div class="inline-input-group" style="margin-top: 0.7rem;">
-                                  <div class="input-group">
-                                      <select name="" id="">
-                                          <option value="">Visa ending ****8988</option>
-                                          <option value="">PayPal ending ****7794</option>
-                                      </select>
-                                  </div>
-                              </div>
-                          </form>
-                      </div>
-                      <div class="form-control" style="margin: 0 auto;">
-                          <a href="#" class="reset-button">Cancel</a>
-                          <a href="#" class="submit-button">Confirm</a>
-                      </div>
-                  </div>
-              </form>
+        <div class="container-t">
+          <div class="divider">
+            <hr>
+            <small>Booking: Step 4 - Checkout</small>
+            <hr>
           </div>
+          <h2>BOOK A SHOW: <span id="movie-title"></span></h2>
+          <div class="movie-details">
+            <span id="movie-context"></span>
+            <span>
+              Selected theater: 
+              <span id="selected-theater"></span>
+            </span>
+            <span>
+              Selected showtime: 
+              <span id="selected-showtime"></span>
+            </span>
+          </div>
+          <div class="main-content">
+            <div style="margin: 1rem auto;">
+              <form id="apply-promo-form">
+                <h3>Promo Code</h3>
+                <p>Apply active promo code and get discounts!</p>
+                <div class="inline-input-group" style="margin-top: 0.7rem;">
+                  <div class="input-group">
+                    <input type="text" name="" id="" placeholder="Promo Code...">
+                    <span id="promo-message"></span>
+                  </div>
+                  <div class="input-group">
+                    <input type="submit" value="Apply">
+                  </div>
+                </div>
+              </form>
+            </div>
+            <table style="margin: 1rem auto; width: 100%;">
+              <thead>
+                <tr>
+                  <th class="text-col">Seat Number</th>
+                  <th class="text-col">Type</th>
+                  <th class="text-col">Price</th>
+                </tr>
+              </thead>
+              <tbody id="seat-summary-list">
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class="text-col"></td>
+                  <td class="text-col">Order Total:</td>
+                  <td class="text-col">
+                    <b id="order-total"></b>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-col"></td>
+                  <td class="text-col">Applied Promo:</td>
+                  <td class="text-col">
+                    <b id="applied-promo-value"></b>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-col"></td>
+                  <td class="text-col">Due:</td>
+                  <td class="text-col">
+                    <b id="final-due"></b>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+            <div style="margin: 1rem auto;">
+              <form id="checkout-form">
+                <h3>Pay</h3>
+                <p>Checkout with existing payment you have set, or <span class="new-payment-popup">create a new one</span></p>
+                <div class="inline-input-group" style="margin-top: 0.7rem;">
+                  <div class="input-group">
+                    <select name="" id="user-card-select">
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="form-control" id="booking-actions">
+            </div>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -144,9 +150,9 @@
     <!--     </div> -->
     <!-- </div> -->
 
-    <!-- <script src="http://localhost:8001/static/js/checkout.js"></script> -->
     <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
     <script src="http://localhost:8001/static/js/bookingcomponents.js" type="module"></script>
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
-</body>
+    <script src="http://localhost:8001/static/js/booking/checkout.js" type="module"></script>
+  </body>
 </html>
