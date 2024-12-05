@@ -97,6 +97,7 @@ async function checkout(event, userId, showId, promotionCode, seatIds, priceType
 
   if (data) {
     alert("Booking completed, check your email to confirm, Thank you!")
+    window.location.href = 'http://localhost:8001/profile/order-history.html';
   }
 }
 
