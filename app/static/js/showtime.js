@@ -38,7 +38,7 @@ function renderAvailableTimeslot(movieId, theater, date) {
         timeslots.forEach(timeslot => {
             let option = document.createElement("option");
             option.value = timeslot.id;
-            option.innerText = timeslot.startTime;
+            option.innerText = timeslot.startTime.substring(0, 5);
             timeSelect.appendChild(option);
         });
     });
@@ -75,9 +75,9 @@ function ShowtimeTableRow(show) {
     <tr>
         <td>${show.theater.name}</td>
         <td>${show.date}</td>
-        <td>${show.timeslot.startTime}</td>
+        <td>${show.timeslot.startTime.substring(0, 5)}</td>
          <td class="actions">
-            ${DeleteButton(show.id)}
+            ${DeleteButton(show.id, true)}
       </td>
     </tr>
   `
