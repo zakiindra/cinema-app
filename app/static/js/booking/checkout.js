@@ -46,17 +46,34 @@ async function applyPromo(event, totalPrice, customerId) {
   const entries = Object.fromEntries(formData.entries())
 
   const response = await fetch(`${API_BASE_URL}/customer/${customerId}/promo/${entries["promoCode"]}`)
-  const data = await response.json()
 
-  console.log(data)
+  if (response.status === 400) {
+    document.getElementById("promo-message").textContent = `You have used this promo code before.`
+    document.getElementById("applied-promo-value").textContent = `-$0`
+    document.getElementById("final-due").textContent = `$${totalPrice}`
+  } else if (response.status === 404) {
+    document.getElementById("promo-message").textContent = `Promo code is invalid.`
+    document.getElementById("applied-promo-value").textContent = `-$0`
+    document.getElementById("final-due").textContent = `$${totalPrice}`
+  } else {
+    const data = await response.json()
 
-  if (data) {
+    if (data.promotionValue > totalPrice) {
+      document.getElementById("promo-message").textContent = `Promo value is bigger than order, will not be applied`
+      document.getElementById("applied-promo-value").textContent = `-$0`
+      document.getElementById("final-due").textContent = `$${totalPrice}`
+      return
+    }
+
     document.getElementById("promo-message").textContent = `Promo code ${entries["promoCode"]} applied, you got $${data.promotionValue} off!`
-  document.getElementById("applied-promo-value").textContent = `-$${data.promotionValue}`
-  document.getElementById("final-due").textContent = `$${totalPrice - data.promotionValue}`
+    document.getElementById("applied-promo-value").textContent = `-$${data.promotionValue}`
+    document.getElementById("final-due").textContent = `$${totalPrice - data.promotionValue}`
     PROMO_CODE = data.code
-  } 
+  }
 }
+
+// let finalDue = 0
+// async function calculateFinalDue(){}
 
 async function checkout(event, userId, showId, promotionCode, seatIds, priceTypeIds) {
   event.preventDefault()
@@ -89,10 +106,10 @@ async function checkout(event, userId, showId, promotionCode, seatIds, priceType
   })
 
   const data = await response.json()
-  console.log(data)
 
   if (data) {
     alert("Booking completed, check your email to confirm, Thank you!")
+    window.location.href = 'http://localhost:8001/profile/order-history.html';
   }
 }
 
@@ -135,7 +152,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   document.getElementById("seat-summary-list").innerHTML = bookingSummaryRows
-
   document.getElementById("order-total").textContent = `$${totalPrice}`
 
   const finalDue = totalPrice
