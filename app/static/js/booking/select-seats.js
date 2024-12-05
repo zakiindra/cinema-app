@@ -25,6 +25,16 @@ async function getOccupiedSeats(showId) {
     return data
 }
 
+function PricingTableRow(name, amount) {
+  return `
+    <tr>
+      <td><b>${name}</b></td>
+      <td><b>:</b></td>
+      <td>$${amount}</td>
+    </tr>
+  `
+}
+
 function SeatBoxSelector(num, seatLabel, seatValue, priceTypes) {
   let options = ""
 
@@ -109,6 +119,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Price types
   const priceTypes = await getPriceTypes()
+
+  let priceTypesL = ""
+  priceTypes.forEach(pt => {
+    priceTypesL += PricingTableRow(pt.name, pt.amount)
+  })
+  document.getElementById("pricing-table").innerHTML = priceTypesL
+
 
   const leftSideSeats = document.createElement("div");
   leftSideSeats.classList = ["seat-group"]

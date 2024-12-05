@@ -49,10 +49,22 @@ async function applyPromo(event, totalPrice, customerId) {
 
   if (response.status === 400) {
     document.getElementById("promo-message").textContent = `You have used this promo code before.`
+    document.getElementById("applied-promo-value").textContent = `-$0`
+    document.getElementById("final-due").textContent = `$${totalPrice}`
   } else if (response.status === 404) {
     document.getElementById("promo-message").textContent = `Promo code is invalid.`
+    document.getElementById("applied-promo-value").textContent = `-$0`
+    document.getElementById("final-due").textContent = `$${totalPrice}`
   } else {
     const data = await response.json()
+
+    if (data.promotionValue > totalPrice) {
+      document.getElementById("promo-message").textContent = `Promo value is bigger than order, will not be applied`
+      document.getElementById("applied-promo-value").textContent = `-$0`
+      document.getElementById("final-due").textContent = `$${totalPrice}`
+      return
+    }
+
     document.getElementById("promo-message").textContent = `Promo code ${entries["promoCode"]} applied, you got $${data.promotionValue} off!`
     document.getElementById("applied-promo-value").textContent = `-$${data.promotionValue}`
     document.getElementById("final-due").textContent = `$${totalPrice - data.promotionValue}`
