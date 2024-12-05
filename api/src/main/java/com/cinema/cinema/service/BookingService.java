@@ -111,7 +111,7 @@ public class BookingService {
         return bookingRepository.save(existingBooking);
     }
 
-    public Boolean validatePromoByUserId(Long userId, String code) throws ResourceNotFoundException, BadRequestException {
+    public Promotion validatePromoByUserId(Long userId, String code) throws ResourceNotFoundException, BadRequestException {
         Promotion promotion = promotionService.getByCode(code);
 
         if (promotion == null){
@@ -134,6 +134,6 @@ public class BookingService {
             throw new BadRequestException("Promotion has been applied");
         }
 
-        return true;
+        return promotion;
     }
 }

@@ -4,6 +4,7 @@ import com.cinema.cinema.dto.*;
 import com.cinema.cinema.exception.BadRequestException;
 import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.CreditCard;
+import com.cinema.cinema.model.Promotion;
 import com.cinema.cinema.service.BookingService;
 import com.cinema.cinema.service.CreditCardService;
 import com.cinema.cinema.service.CustomerProfileService;
@@ -141,15 +142,16 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}/promo/{code}")
-    public ResponseEntity<?> checkPromoValid(@PathVariable Long id, @PathVariable String code) {
+    public ResponseEntity<Promotion> checkPromoValid(@PathVariable Long id, @PathVariable String code) {
+        Promotion promotion;
         try {
-            bookingService.validatePromoByUserId(id, code);
+            promotion = bookingService.validatePromoByUserId(id, code);
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (BadRequestException e) {
             return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(promotion);
     }
 }
