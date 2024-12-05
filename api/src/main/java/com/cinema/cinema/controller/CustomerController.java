@@ -1,8 +1,8 @@
 package com.cinema.cinema.controller;
 
 import com.cinema.cinema.dto.*;
+import com.cinema.cinema.exception.BadRequestException;
 import com.cinema.cinema.exception.ResourceNotFoundException;
-import com.cinema.cinema.model.Booking;
 import com.cinema.cinema.model.CreditCard;
 import com.cinema.cinema.service.BookingService;
 import com.cinema.cinema.service.CreditCardService;
@@ -138,5 +138,18 @@ public class CustomerController {
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/{id}/promo/{code}")
+    public ResponseEntity<?> checkPromoValid(@PathVariable Long id, @PathVariable String code) {
+        try {
+            bookingService.validatePromoByUserId(id, code);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (BadRequestException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok().build();
     }
 }
