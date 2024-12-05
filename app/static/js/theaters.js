@@ -19,8 +19,8 @@ const TheaterRow = (theater) => {
       <td>${theater.name}</td>
       <td>${theater.numSeats}</td>
       <td class="actions">
-        ${EditButton()}
-        ${DeleteButton(theater.id)}
+        ${EditButton(theater.id, true)}
+        ${DeleteButton(theater.id, true)}
       </td>
     </tr>
   `
