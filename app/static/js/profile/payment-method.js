@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const tdAction = document.createElement("td")
             tdAction.classList.add("actions");
             tdAction.innerHTML = `
-              ${EditButton()}
               ${DeleteButton(paymentMethod.id)}
             `
 
