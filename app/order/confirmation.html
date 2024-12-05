@@ -25,57 +25,35 @@
                           Thank You for Ordering!
                       </h2>
                       <div style="text-align: center; margin-bottom: 1rem;">
-                          <h3>Breaking Bad</h3>
-                          <p>Showtime: Sep 28th, 2024</p>
+                          <h3 id="movie-title"></h3>
+                          <p id="showtime"></p>
                       </div>
                       <div class="applied-promo-info">
-                          <strong>Applied Promo Code</strong>
-                          <span>LELA25</span>
+                          <strong>Applied Promo Code:</strong>
+                          <span id="applied-promo-code"></span>
                       </div>
                       <table style="width: 100%; margin-bottom: 1rem;">
                           <thead>
                               <tr>
-                                  <th class="numbering"></th>
                                   <th>Seat Number</th>
                                   <th>Type</th>
                                   <th>Price</th>
                               </tr>
                           </thead>
-                          <tbody>
-                              <tr>
-                                  <td class="numbering">1</td>
-                                  <td>A1</td>
-                                  <td>Adult</td>
-                                  <td>$10</td>
-                              </tr>
-                              <tr>
-                                  <td class="numbering">1</td>
-                                  <td>A1</td>
-                                  <td>Adult</td>
-                                  <td>$10</td>
-                              </tr>
-                              <tr>
-                                  <td class="numbering">1</td>
-                                  <td>A1</td>
-                                  <td>Adult</td>
-                                  <td>$10</td>
-                              </tr>
+                          <tbody id="ticket-list">
+                          <!-- Dynamic -->
                           </tbody>
                           <tfoot>
                               <tr>
-                                  <td colspan="2" style="text-align: right;" ></td>
-                                  <td style="text-align: left;" >Order Total</td>
-                                  <td>$30</td>
+                                  <td colspan="1" style="text-align: right;" ></td>
+                                  <td style="text-align: left;" ><strong>Order Total</strong></td>
+                                  <td style="text-align: center;" id="total-paid"></td>
                               </tr>
                           </tfoot>
                       </table>
                       <div class="applied-promo-info">
                           <strong>Paid with</strong>
-                          <span>Visa ending ****8988</span>
-                      </div>
-                      <div class="applied-promo-info">
-                          <strong>Paid at</strong>
-                          <span>September 22nd, 2024</span>
+                          <span id="card-number"></span>
                       </div>
                   </div>
               </form>
@@ -84,7 +62,7 @@
     </main>
 
     <script src="http://localhost:8001/static/js/defaultcomponents.js" type="module"></script>
-    <script src="http://localhost:8001/static/js/bookingcomponents.js" type="module"></script>
     <script src="http://localhost:8001/static/js/nav-adjust.js" type="module"></script>
+    <script src="http://localhost:8001/static/js/booking/confirmation.js" type="module"></script>
 </body>
 </html>
