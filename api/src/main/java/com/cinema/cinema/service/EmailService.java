@@ -128,7 +128,7 @@ public class EmailService {
     }
 
     private String createResetPasswordEmailContent(String email, String token) {
-        String link = "http://localhost:8001/auth/resetPassword.html?email=%s&token=%s".formatted(email, token);
+        String link = "http://localhost:8001/auth/reset-password.html?email=%s&token=%s".formatted(email, token);
 
         return """
         <html>
@@ -172,6 +172,10 @@ public class EmailService {
                 .map(ticket -> ticket.getSeat().getRowNumber() + ticket.getSeat().getSeatNumber())
                 .collect(Collectors.joining(", "));
 
+        String promoCode = "-";
+        if (booking.getPromotion() != null) {
+            promoCode = booking.getPromotion().getCode();
+        }
         String body = """
                 "Dear Customer,
                 
@@ -196,7 +200,7 @@ public class EmailService {
                         booking.getShow().getDate(),
                         booking.getShow().getTimeslot().getStartTime(),
                         seats,
-                        booking.getPromotion().getCode(),
+                        promoCode,
                         booking.getTotalAmount()
                 );
 
