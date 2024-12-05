@@ -46,17 +46,22 @@ async function applyPromo(event, totalPrice, customerId) {
   const entries = Object.fromEntries(formData.entries())
 
   const response = await fetch(`${API_BASE_URL}/customer/${customerId}/promo/${entries["promoCode"]}`)
-  const data = await response.json()
 
-  console.log(data)
-
-  if (data) {
+  if (response.status === 400) {
+    document.getElementById("promo-message").textContent = `You have used this promo code before.`
+  } else if (response.status === 404) {
+    document.getElementById("promo-message").textContent = `Promo code is invalid.`
+  } else {
+    const data = await response.json()
     document.getElementById("promo-message").textContent = `Promo code ${entries["promoCode"]} applied, you got $${data.promotionValue} off!`
-  document.getElementById("applied-promo-value").textContent = `-$${data.promotionValue}`
-  document.getElementById("final-due").textContent = `$${totalPrice - data.promotionValue}`
+    document.getElementById("applied-promo-value").textContent = `-$${data.promotionValue}`
+    document.getElementById("final-due").textContent = `$${totalPrice - data.promotionValue}`
     PROMO_CODE = data.code
-  } 
+  }
 }
+
+// let finalDue = 0
+// async function calculateFinalDue(){}
 
 async function checkout(event, userId, showId, promotionCode, seatIds, priceTypeIds) {
   event.preventDefault()
@@ -89,7 +94,6 @@ async function checkout(event, userId, showId, promotionCode, seatIds, priceType
   })
 
   const data = await response.json()
-  console.log(data)
 
   if (data) {
     alert("Booking completed, check your email to confirm, Thank you!")
@@ -135,7 +139,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 
   document.getElementById("seat-summary-list").innerHTML = bookingSummaryRows
-
   document.getElementById("order-total").textContent = `$${totalPrice}`
 
   const finalDue = totalPrice
