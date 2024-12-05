@@ -3,6 +3,7 @@ package com.cinema.cinema.service;
 import com.cinema.cinema.dto.BookingRequest;
 import com.cinema.cinema.dto.BookingResponse;
 import com.cinema.cinema.dto.SeatBooking;
+import com.cinema.cinema.exception.BadRequestException;
 import com.cinema.cinema.exception.ResourceNotFoundException;
 import com.cinema.cinema.model.*;
 import com.cinema.cinema.repository.BookingRepository;
@@ -108,5 +109,31 @@ public class BookingService {
         Booking existingBooking = getBookingById(id);
         existingBooking.setStatus(booking.getStatus());
         return bookingRepository.save(existingBooking);
+    }
+
+    public Boolean validatePromoByUserId(Long userId, String code) throws ResourceNotFoundException, BadRequestException {
+        Promotion promotion = promotionService.getByCode(code);
+
+        if (promotion == null){
+            throw new ResourceNotFoundException("Promotion not found");
+        }
+
+        List<Booking> userBookings = getAllBookingsByUserId(userId);
+
+        boolean applied = false;
+        for (Booking booking : userBookings) {
+            if (booking.getPromotion() != null) {
+                if (booking.getPromotion().getCode().equals(code)) {
+                    applied = true;
+                    break;
+                }
+            }
+        }
+
+        if (applied) {
+            throw new BadRequestException("Promotion has been applied");
+        }
+
+        return true;
     }
 }
