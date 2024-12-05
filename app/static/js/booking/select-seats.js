@@ -1,37 +1,44 @@
 import { API_BASE_URL } from "./../config.js"
 import {SessionData} from "../utils/session.js";
 
-async function getMovieById(id) {
-  const response = await fetch(`${API_BASE_URL}/movie/${id}`)
-  const data = await response.json()
+// async function getMovieById(id) {
+//   const response = await fetch(`${API_BASE_URL}/movie/${id}`)
+//   const data = await response.json()
+//   return data
+// }
 
+async function getPriceTypes() {
+  const response = await fetch(`${API_BASE_URL}/price-type`)
+  const data = await response.json()
   return data
 }
 
 async function getShowById(id) {
   const response = await fetch(`${API_BASE_URL}/show/${id}`)
   const data = await response.json()
-
   return data
 }
 
 async function getOccupiedSeats(showId) {
     const response = await fetch(`${API_BASE_URL}/show/${showId}/occupied-seat`)
     const data = await response.json()
-
     return data
 }
 
-function SeatBoxSelector(num, seatLabel, seatValue) {
+function SeatBoxSelector(num, seatLabel, seatValue, priceTypes) {
+  let options = ""
+
+  priceTypes.forEach(pt => {
+    options += `<option value="${pt.id}">${pt.name}</option>`
+  })
+
   return `
     <div class="box-option">
       <input type="checkbox" name="seat[]" id="seat${num}" value="${seatValue}">
       <label for="seat${num}">${seatLabel}</label>
       <select name="seatType[]" id="">
         <option value="">Type</option>
-        <option value="Adult">Adult</option>
-        <option value="Children">Children</option>
-        <option value="Elderly">Elderly</option>
+        ${options}
       </select>
     </div>
   `
@@ -100,6 +107,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("selected-theater").textContent = `${show.theater.name}`
   document.getElementById("selected-showtime").textContent = `${show.date} ${show.timeslot.startTime.split(":").slice(0, 2).join(":")}`
 
+  // Price types
+  const priceTypes = await getPriceTypes()
+
   const leftSideSeats = document.createElement("div");
   leftSideSeats.classList = ["seat-group"]
   const rightSideSeats = document.createElement("div");
@@ -116,7 +126,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       const seatBox = SeatBoxSelector(
         `${seatCodesV}${i + 1}`,
         `${seatCodesV}${i + 1}`,
-        `${baseValue + (seatBoxCount + 1)}`
+        `${baseValue + (seatBoxCount + 1)}`,
+        priceTypes
       );
 
       if (i < 4) {
@@ -153,7 +164,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("seat-selection").addEventListener("change", (event) => {
     if (event.target.type === "checkbox") {
       const checkedBoxes = document.querySelectorAll('input[name="seat[]"]:checked');
-
       if (checkedBoxes.length > 4) {
         alert("You can only select up to 4 seats!");
         event.target.checked = false;
