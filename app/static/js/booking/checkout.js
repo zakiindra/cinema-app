@@ -1,6 +1,12 @@
-import { API_BASE_URL } from "../config.js"
+import { API_BASE_URL, API_HEADERS } from "../config.js"
 import { SessionData } from "../utils/session.js"
 
+
+async function getPriceTypes() {
+  const response = await fetch(`${API_BASE_URL}/price-type`)
+  const data = await response.json()
+  return data
+}
 
 async function getUserCreditCards(userId) {
   const response = await fetch(`${API_BASE_URL}/customer/${userId}/creditCard`)
@@ -28,11 +34,11 @@ function PaymentOption(creditCard) {
   const cardEnding = creditCard.cardNumber.slice(-4)
   
   return `
-    <option value="">${creditCard.cardType} with ending ${cardEnding}</option>
+    <option value="${creditCard.id}">${creditCard.cardType} with ending ${cardEnding}</option>
   `
 }
 
-let PROMOVALUE = 0
+let PROMO_CODE = ""
 async function applyPromo(event, totalPrice, customerId) {
   event.preventDefault()
 
@@ -48,11 +54,46 @@ async function applyPromo(event, totalPrice, customerId) {
     document.getElementById("promo-message").textContent = `Promo code ${entries["promoCode"]} applied, you got $${data.promotionValue} off!`
   document.getElementById("applied-promo-value").textContent = `-$${data.promotionValue}`
   document.getElementById("final-due").textContent = `$${totalPrice - data.promotionValue}`
+    PROMO_CODE = data.code
   } 
 }
 
-function checkout(event) {
+async function checkout(event, userId, showId, promotionCode, seatIds, priceTypeIds) {
+  event.preventDefault()
 
+  const formData = new FormData(event.target)
+  const entries = Object.fromEntries(formData.entries())
+
+  const seatBookings = []
+  for (let i = 0; i < seatIds.length; i++) {
+    seatBookings.push({
+      'seatId': seatIds[i],
+      'priceTypeId': priceTypeIds[i]
+    })
+  }
+
+  const body = {
+    'userId': userId,
+    'showId': showId,
+    'creditCardId': entries["creditCardId"],
+    'promotionCode': promotionCode,
+    'seatBookings': seatBookings
+  }
+
+  console.log(body)
+
+  const response = await fetch(`${API_BASE_URL}/booking`, { 
+    method: "POST",
+    headers: API_HEADERS,
+    body: JSON.stringify(body)
+  })
+
+  const data = await response.json()
+  console.log(data)
+
+  if (data) {
+    alert("Booking completed, check your email to confirm, Thank you!")
+  }
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
@@ -82,15 +123,19 @@ document.addEventListener('DOMContentLoaded', async function () {
   document.getElementById("selected-theater").textContent = `${show.theater.name}`
   document.getElementById("selected-showtime").textContent = `${show.date} ${show.timeslot.startTime.split(":").slice(0, 2).join(":")}`
 
+  const priceTypes = await getPriceTypes()
   let bookingSummaryRows = ""
-
+  let totalPrice = 0
+  let matchingPriceTypesId = []
   for (let i = 0; i < seatTypes.length; i++) {
-    bookingSummaryRows += SeatSummaryRow(seatLabels[i], seatTypes[i], seatPrices[i])
+    const matchingPriceType = priceTypes.filter(pt => pt.id === parseInt(seatTypes[i]))[0]
+    matchingPriceTypesId.push(matchingPriceType.id)
+    totalPrice += matchingPriceType.amount
+    bookingSummaryRows += SeatSummaryRow(seatLabels[i], matchingPriceType.name, matchingPriceType.amount)
   }
 
   document.getElementById("seat-summary-list").innerHTML = bookingSummaryRows
 
-  const totalPrice = seatPrices.reduce((total, num) => total + parseInt(num), 0)
   document.getElementById("order-total").textContent = `$${totalPrice}`
 
   const finalDue = totalPrice
@@ -107,5 +152,15 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   document.getElementById("apply-promo-form").addEventListener("submit", (event) => {
     applyPromo(event, totalPrice, session.id)
+  })
+
+  document.getElementById("checkout-form").addEventListener("submit", (event) => {
+    checkout(
+      event, 
+      session.id, 
+      showId, 
+      PROMO_CODE, 
+      seatIds, 
+      matchingPriceTypesId)
   })
 })

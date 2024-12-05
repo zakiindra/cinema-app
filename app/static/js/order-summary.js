@@ -9,6 +9,12 @@ async function getShowById(id) {
   return data
 }
 
+async function getPriceTypes() {
+  const response = await fetch(`${API_BASE_URL}/price-type`)
+  const data = await response.json()
+  return data
+}
+
 function SeatSummaryRow(label, type, price) {
   return `
     <tr>
@@ -56,16 +62,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("selected-showtime").textContent = `${show.date} ${show.timeslot.startTime.split(":").slice(0, 2).join(":")}`
 
 
+  const priceTypes = await getPriceTypes()
   let bookingSummaryRows = ""
-
+  let totalPrice = 0
   for (let i = 0; i < seatTypes.length; i++) {
-    bookingSummaryRows += SeatSummaryRow(seatLabels[i], seatTypes[i], seatPrices[i])
+    const matchingPriceType = priceTypes.filter(pt => pt.id === parseInt(seatTypes[i]))[0]
+    totalPrice += matchingPriceType.amount
+    bookingSummaryRows += SeatSummaryRow(seatLabels[i], matchingPriceType.name, matchingPriceType.amount)
   }
 
   document.getElementById("seat-summary-list").innerHTML = bookingSummaryRows
 
-  const totalPrice = seatPrices.reduce((total, num) => total + parseInt(num), 0)
   document.getElementById("total-price").textContent = `$${totalPrice}`
-
   document.getElementById("summary-form").addEventListener("submit", continueToCheckout)
 })
