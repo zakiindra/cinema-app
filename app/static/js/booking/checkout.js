@@ -32,8 +32,23 @@ function PaymentOption(creditCard) {
   `
 }
 
-function applyPromo(event) {
+let PROMOVALUE = 0
+async function applyPromo(event, totalPrice, customerId) {
+  event.preventDefault()
 
+  const formData = new FormData(event.target)
+  const entries = Object.fromEntries(formData.entries())
+
+  const response = await fetch(`${API_BASE_URL}/customer/${customerId}/promo/${entries["promoCode"]}`)
+  const data = await response.json()
+
+  console.log(data)
+
+  if (data) {
+    document.getElementById("promo-message").textContent = `Promo code ${entries["promoCode"]} applied, you got $${data.promotionValue} off!`
+  document.getElementById("applied-promo-value").textContent = `-$${data.promotionValue}`
+  document.getElementById("final-due").textContent = `$${totalPrice - data.promotionValue}`
+  } 
 }
 
 function checkout(event) {
@@ -67,16 +82,6 @@ document.addEventListener('DOMContentLoaded', async function () {
   document.getElementById("selected-theater").textContent = `${show.theater.name}`
   document.getElementById("selected-showtime").textContent = `${show.date} ${show.timeslot.startTime.split(":").slice(0, 2).join(":")}`
 
-    // popup = document.getElementById("popup");
-    // document.querySelector(".new-payment-popup").addEventListener("click", () => {
-    //     popup.style.display = "block";
-    //     document.getElementById("popup-title").innerText = "Add New Payment Method";
-    // })
-    //
-    // document.querySelector(".close-btn").addEventListener("click", () => {
-    //     popup.style.display = "none";
-    // })
-  
   let bookingSummaryRows = ""
 
   for (let i = 0; i < seatTypes.length; i++) {
@@ -88,10 +93,7 @@ document.addEventListener('DOMContentLoaded', async function () {
   const totalPrice = seatPrices.reduce((total, num) => total + parseInt(num), 0)
   document.getElementById("order-total").textContent = `$${totalPrice}`
 
-  const appliedPromo = 0
-  document.getElementById("applied-promo-value").textContent = `-$${appliedPromo}`
-
-  const finalDue = totalPrice - appliedPromo
+  const finalDue = totalPrice
   document.getElementById("final-due").textContent = `$${finalDue}`
 
   const userCreditCards = await getUserCreditCards(s.id)
@@ -102,4 +104,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   })
 
   document.getElementById("user-card-select").innerHTML = paymentOptions
+
+  document.getElementById("apply-promo-form").addEventListener("submit", (event) => {
+    applyPromo(event, totalPrice, session.id)
+  })
 })
