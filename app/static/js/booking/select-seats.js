@@ -46,7 +46,7 @@ function SeatBoxSelector(num, seatLabel, seatValue, priceTypes) {
     <div class="box-option">
       <input type="checkbox" name="seat[]" id="seat${num}" value="${seatValue}">
       <label for="seat${num}">${seatLabel}</label>
-      <select name="seatType[]" id="">
+      <select name="seatType[]" id="seatType${num}">
         <option value="">Type</option>
         ${options}
       </select>
@@ -173,6 +173,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     occupiedSeats.forEach((seat) => {
       const seatName = seat.rowNumber+seat.seatNumber;
       document.getElementById(`seat${seatName}`).disabled = true;
+      document.getElementById(`seatType${seatName}`).disabled = true;
       document.getElementById(`seat${seatName}`).style.backgroundColor = "#ff000040";
     });
   })
