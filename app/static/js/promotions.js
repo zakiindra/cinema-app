@@ -21,7 +21,7 @@ const PromotionRow = (promotion) => {
       <td style="width: 35%;">${promotion.startTime} - ${promotion.endTime}</td>
       <td>${promotion.sent ? "Yes": "No"}</td>
       <td class="actions">
-        ${SendEmailButton(promotion.id, promotion.sent)}
+        ${SendEmailButton(promotion.id)}
         ${EditButton(promotion.id, promotion.sent)}
         ${DeleteButton(promotion.id, promotion.sent)}
       </td>
