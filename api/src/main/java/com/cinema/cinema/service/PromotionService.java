@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -46,7 +47,19 @@ public class PromotionService {
             return null;
         }
 
-        return promotionRepository.findByCode(code).orElse(null);
+        Promotion promotion = promotionRepository.findByCode(code).orElse(null);
+
+        // If not found
+        if (promotion == null) {
+            return null;
+        }
+
+        // Check if expired, end time should be before now
+        if (promotion.getEndTime().isBefore(LocalDateTime.now())) {
+            return null;
+        }
+
+        return promotion;
     }
 
     public Promotion addPromotion(Promotion promotion) {
