@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="http://localhost:8001/static/css/forms.css">
     <link rel="stylesheet" href="http://localhost:8001/static/css/editProfile.css">
     <!-- <link rel="stylesheet" href="http://localhost:8001/static/css/style.css"> -->
-    <!-- <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css"> -->
+     <link rel="stylesheet" href="http://localhost:8001/static/css/admin.css">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -63,26 +63,26 @@
                     <h2>Update Password</h2>
                     <form class="password-form" id="password-form">
                         <div class="input-group">
+                            <div class="input-group">
+                                <label for="password">New Password</label>
+                                <div class="password-container">
+                                    <!-- <input type="password" id="password" name="password" required> -->
+                                    <input type="password" id="new-password" name="newPassword" required>
+                                    <button type="button" class="toggle-password">Show</button>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="password">Confirm New Password</label>
+                                <div class="password-container">
+                                    <!-- <input type="password" id="password" name="password" required> -->
+                                    <input type="password" id="confirm-new-password" name="confirmNewPassword" required>
+                                    <button type="button" class="toggle-password">Show</button>
+                                </div>
+                            </div>
                             <label for="password">Current Password</label>
                             <div class="password-container">
                                 <!-- <input type="password" id="password" name="password" required> -->
                                 <input type="password" id="current-password" name="currentPassword" required>
-                                <button type="button" class="toggle-password">Show</button>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <label for="password">Current Password</label>
-                            <div class="password-container">
-                                <!-- <input type="password" id="password" name="password" required> -->
-                                <input type="password" id="new-password" name="newPassword" required>
-                                <button type="button" class="toggle-password">Show</button>
-                            </div>
-                        </div>
-                        <div class="input-group">
-                            <label for="password">Current Password</label>
-                            <div class="password-container">
-                                <!-- <input type="password" id="password" name="password" required> -->
-                                <input type="password" id="confirm-new-password" name="confirmNewPassword" required>
                                 <button type="button" class="toggle-password">Show</button>
                             </div>
                         </div>
